@@ -178,6 +178,24 @@ switch($_GET['action']){
 		DB::query("UPDATE `plugin` SET `enable`=1 WHERE name='{$plugin_id}'");
 		CACHE::update('plugins');
 		showmessage('启用插件成功！', 'admin.php#plugin#');
+	case 'update_check':
+		$ret = checkUpdate();
+		if(is_array($ret)){
+			$return = array(
+				'status' => 1,
+				'files' => $ret,
+				);
+		}else{
+			$return = array(
+				'status' => $ret,
+				'files' => array(),
+				);
+		}
+		echo json_encode($return);
+		exit();
+	case 'upgrade_file':
+		echo json_encode(upgrade_file());
+		exit();
 	case 'disable_plugin':
 		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#plugin');
 		$plugin_id = $_GET['pluginid'];

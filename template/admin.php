@@ -128,6 +128,22 @@ foreach($classes as $id=>$obj){
 <tbody></tbody>
 </table>
 </div>
+<div id="content-updater" class="hidden">
+<style type="text/css">
+#content-updater .result { padding: 10px 15px; margin-bottom: 0; background: #efefef; }
+#content-updater .filelist ul { margin-top: -5px; padding: 0 15px 10px; background: #efefef; }
+#content-updater .filelist ul li { list-style: disc; line-height: 25px; margin: 0 0 0 25px; }
+</style>
+<h2>检测升级</h2>
+<p>此功能将联网更新您的贴吧签到助手. 升级过程采用差量升级的方式.</p>
+<p>升级过程需要保证文件被更新的文件可读可写.</p>
+<br>
+<p class="result">正在检查更新...</p>
+<div class="filelist hidden">
+<ul></ul>
+<p><button>开始更新</button></p>
+</div>
+</div>
 </div>
 </div>
 </div>

@@ -2,7 +2,6 @@ $(document).ready(function() {
 	$('#menu>li').click(function (){
 		if(isMobile()) $('.sidebar').fadeOut();
 		if(!$(this).attr('id')) return;
-		if($(this).attr('id') == 'menu_updater') return;
 		if($(this).hasClass('selected')) return;
 		$('.menu li.selected').removeClass('selected');
 		$(this).addClass('selected');
@@ -11,6 +10,33 @@ $(document).ready(function() {
 		$(content_id).removeClass('hidden');
 		var callback = $(this).attr('id').replace('menu_', 'load_');
 		eval('if (typeof '+callback+' == "function") '+callback+'(); ');
+	});
+	$('#content-updater .filelist button').click(function(){
+		$('#content-updater .filelist').hide();
+		$('#content-updater .result').html('正在更新系统文件，请耐心等待...');
+		$.getJSON("admin.php?action=upgrade_file", function(result){
+			if(!result) return;
+			if(result.status == 0){
+				$('#content-updater .result').html('文件更新结束！');
+				setTimeout(function(){ location.reload(); }, 1500);
+				return;
+			}else if(result.status == -2){
+				$('#content-updater .result').html('更新过程出现错误！');
+				switch(result._status){
+					case -1:	$('#content-updater .result').append('下载文件 '+result.file+' 失败');	break;
+					case -2:	$('#content-updater .result').append('校验文件 '+result.file+' 出错');	break;
+					case -3:	$('#content-updater .result').append('无法写入文件 '+result.file);	break;
+				}
+				setTimeout(function(){ location.reload(); }, 5000);
+				return;
+			}
+			$('#content-updater .result').html('以下文件不可写入，请设置好权限后再进行升级');
+			$('#content-updater .filelist').show();
+			$('#content-updater .filelist ul').html('');
+			$.each(result.files, function(i, field){
+				$('#content-updater .filelist ul').append('<li>'+field+'</li>');
+			});
+		}).fail(function() { $('#content-updater .result').html('发生未知错误: 程序意外终止'); setTimeout(load_updater, 3000); });
 	});
 	$('#mail_advanced_config').click(function(){
 		post_win($('#mail_setting').attr('action'), 'mail_setting', function(){
@@ -60,6 +86,26 @@ function load_stat(){
 			$("#content-stat table tbody").append("<tr><td>"+field.uid+"</td><td>"+field.username+"</td><td>"+field.succeed+"</td><td>"+field.skiped+"</td><td>"+field.waiting+"</td><td>"+field.retry+"</td><td>"+field.unsupport+"</td></tr>");
 		});
 	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法获取用户统计数据').addCloseButton('确定').append(); }).always(function(){ hideloading(); });
+}
+function load_updater(){
+	$('#content-updater .filelist').hide();
+	$('#content-updater .result').html('正在检查更新...');
+	$.getJSON("admin.php?action=update_check", function(result){
+		if(!result) return;
+		if(result.status<0){
+			$('#content-updater .result').html('错误: 与更新服务器断开连接');
+			return;
+		}else if(result.status == 0){
+			$('#content-updater .result').html('所有文件都是最新的！');
+			return;
+		}
+		$('#content-updater .result').html('以下文件可以更新: ');
+		$('#content-updater .filelist').show();
+		$('#content-updater .filelist ul').html('');
+		$.each(result.files, function(i, field){
+			$('#content-updater .filelist ul').append('<li>'+field+'</li>');
+		});
+	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法获取数据').addCloseButton('确定').append(); });
 }
 function load_setting(){
 	showloading();
@@ -141,6 +187,8 @@ function parse_hash(){
 		$('#menu_mail').click();
 	}else if(hash == "plugin"){
 		$('#menu_plugin').click();
+	}else if(hash == "updater"){
+		$('#menu_updater').click();
 	}else{
 		$('#menu_user').click();
 	}
