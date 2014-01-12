@@ -320,9 +320,9 @@ class kk_sign {
 			} elseif ($exptime < TIMESTAMP) {
 				$user = DB::fetch_first("SELECT * FROM member WHERE uid='{$uid}'");
 				$_password = substr(md5($user['password']), 8, 8);
-				if ($u && $password == $_password) {
+				if ($user && $password == $_password) {
 					$exptime = TIMESTAMP + 900;
-					dsetcookie('token', authcode("{$cookiever}\t{$uid}\t{$u[username]}\t{$exptime}\t{$password}", 'ENCODE'));
+					dsetcookie('token', authcode("{$cookiever}\t{$uid}\t{$user[username]}\t{$exptime}\t{$password}", 'ENCODE'));
 				} else {
 					unset($uid, $username, $exptime);
 					dsetcookie('token');
