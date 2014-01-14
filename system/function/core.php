@@ -225,6 +225,7 @@ function getSetting($k, $force = false){
 	return $cache[$k];
 }
 function saveSetting($k, $v){
+	if($k == 'version') return saveVersion($v);
 	static $cache_cleaned = false;
 	$v = addslashes($v);
 	DB::query("REPLACE INTO setting SET v='{$v}', k='{$k}'");
