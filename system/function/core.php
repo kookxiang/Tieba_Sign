@@ -1,8 +1,7 @@
 <?php
 if(!defined('IN_KKFRAME')) exit();
 function is_admin($uid){
-	global $_config;
-	return in_array($uid, explode(',', $_config['adminid']));
+	return in_array($uid, explode(',', getSetting('admin_uid')));
 }
 function dsetcookie($name, $value = '', $exp = 2592000){
 	$exp = $value ? TIMESTAMP + $exp : '1';

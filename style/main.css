@@ -81,7 +81,8 @@ input[type=submit]:hover, button:hover, .btn:hover { background: #1e2a36; border
 #member-menu li:hover a { color: #fff; }
 .sidebar { width: 230px; float: left; margin-bottom: -99999px; padding-bottom: 99999px; }
 .sidebar p { text-align: center; margin-bottom: 0; padding-bottom: .75em; }
-.main-content { margin: 0 0 -10px 230px; padding: 10px 10px 35px; box-shadow: -5px 0 65px #181818; position: relative; min-height: 500px; }
+.main-content { margin: 0 0 -10px 230px; padding: 10px; box-shadow: -5px 0 65px #181818; position: relative; font-size: 11px; text-align: right; }
+.main-content>div { min-height: 500px; margin-bottom: 1em; font-size: 13px; text-align: left; }
 .menu { margin: 0; }
 .menu li { margin: 0; padding: 0; }
 .menu li a { display: block; padding: 10px 5px 10px 15px; color: #6f7b7e; }

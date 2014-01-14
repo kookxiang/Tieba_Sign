@@ -124,30 +124,6 @@ function post_win(link, formid, callback, skip_win){
 	}, 'json').fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法解析返回结果').addButton('确定', function(){ location.reload(); }).append(); }).always(function(){ hideloading(); });
 	return false;
 }
-function show_updater_win(_url){
-	showloading();
-	$.ajax({
-		type: "get",
-		async: false,
-		url: _url,
-		dataType: "jsonp",
-		jsonp: "callback",
-		jsonpCallback: "handleNewVersion",
-		success: function(json){
-			hideloading();
-			if(json.hasnew){
-				createWindow().setTitle('检查更新').setContent('<p>发现新版本'+json.ver+'！</p><p>要查看更新说明吗？</p>').addButton('确定', function(){ window.open(json.url); }).addCloseButton('取消').append();
-			}else{
-				createWindow().setTitle('检查更新').setContent('您当前使用的是最新版本').addCloseButton('确定').append();
-			}
-		},
-		error: function(){
-			hideloading();
-			createWindow().setTitle('检查更新').setContent('检查更新过程出现错误').addCloseButton('确定').append();
-		}
-	});
-	return false;
-}
 var JSMENU = [];
 function dragMenu(menuObj, e, op) {
 	e = e ? e : window.event;

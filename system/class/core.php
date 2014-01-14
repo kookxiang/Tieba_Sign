@@ -264,7 +264,7 @@ class kk_sign {
 	var $m = array('cache', 'error');
 	function kk_sign($n = array()) {
 		global $_config;
-		require_once SYSTEM_ROOT.'./config.cfg.php';
+		require_once SYSTEM_ROOT.'./config.inc.php';
 		foreach($this->m as $m) {
 			require_once SYSTEM_ROOT."./class/{$m}.php";
 		}

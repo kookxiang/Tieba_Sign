@@ -44,7 +44,7 @@ if(getSetting('account_switch')){
 <li id="menu_baidu_bind"><a href="#baidu_bind">百度账号绑定</a></li>
 <li id="menu_setting"><a href="#setting">设置</a></li>
 <?php HOOK::page_menu(); ?>
-<?php if(is_admin($uid)) echo '<li id="menu_admincp"><a href="admin.php">管理面板</a></li><li id="menu_updater"><a href="http://update.kookxiang.com/gateway.php?id=tieba_sign&version='.VERSION.'" target="_blank" onclick="return show_updater_win(this.href)">检查更新</a></li>'; ?>
+<?php if(is_admin($uid)) echo '<li id="menu_updater"><a href="admin.php#updater">检查更新</a></li><li id="menu_admincp"><a href="admin.php">管理面板</a></li>'; ?>
 </ul>
 </div>
 <div class="main-content">
@@ -58,7 +58,7 @@ if(getSetting('account_switch')){
 <tbody></tbody>
 </table>
 </div>
-<div id="content-sign_log" class="hidden">
+<div id="content-sign_log">
 <h2>签到记录</h2>
 <span id="page-flip" class="float-right"></span>
 <p id="sign-stat"></p>
@@ -121,10 +121,11 @@ if(getSetting('account_switch')){
 </div>
 </div>
 <?php HOOK::page_contents(); ?>
+<p>贴吧签到助手 - Designed by <a href="http://www.ikk.me" target="_blank">kookxiang</a>. 2014 &copy; <a href="http://www.kookxiang.com" target="_blank">KK's Laboratory</a> - <a href="https://me.alipay.com/kookxiang" target="_blank">赞助开发</a></p>
 </div>
 </div>
 </div>
-<p class="copyright">当前版本：<?php echo VERSION; ?> - <a href="https://me.alipay.com/kookxiang" target="_blank">赞助开发</a><?php if(getSetting('beian_no')) echo ' - <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">'.getSetting('beian_no').'</a>'; ?><br>Designed by <a href="http://www.ikk.me" target="_blank">kookxiang</a>. 2013 &copy; <a href="http://www.kookxiang.com" target="_blank">KK's Laboratory</a><br>请勿擅自修改程序版权信息或将本程序用于商业用途！<br><?php HOOK::run('page_footer'); ?></p>
+<p class="copyright"><?php if(getSetting('beian_no')) echo '<a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">'.getSetting('beian_no').'</a> - '; ?><?php HOOK::run('page_footer'); ?></p>
 </div>
 <script src="<?php echo jquery_path(); ?>"></script>
 <script type="text/javascript">var formhash = '<?php echo $formhash; ?>';var version = '<?php echo VERSION; ?>';</script>

@@ -30,12 +30,12 @@ if(!defined('IN_ADMINCP')) exit();
 <li id="menu_plugin"><a href="#plugin">插件管理</a></li>
 <li id="menu_setting"><a href="#setting">系统设置</a></li>
 <li id="menu_mail"><a href="#mail">邮件群发</a></li>
-<li id="menu_updater"><a href="http://update.kookxiang.com/gateway.php?id=tieba_sign&version=<?php echo VERSION; ?>" target="_blank" onclick="return show_updater_win(this.href)">检查更新</a></li>
+<li id="menu_updater"><a href="#updater">检查更新</a></li>
 <li><a href="./">返回前台</a></li>
 </ul>
 </div>
 <div class="main-content">
-<div id="content-user" class="hidden">
+<div id="content-user">
 <h2>用户管理</h2>
 <table>
 <thead><tr><td style="width: 40px">UID</td><td>用户名</td><td>邮箱</td><td>操作</td></tr></thead>
@@ -131,7 +131,7 @@ foreach($classes as $id=>$obj){
 </div>
 </div>
 </div>
-<p class="copyright">当前版本：<?php echo VERSION; ?> - <a href="https://me.alipay.com/kookxiang" target="_blank">赞助开发</a><br>Designed by <a href="http://www.ikk.me" target="_blank">kookxiang</a>. 2013 &copy; <a href="http://www.kookxiang.com" target="_blank">KK's Laboratory</a><br>请勿擅自修改程序版权信息或将本程序用于商业用途！<br><?php echo DEBUG::output(); ?></p>
+<p class="copyright"><?php echo DEBUG::output(); ?></p>
 </div>
 <script src="<?php echo jquery_path(); ?>"></script>
 <script type="text/javascript">var formhash = '<?php echo $formhash; ?>';var version = '<?php echo VERSION; ?>';</script>
