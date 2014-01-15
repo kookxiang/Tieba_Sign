@@ -59,6 +59,7 @@ switch($_GET['step']){
 			$selected = mysql_select_db($db_name, $link);
 			if(!$selected) show_back('数据库配置', '错误：指定的数据库不可用</p><p>'.mysql_error());
 		}
+		mysql_query("SET character_set_connection=utf8, character_set_results=utf8, character_set_client=binary");
 		$syskey = random(32);
 		$username = addslashes($_POST['username']);
 		$password = md5($syskey.md5($_POST['password']).$syskey);
