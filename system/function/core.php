@@ -21,6 +21,8 @@ function daddslashes($string, $force = 0, $strip = FALSE) {
 	return $string;
 }
 function template($file){
+	global $template_loaded;
+	$template_loaded = false;
 	HOOK::run("template_load_{$file}");
 	if(IN_MOBILE){
 		$mobilefile = ROOT."./template/mobile/{$file}.php";

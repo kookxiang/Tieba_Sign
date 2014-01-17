@@ -156,3 +156,4 @@ foreach($classes as $id=>$obj){
 <script src="system/js/fwin.js?version=<?php echo VERSION; ?>"></script>
 </body>
 </html>
+<?php $template_loaded = true; ?>

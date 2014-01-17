@@ -263,7 +263,7 @@ class mailsender {
 class kk_sign {
 	var $m = array('cache', 'error');
 	function kk_sign($n = array()) {
-		global $_config;
+		global $_config, $template_loaded;
 		require_once SYSTEM_ROOT.'./config.inc.php';
 		foreach($this->m as $m) {
 			require_once SYSTEM_ROOT."./class/{$m}.php";
@@ -280,8 +280,15 @@ class kk_sign {
 		require_once SYSTEM_ROOT.'./class/hooks.php';
 		HOOK::INIT();
 		$this->init_final();
+		$template_loaded = true;
 	}
 	function __destruct() {
+		global $template_loaded;
+		if (!$template_loaded) {
+			ob_end_clean();
+			error::system_error("Undefined error.");
+			return;
+		}
 		if (!defined('SYSTEM_STARTED')) return;
 		HOOK::run('on_unload');
 		flush();

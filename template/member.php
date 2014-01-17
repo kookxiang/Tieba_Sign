@@ -85,3 +85,4 @@ if(getSetting('stat_code')) echo '<div class="hidden">'.getSetting('stat_code').
 </div>
 </body>
 </html>
+<?php $template_loaded = true; ?>
