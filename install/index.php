@@ -92,8 +92,8 @@ switch($_GET['step']){
 				'pconnect' => $db_pconnect,
 				),
 			);
-		$content = '<?php'."\r\n/* Auto-generated config file */\r\n\$_config = ";
-		$content .= var_export($_config, true).";\r\n?>";
+		$content = '<?php'.PHP_EOL.'/* Auto-generated config file */'.PHP_EOL.'$_config = ';
+		$content .= var_export($_config, true).';'.PHP_EOL.'?>';
 		file_put_contents($config_file, $content);
 		$content = '<p>贴吧签到助手 已经成功安装！</p><p>要正常签到，请为脚本 cron.php 添加每分钟一次的计划任务。</p><p>系统默认关闭用户注册，如果有需要，请到后台启用用户注册功能。</p><br><p class="btns"><button onclick="location.href=\'../\';">登录 &raquo;</button>';
 		show_install_page('安装成功', $content);
