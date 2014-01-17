@@ -284,11 +284,7 @@ class kk_sign {
 	}
 	function __destruct() {
 		global $template_loaded;
-		if (!$template_loaded) {
-			ob_end_clean();
-			error::system_error("Undefined error.");
-			return;
-		}
+		if (!$template_loaded) error::system_error("Undefined error.");
 		if (!defined('SYSTEM_STARTED')) return;
 		HOOK::run('on_unload');
 		flush();
