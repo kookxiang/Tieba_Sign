@@ -3,13 +3,13 @@ if (!defined('IN_KKFRAME')) exit();
 
 class cloud {
 	const API_ROOT = 'http://api.ikk.me/v2/';
-	private static register(){
+	private static function register(){
 		/* ... */
 	}
-	public static is_remote_disabled(){
+	public static function is_remote_disabled(){
 		/* ... */
 	}
-	public static request($api_name){
+	public static function request($api_name){
 		if (!$api_name) throw new Exception('Request remote api failed: empty request!');
 		$parms = func_get_args();
 		unset($parms[0]);
@@ -22,10 +22,10 @@ class cloud {
 		if (!$ret) throw new Exception('Request remote api failed: decode fail');
 		return $ret;
 	}
-	public static id(){
+	public static function id(){
 		return 0;
 	}
-	public static key(){
+	public static function key(){
 		return 'Tieba Sign API - DEBUG';
 	}
 }

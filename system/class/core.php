@@ -277,6 +277,7 @@ class kk_sign {
 		check_update();
 		$this->init_syskey();
 		$this->init_cookie();
+		require_once SYSTEM_ROOT.'./class/cloud.php';
 		require_once SYSTEM_ROOT.'./class/hooks.php';
 		HOOK::INIT();
 		$this->init_final();
@@ -284,8 +285,8 @@ class kk_sign {
 	}
 	function __destruct() {
 		global $template_loaded;
-		if (!$template_loaded) error::system_error("Undefined error.");
 		if (!defined('SYSTEM_STARTED')) return;
+		if (!$template_loaded) error::system_error("Undefined error.");
 		HOOK::run('on_unload');
 		flush();
 		ob_end_flush();
