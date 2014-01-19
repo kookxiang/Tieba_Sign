@@ -217,7 +217,7 @@ function send_mail($address, $subject, $message, $delay = true){
 		$mail->address = $address;
 		$mail->subject = $subject;
 		$mail->message = $message;
-		$sender = new mailsender();
+		$sender = new mail_sender();
 		return $sender->sendMail($mail);
 	}
 }

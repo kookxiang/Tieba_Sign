@@ -143,4 +143,3 @@ EOT;
 		return $message;
 	}
 }
-set_exception_handler(array('error', 'exception_error'));
