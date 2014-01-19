@@ -49,6 +49,9 @@ $(document).ready(function() {
 					content += '<input type="'+result[i].type+'" name="'+result[i].key+'" value="'+result[i].value+'" style="width: 95%" />';
 					content += '</p>';
 				}
+				if(result.length == 0){
+					content += '<p>此邮件接口无高级设置项目</p>';
+				}
 				createWindow().setTitle('邮件高级设置').setContent('<form method="post" action="admin.php?action=mail_advanced" id="advanced_mail_config" onsubmit="return post_win(this.action, this.id)"><input type="hidden" name="formhash" value="'+formhash+'">'+content+'</form>').addButton('确定', function(){ $('#advanced_mail_config').submit(); }).addCloseButton('取消').append();
 			}).fail(function() { createWindow().setTitle('邮件高级设置').setContent('发生未知错误: 无法打开高级设置面板').addCloseButton('确定').append(); }).always(function(){ hideloading(); });
 		}, true);

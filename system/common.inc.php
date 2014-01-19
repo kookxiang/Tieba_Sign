@@ -21,7 +21,7 @@ function class_loader($class_name){
 	list($type, $plugin_id) = explode('_', $class_name, 2);
 	if ($type == 'plugin') {
 		$file_path = "plugins/{$plugin_id}/plugin.class.php";
-	} elseif ($type == 'mail') {
+	} elseif ($type == 'mail' || $class_name == 'mailer') {
 		$file_path = "system/class/mail.php";
 	} else {
 		$file_path = "system/class/{$class_name}.php";
