@@ -26,7 +26,7 @@ function class_loader($class_name){
 	} else {
 		$file_path = "system/class/{$class_name}.php";
 	}
-	$real_path = strtolower(ROOT.$file_path);
+	$real_path = ROOT.strtolower($file_path);
 	if (!file_exists($real_path)) {
 		throw new Exception('Ooops, system file is losing: '.strtolower($file_path));
 	} else {
