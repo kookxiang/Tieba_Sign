@@ -71,7 +71,7 @@ if($invite_code) echo '<p>邀请码：</p><p><input type="text" name="invite_cod
 <p>邮箱：</p>
 <p><input type="text" name="email" required tabindex="2" /></p>
 </div>
-<p><input type="submit" value="登录" tabindex="3" /></p>
+<p><input type="submit" value="提交" tabindex="3" /></p>
 </form>
 </div>
 </div>

@@ -179,7 +179,7 @@ switch($_GET['action']){
 		CACHE::update('plugins');
 		showmessage('启用插件成功！', 'admin.php#plugin#');
 	case 'update_check':
-		$ret = checkUpdate();
+		$ret = Updater::check();
 		if(is_array($ret)){
 			$return = array(
 				'status' => 1,
@@ -193,8 +193,11 @@ switch($_GET['action']){
 		}
 		echo json_encode($return);
 		exit();
-	case 'upgrade_file':
-		echo json_encode(upgrade_file());
+	case 'get_file':
+		echo json_encode(Updater::loop());
+		exit();
+	case 'write_file':
+		echo json_encode(Updater::write_file());
 		exit();
 	case 'disable_plugin':
 		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#plugin');

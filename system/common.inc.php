@@ -4,7 +4,7 @@ define('IN_KKFRAME', true);
 define('SYSTEM_ROOT', dirname(__FILE__).'/');
 define('ROOT', dirname(SYSTEM_ROOT).'/');
 define('TIMESTAMP', time());
-define('VERSION', '1.14.1.16');
+define('VERSION', '1.14.1.23');
 
 define('DEBUG_ENABLED', isset($_GET['debug']));
 error_reporting(DEBUG_ENABLED ? E_ERROR | E_WARNING | E_PARSE : E_ERROR | E_PARSE);

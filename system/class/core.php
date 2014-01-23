@@ -9,13 +9,12 @@ class core {
 		CACHE::load(array('plugins', 'setting'));
 		$this->init_header();
 		$this->init_useragent();
-		require_once SYSTEM_ROOT.'./function/updater.php';
-		check_update();
+		Updater::init();
 		$this->init_syskey();
 		$this->init_cookie();
 		HOOK::INIT();
-		$this->init_final();
 		$template_loaded = true;
+		$this->init_final();
 	}
 	function __destruct() {
 		global $template_loaded;

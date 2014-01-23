@@ -371,6 +371,20 @@ function fsocketopen($hostname, $port = 80, &$errno, &$errstr, $timeout = 15) {
 	}
 	return $fp;
 }
+function save_config_file(){
+	global $_config;
+	if (!$_config) return;
+	$content = '<?php'.PHP_EOL.'/* Auto-generated config file */'.PHP_EOL.'$_config = ';
+	$content .= var_export($_config, true).';'.PHP_EOL.'?>';
+	if(!is_writable(SYSTEM_ROOT.'./config.inc.php')) throw new Exception('Config file is not writable!');
+	file_put_contents(SYSTEM_ROOT.'./config.inc.php', $content);
+}
+function saveVersion($version){
+	global $_config;
+	if (!$_config) return;
+	$_config['version'] = $version;
+	save_config_file();
+}
 // Function link
 function get_tbs($uid){
 	require_once SYSTEM_ROOT.'./function/sign.php';

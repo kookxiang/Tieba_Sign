@@ -14,29 +14,7 @@ $(document).ready(function() {
 	$('#content-updater .filelist button').click(function(){
 		$('#content-updater .filelist').hide();
 		$('#content-updater .result').html('正在更新系统文件，请耐心等待...');
-		$.getJSON("admin.php?action=upgrade_file", function(result){
-			if(!result) return;
-			if(result.status == 0){
-				$('#content-updater .result').html('文件更新结束！');
-				setTimeout(function(){ location.reload(); }, 1500);
-				return;
-			}else if(result.status == -2){
-				$('#content-updater .result').html('更新过程出现错误！');
-				switch(result._status){
-					case -1:	$('#content-updater .result').append('下载文件 '+result.file+' 失败');	break;
-					case -2:	$('#content-updater .result').append('校验文件 '+result.file+' 出错');	break;
-					case -3:	$('#content-updater .result').append('无法写入文件 '+result.file);	break;
-				}
-				setTimeout(function(){ location.reload(); }, 5000);
-				return;
-			}
-			$('#content-updater .result').html('以下文件不可写入，请设置好权限后再进行升级');
-			$('#content-updater .filelist').show();
-			$('#content-updater .filelist ul').html('');
-			$.each(result.files, function(i, field){
-				$('#content-updater .filelist ul').append('<li>'+field+'</li>');
-			});
-		}).fail(function() { $('#content-updater .result').html('发生未知错误: 程序意外终止'); setTimeout(load_updater, 3000); });
+		updater_get_file();
 	});
 	$('#mail_advanced_config').click(function(){
 		post_win($('#mail_setting').attr('action'), 'mail_setting', function(){
@@ -78,6 +56,48 @@ function load_user(){
 			$("#content-user table tbody").append("<tr><td>"+field.uid+"</td><td>"+field.username+"</td><td>"+field.email+"</td><td><a href=\"admin.php?action=update_liked_tieba&uid="+field.uid+"&formhash="+formhash+"\" onclick=\"return msg_win_action(this.href)\">刷新喜欢的贴吧</a> | <a href=\"javascript:;\" onclick=\"return deluser('"+field.uid+"')\">删除用户</a></td></tr>");
 		});
 	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法获取用户列表').addCloseButton('确定').append(); }).always(function(){ hideloading(); });
+}
+function updater_get_file(){
+	$.getJSON("admin.php?action=get_file", function(result){
+		if(!result) return;
+		if(result.status == 1){
+			return updater_write_file();
+		}else if(result.status < 0){
+			$('#content-updater .result').html('更新过程出现错误！');
+			switch(result.status){
+				case -1:	$('#content-updater .result').append('下载文件 '+result.file+' 失败');	break;
+				case -2:	$('#content-updater .result').append('校验文件 '+result.file+' 出错');	break;
+			}
+			setTimeout(function(){ location.reload(); }, 5000);
+			return;
+		}
+		$('#content-updater .result').html('正在更新系统文件，请耐心等待... ('+result.precent+'%)');
+		setTimeout(updater_get_file, 50);
+	}).fail(function() { $('#content-updater .result').html('发生未知错误: 程序意外终止'); setTimeout(load_updater, 3000); });
+}
+function updater_write_file(){
+	$.getJSON("admin.php?action=write_file", function(result){
+		if(!result) return;
+		if(result.status == -1){
+			$('#content-updater .result').html('以下文件不可写入，请设置好权限后再进行升级');
+			$('#content-updater .filelist').show();
+			$('#content-updater .filelist ul').html('');
+			$.each(result.files, function(i, field){
+				$('#content-updater .filelist ul').append('<li>'+field+'</li>');
+			});
+			return;
+		}else if(result.status == -2){
+			$('#content-updater .result').html('更新过程出现错误！');
+			switch(result._status){
+				case -1:	$('#content-updater .result').append('下载文件 '+result.file+' 失败');	break;
+				case -2:	$('#content-updater .result').append('校验文件 '+result.file+' 出错');	break;
+			}
+			setTimeout(function(){ location.reload(); }, 5000);
+			return;
+		}
+		$('#content-updater .result').html('文件更新结束！');
+		setTimeout(function(){ location.reload(); }, 1500);
+	}).fail(function() { $('#content-updater .result').html('发生未知错误: 程序意外终止'); setTimeout(load_updater, 3000); });
 }
 function load_stat(){
 	showloading();
