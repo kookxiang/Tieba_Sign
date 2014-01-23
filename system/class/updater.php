@@ -53,7 +53,7 @@ class Updater{
 		CACHE::save('need_download', $file_list);
 		$max = sizeof(CACHE::get('kk_updater'));
 		$current = DB::result_first('SELECT COUNT(*) FROM download');
-		return array('status' => 0, 'precent' => round($current / $max * 100));
+		return array('status' => 0, 'precent' => round($current / $max * 100), 'file' => $path);
 	}
 	public static function write_file(){
 		$err_file = $files = array();
@@ -68,11 +68,18 @@ class Updater{
 		}
 		if($err_file) array('status' => -1, 'files' => $err_file);
 		foreach($files as $file) {
-			@file_put_contents(ROOT.$file['path'], $file['content']);
+			self::_write(ROOT.$file['path'], $file['content']);
 			if(md5_file(ROOT.$file['path']) != md5($file['content'])) return array('status' => -2, 'file' => $file['path']);
 		}
 		DB::query('DELETE FROM download');
 		return array('status' => 0);
+	}
+	private static function _write($path, $content){
+		$fp = @fopen($path, 'wb');
+		if(!$fp) return false;
+		fwrite($fp, $content);
+		fclose($fp);
+		return true;
 	}
 	private static function _is_writable($path){
 		if(!file_exists($path)){

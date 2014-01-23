@@ -71,7 +71,7 @@ function updater_get_file(){
 			setTimeout(function(){ location.reload(); }, 5000);
 			return;
 		}
-		$('#content-updater .result').html('正在更新系统文件，请耐心等待... ('+result.precent+'%)');
+		$('#content-updater .result').html('正在下载 '+result.file+'，请耐心等待... ('+result.precent+'%)');
 		setTimeout(updater_get_file, 50);
 	}).fail(function() { $('#content-updater .result').html('发生未知错误: 程序意外终止'); setTimeout(load_updater, 3000); });
 }
