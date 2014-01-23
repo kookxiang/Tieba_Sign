@@ -21,7 +21,7 @@ if(!defined('IN_KKFRAME')) exit();
 <div class="side-bar">
 <span class="icon"></span>
 <ul>
-<li id="menu_login" class="current">登陆</li>
+<li id="menu_login" class="current">登录</li>
 <?php if(!getSetting('block_register')) { ?>
 <li id="menu_register">注册</li>
 <?php } ?>
