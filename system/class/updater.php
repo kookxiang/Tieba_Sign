@@ -71,6 +71,7 @@ class Updater{
 			@file_put_contents(ROOT.$file['path'], $file['content']);
 			if(md5_file(ROOT.$file['path']) != md5($file['content'])) return array('status' => -2, 'file' => $file['path']);
 		}
+		DB::query('DELETE FROM download');
 		return array('status' => 0);
 	}
 	private static function _is_writable($path){
