@@ -18,7 +18,7 @@ if(!defined('IN_ADMINCP')) exit();
 </head>
 <body>
 <div class="wrapper" id="page_index">
-<div id="append_parent"><div class="loading-icon"><img src="style/loading.gif" /> 载入中...</div></div>
+<div id="append_parent"><div class="cover hidden"></div><div class="loading-icon"><img src="style/loading.gif" /> 载入中...</div></div>
 <div class="main-box clearfix">
 <h1>贴吧签到助手 - 管理中心</h1>
 <div class="menubtn"><p>-</p><p>-</p><p>-</p></div>
