@@ -17,6 +17,7 @@ function createWindow(){
 	}
 	win.addButton = function(title, callback){
 		var btn = document.createElement('button');
+		btn.className = "btn submit";
 		btn.innerHTML = title;
 		btn.onclick = function(){
 			callback();
@@ -27,6 +28,7 @@ function createWindow(){
 	}
 	win.addCloseButton = function(title){
 		var btn = document.createElement('button');
+		btn.className = "btn";
 		btn.innerHTML = title;
 		btn.onclick = function(){
 			win.close();
