@@ -7,6 +7,7 @@ function createWindow(){
 	win.btns = document.createElement('p');
 	win.btns.className = 'btns';
 	win.allow_close = true;
+	win.with_cover = true;
 	win.setTitle = function(str){
 		this.title = str;
 		return this;
@@ -64,9 +65,11 @@ function createWindow(){
 		var left = ($('body').width() - this.obj.clientWidth) / 2;
 		this.obj.style.top = top + 'px';
 		this.obj.style.left = left + 'px';
+		if(this.with_cover) showcover();
 		return false;
 	}
 	win.close = function(){
+		if(this.with_cover) hidecover();
 		win.obj.className = 'fwin h';
 		setTimeout(function(){ $(win.obj).remove(); }, 300);
 	}
@@ -99,15 +102,26 @@ function msg_callback_action(link, callback){
 	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法解析返回结果').addButton('确定', function(){ location.reload(); }).append(); }).always(function(){ hideloading(); });
 	return false;
 }
+var loading_timer, cover_timer;
 function showloading(){
-	$('.loading-icon').removeClass('hidden');
 	$('.loading-icon').removeClass('h');
+	$('.loading-icon').removeClass('hidden');
 }
-var loading_win_timer;
 function hideloading(){
+	$('.loading-icon').removeClass('h');
 	$('.loading-icon').addClass('h');
-	if(loading_win_timer) clearTimeout(loading_win_timer);
-	loading_win_timer = setTimeout(function(){ $('.loading-icon').addClass('hidden'); }, 300);
+	if(loading_timer) clearTimeout(loading_timer);
+	loading_timer = setTimeout(function(){ $('.loading-icon').addClass('hidden'); }, 250);
+}
+function showcover(){
+	$('#append_parent').removeClass('h');
+	$('#append_parent').addClass('cover');
+}
+function hidecover(){
+	$('.cover').removeClass('h');
+	$('.cover').addClass('h');
+	if(cover_timer) clearTimeout(cover_timer);
+	cover_timer = setTimeout(function(){ $('.cover').removeClass('h'); $('.cover').removeClass('cover'); }, 500);
 }
 function post_win(link, formid, callback, skip_win){
 	link += link.indexOf('?') < 0 ? '?' : '&';

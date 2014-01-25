@@ -107,9 +107,11 @@ button, input[type=submit] { height: 30px; line-height: 30px; vertical-align: bo
 .copyright { margin-top: 65px; margin-bottom: 0; color: #4c4c4c; text-align: center; font-size: 12px; padding-bottom: 2em; }
 .copyright a { color: #159; }
 #page_login .copyright { margin-top: 150px; }
-.loading-icon { color: #000; background: #fff; position: fixed; top: 50%; right: 50%; padding: 20px 50px; border: 1px solid #dedede; border-radius: 5px; line-height: 20px; height: 20px; width: 70px; font-size: 12px; cursor: default; margin: -30px -85px; text-align: center; box-shadow: #9c9c9c 0 0 100px; animation: showfwin .3s; -webkit-animation: showfwin .3s; -moz-animation: showfwin .3s; z-index: 20; }
+.loading-icon { color: #000; background: #fff; position: fixed; top: 50%; right: 50%; padding: 20px 50px; border: 1px solid #dedede; border-radius: 5px; line-height: 20px; height: 20px; width: 70px; font-size: 12px; cursor: default; margin: -30px -85px; text-align: center; z-index: 20; animation: showfwin .25s; -webkit-animation: showfwin .25s; -moz-animation: showfwin .25s; }
+.loading-icon.h { opacity: 0; filter: alpha(opacity=0); _display: none; animation: hidefwin .25s; -webkit-animation: hidefwin .25s; -moz-animation: hidefwin .25s; box-shadow: #bcbcbc 0 0 100px; pointer-events: none; }
 .loading-icon img { padding: 2px 5px 2px 0; float: left; }
-.loading-icon.h { opacity: 0; filter: alpha(opacity=0); _display: none; animation: hidefwin .3s; -webkit-animation: hidefwin .3s; -moz-animation: hidefwin .3s; }
+.cover { animation: showfwin .5s; -webkit-animation: showfwin .5s; -moz-animation: showfwin .5s; position: absolute; position: fixed; width: 100%; height: 100%; z-index: 15; background-color: rgba(0, 0, 0, 0.3); }
+.cover.h { opacity: 0; filter: alpha(opacity=0); _display: none; animation: hidefwin .5s; -webkit-animation: hidefwin .5s; -moz-animation: hidefwin .5s; pointer-events: none; }
 .menubtn { display: none; width: 20px; line-height: 20px; height: 20px; position: absolute; top: 0; right: 0; padding: 15px; z-index: 10; }
 .menubtn:hover { background-color: #2c3335; }
 .menubtn p { line-height: 2px; height: 2px; margin: 3px 2px 4px; background: #dedede; text-indent: -999px; overflow: hidden; }
@@ -137,13 +139,13 @@ div.select:hover { border-color: #bdbdbd; }
 .dropdown li { color: #000; height: 32px; line-height: 32px; padding: 0 15px; border-bottom: 1px solid #dedede; margin-bottom: -1px; overflow: hidden; cursor: default; }
 .dropdown li:hover { color: #fff; background: #15f; }
 
-.fwin { animation: showfwin .3s; -webkit-animation: showfwin .3s; -moz-animation: showfwin .3s; position: absolute; position: fixed; width: 400px; z-index: 50; background-color: #f5f5f5; border: 1px solid #cdcdcd; border-radius: 5px; padding: 5px; box-shadow: #9c9c9c 0 0 100px; }
+.fwin { animation: showfwin .3s; -webkit-animation: showfwin .3s; -moz-animation: showfwin .3s; position: absolute; position: fixed; width: 400px; z-index: 50; background-color: #f5f5f5; border: 1px solid #cdcdcd; border-radius: 5px; padding: 5px; box-shadow: #9c9c9c 0 0 100px; box-shadow: rgba(200, 200, 200, 0.3) 0 0 100px; }
 .fwin .close { display: block; overflow: hidden; position: relative; float: right; right: 3px; top: 3px; text-indent: -999px; width: 0; height: 0; background: url(close.gif); padding: 10px; cursor: pointer; }
 .fwin .close:hover { background-position: 0 100%; }
 .fwin h3 { font-size: 18px; padding: 0 5px; margin: 0 25px 0 0; height: 32px; line-height: 28px; cursor: move; }
 .fwin .fcontent { line-height: 20px; margin: 0 -5px; padding: 15px 10px 10px; border-top: 1px solid #dedede; }
 .fwin .btns { margin: 15px -10px -5px; border-top: 1px solid #dedede; padding: 3px 10px 0; }
-.fwin.h { opacity: 0; filter: alpha(opacity=0); _display: none; animation: hidefwin .3s; -webkit-animation: hidefwin .3s; -moz-animation: hidefwin .3s; }
+.fwin.h { opacity: 0; filter: alpha(opacity=0); _display: none; animation: hidefwin .3s; -webkit-animation: hidefwin .3s; -moz-animation: hidefwin .3s; pointer-events: none; }
 @keyframes showfwin{ from { opacity: 0; transform: scale(1.1, 1.1); } to { opacity: 1; transform: scale(1, 1); } }
 @-webkit-keyframes showfwin{ from { opacity: 0; -webkit-transform: scale(1.1, 1.1); } to { opacity: 1; -webkit-transform: scale(1, 1); } }
 @-moz-keyframes showfwin{ from { opacity: 0; -moz-transform: scale(1.1, 1.1); } to { opacity: 1; -moz-transform: scale(1, 1); } }
