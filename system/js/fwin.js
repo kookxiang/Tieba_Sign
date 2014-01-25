@@ -114,14 +114,14 @@ function hideloading(){
 	loading_timer = setTimeout(function(){ $('.loading-icon').addClass('hidden'); }, 250);
 }
 function showcover(){
-	$('#append_parent').removeClass('h');
-	$('#append_parent').addClass('cover');
+	$('.cover').removeClass('h');
+	$('.cover').removeClass('hidden');
 }
 function hidecover(){
 	$('.cover').removeClass('h');
 	$('.cover').addClass('h');
 	if(cover_timer) clearTimeout(cover_timer);
-	cover_timer = setTimeout(function(){ $('.cover').removeClass('h'); $('.cover').removeClass('cover'); }, 500);
+	cover_timer = setTimeout(function(){ $('.cover').addClass('hidden'); }, 1000);
 }
 function post_win(link, formid, callback, skip_win){
 	link += link.indexOf('?') < 0 ? '?' : '&';
