@@ -104,23 +104,25 @@ function msg_callback_action(link, callback){
 }
 var loading_timer, cover_timer;
 function showloading(){
+	if(loading_timer) clearTimeout(loading_timer);
 	$('.loading-icon').removeClass('h');
 	$('.loading-icon').removeClass('hidden');
 }
 function hideloading(){
+	if(loading_timer) clearTimeout(loading_timer);
 	$('.loading-icon').removeClass('h');
 	$('.loading-icon').addClass('h');
-	if(loading_timer) clearTimeout(loading_timer);
 	loading_timer = setTimeout(function(){ $('.loading-icon').addClass('hidden'); }, 250);
 }
 function showcover(){
+	if(cover_timer) clearTimeout(cover_timer);
 	$('.cover').removeClass('h');
 	$('.cover').removeClass('hidden');
 }
 function hidecover(){
+	if(cover_timer) clearTimeout(cover_timer);
 	$('.cover').removeClass('h');
 	$('.cover').addClass('h');
-	if(cover_timer) clearTimeout(cover_timer);
 	cover_timer = setTimeout(function(){ $('.cover').addClass('hidden'); }, 1000);
 }
 function post_win(link, formid, callback, skip_win){
