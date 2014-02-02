@@ -3,8 +3,7 @@ define ('IN_ADMINCP', true);
 define ('DISABLE_CRON', true);
 define ('DISABLE_PLUGIN', true);
 require_once './system/common.inc.php';
-if (! is_admin ($uid))
-     exit ();
+if (! is_admin ($uid)) exit ();
 $formhash = substr (md5 (substr (TIMESTAMP, 0, - 7) . $username . $uid . SYS_KEY . ROOT . 'ADMINCP_ONLY'), 5, 14);
 
 switch ($_GET ['action']){
@@ -333,7 +332,7 @@ switch ($_GET ['action']){
      $classes = getClasses ();
      include template ('admin');
      break;
-    }
+     }
 function getClasses(){
  $handle = opendir (SYSTEM_ROOT . './class/mail/');
  $classes = array ();
