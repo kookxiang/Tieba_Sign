@@ -16,8 +16,7 @@ class phpmail extends mailer{
 		$headers  = "MIME-Version: 1.0\r\n";
 		$headers .= "Content-Type: text/html;charset=utf-8\r\n";
 		$headers .= "Content-Transfer-Encoding: Base64\r\n";
-		$headers .= "To: {$address}\r\n";
-		$headers .= 'From: =?UTF-8?B?'.base64_encode('贴吧签到助手 <'.$this->_get_setting('from').'>')."?=\r\n";
+		$headers .= 'From: =?UTF-8?B?'.base64_encode('贴吧签到助手').'?= <'.$this->_get_setting('from').">\r\n";
 		return mail($address, '=?UTF-8?B?'.base64_encode($mail->subject).'?=', base64_encode($mail->message), $headers);
 	}
 }
