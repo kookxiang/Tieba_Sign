@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `update_source` (
   `id` varchar(16) NOT NULL,
   `path` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ');
 saveSetting('version', '1.14.1.23');
 showmessage('成功更新到 1.14.1.23！', './');
