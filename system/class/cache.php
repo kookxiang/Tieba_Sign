@@ -18,7 +18,7 @@ class CACHE {
 		$query = DB::query("SELECT v FROM cache WHERE k='{$key}'", 'SILENT');
 		$result = DB::fetch($query);
 		$arr = @unserialize($result['v']);
-		$_CACHE[$key] = $arr ? $arr : $result['v'];
+		$_CACHE[$key] = $arr !== FALSE ? $arr : $result['v'];
 		if (!$_CACHE[$key]) {
 			return $_CACHE[$key] = self::update($key);
 		}
