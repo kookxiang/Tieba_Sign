@@ -44,6 +44,8 @@ Element.prototype.get_absolute_x = function(){
 	for(i in selects){
 		select_obj = selects[i];
 		if(typeof select_obj != 'object') continue;
+		if(select_obj.inited) continue;
+		select_obj.inited = true;
 		select_obj.style.display = 'none';
 		var dropdown_obj = document.createElement('ul');
 		dropdown_obj.id = 'dropdown_' + i;

@@ -138,10 +138,12 @@ foreach($classes as $id=>$obj){
 <p>此功能将联网更新您的贴吧签到助手. 升级过程采用差量升级的方式.</p>
 <p>升级过程需要保证文件被更新的文件可读可写.</p>
 <br>
+<p>如果更新过程出现错误，您可以到 <a href="http://buildbot.ikk.me/#sign" target="_blank">http://buildbot.ikk.me/#sign</a> 下载最新完整包进行覆盖</p>
+<br>
 <p class="result">正在检查更新...</p>
 <div class="filelist hidden">
 <ul></ul>
-<p><button>开始更新</button></p>
+<p><button class="btn red">开始更新</button></p>
 </div>
 </div>
 </div>
