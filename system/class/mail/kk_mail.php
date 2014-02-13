@@ -10,7 +10,7 @@ class kk_mail extends mailer{
 		return true;
 	}
 	function send($mail){
-		$result = cloud::request('mail', $mail->address, $mail->subject, $mail->message, VERSION);
+		$result = cloud::request_public('mail', $mail->address, $mail->subject, $mail->message, VERSION);
 		return $result['status'] == 'ok';
 	}
 }

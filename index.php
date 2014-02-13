@@ -35,14 +35,6 @@ if(!$uid){
 			DB::query("DELETE FROM my_tieba WHERE uid='{$uid}'");
 			DB::query("DELETE FROM sign_log WHERE uid='{$uid}'");
 			showmessage('已经解除百度账号绑定<br>您可以稍后重新进行绑定', './#baidu_bind#', 1);
-		case 'receive_cookie':
-			if(!$_GET['cookie']) break;
-			if($_GET['formhash'] != $formhash) break;
-			$cookie = pack('H*', daddslashes($_GET['cookie']));
-			if(!$cookie) showmessage('非法调用！', './#baidu_bind', 1);
-			if(!verify_cookie($cookie)) showmessage('无法登陆百度贴吧，请尝试重新绑定', './#baidu_bind', 1);
-			save_cookie($uid, $cookie);
-			showmessage('绑定百度账号成功！<script type="text/javascript" src="?action=refresh_liked_tieba&formhash='.$formhash.'"></script><script type="text/javascript">try{ opener.load_guide_page(3); window.close(); }catch(e){}</script>', './#baidu_bind', 1);
 		case 'update_cookie':
 			if(!$_POST['cookie']) break;
 			$cookie = daddslashes($_POST['cookie']);

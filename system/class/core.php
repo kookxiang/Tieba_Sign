@@ -12,6 +12,7 @@ class core {
 		Updater::init();
 		$this->init_syskey();
 		$this->init_cookie();
+		cloud::init();
 		HOOK::INIT();
 		$template_loaded = true;
 		$this->init_final();

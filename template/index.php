@@ -49,6 +49,37 @@ if(getSetting('account_switch')){
 </div>
 <div class="main-content">
 <div id="content-guide" class="hidden">
+<h2>贴吧签到助手 配置向导</h2>
+<div id="guide_pages">
+<div id="guide_page_1">
+<p>Hello，欢迎使用 贴吧签到助手~</p><br>
+<p><b>这是一款免费软件，作者 <a href="http://www.ikk.me" target="_blank">kookxiang</a>，你可以从 www.kookxiang.com 上下载到这个项目的最新版本。</b></p>
+<p>如果有人向您兜售本程序，麻烦您给个差评。</p><br>
+<p>配置签到助手之后，我们会在每天的 0:30 左右为您自动签到。</p>
+<p>签到过程不需要人工干预，您可以选择签到之后发送一封邮件报告到您的注册邮箱。</p><br>
+<p>准备好了吗？点击下面的“下一步”按钮开始配置吧</p>
+<p class="btns"><button class="btn submit" onclick="$('#guide_page_1').hide();$('#guide_page_2').show();">下一步 &raquo;</button></p>
+</div>
+<div id="guide_page_2" class="hidden">
+<p>首先，你需要绑定你的百度账号。</p><br>
+<p>为了确保账号安全，我们只储存你的百度 Cookie，不会保存你的账号密码信息。</p>
+<p>你可以通过修改密码的方式来让这些 Cookie 失效。</p><br>
+<form method="post" action="api.php?action=baidu_login" target="_blank">
+<p>百度账号：<input type="text" name="username" placeholder="百度通行证" required value="" /></p>
+<p>百度密码：<input type="password" name="password" placeholder="百度通行证密码" required value="" /></p>
+<p><input type="submit" value="绑定百度账号" /></p>
+</form>
+</div>
+<div id="guide_page_manual" class="hidden"></div>
+<div id="guide_page_3" class="hidden">
+<p>一切准备就绪~</p><br>
+<p>我们已经成功接收到你百度账号信息，自动签到已经准备就绪。</p>
+<p>您可以点击 <a href="#setting">高级设置</a> 更改邮件设定，或更改其他附加设定。</p><br>
+<p>感谢您的使用！</p><br>
+<p>程序作者：kookxiang (<a href="http://www.ikk.me" target="_blank">http://www.ikk.me</a>)</p>
+<p>赞助开发：<a href="https://me.alipay.com/kookxiang" target="_blank">https://me.alipay.com/kookxiang</a></p>
+</div>
+</div>
 </div>
 <div id="content-liked_tieba" class="hidden">
 <h2>我喜欢的贴吧</h2>
@@ -102,22 +133,7 @@ if(getSetting('account_switch')){
 <p>只有绑定百度账号之后程序才能自动进行签到。</p>
 <p>您可以使用百度通行证登陆，或是手动填写 Cookie 进行绑定。</p>
 <br>
-<p><a href="https://api.ikk.me/baidu_login.php?callback=<?php echo rawurlencode($siteurl)."&formhash={$formhash}&ver=".VERSION; ?>" class="btn" target="_blank">点击此处登陆百度通行证</a> &nbsp; <a href="javascript:;" class="btn" id="show_cookie_setting">手动绑定</a></p>
-</div>
-<div class="tab-cookie hidden">
-<br>
-<h2>手动绑定百度账号</h2>
-<p>请填写百度贴吧 Cookie:</p>
-<form method="post" action="index.php?action=update_cookie">
-<p>
-<input type="text" name="cookie" style="width: 60%" placeholder="请在此粘贴百度贴吧的 cookie" />
-<input type="submit" value="更新" />
-</p>
-</form>
-<br>
-<p>Cookie 获取工具:</p>
-<p>将本链接拖到收藏栏，在新页面点击收藏栏中的链接（推荐使用 Chrome 隐身窗口模式），按提示登陆wapp.baidu.com，登陆成功后，在该页面再次点击收藏栏中的链接即可复制cookies信息。</p>
-<p><a href="javascript:(function(){if(document.cookie.indexOf('BDUSS')<0){alert('找不到BDUSS Cookie\n请先登陆 http://wapp.baidu.com/');location.href='http://wappass.baidu.com/passport/?login&u=http%3A%2F%2Fwapp.baidu.com%2F&ssid=&from=&uid=wapp_1375936328496_692&pu=&auth=&originid=2&mo_device=1&bd_page_type=1&tn=bdIndex&regtype=1&tpl=tb';}else{prompt('您的 Cookie 信息如下:', document.cookie);}})();" onclick="alert('请拖动到收藏夹');return false;" class="btn">获取手机百度贴吧 Cookie</a></p>
+<p><a href="#guide" class="btn submit">使用“配置向导”进行绑定</a></p>
 </div>
 </div>
 <?php HOOK::page_contents(); ?>
@@ -132,10 +148,10 @@ if(getSetting('account_switch')){
 <script src="system/js/kk_dropdown.js?version=<?php echo VERSION; ?>"></script>
 <script src="system/js/main.js?version=<?php echo VERSION; ?>"></script>
 <script src="system/js/fwin.js?version=<?php echo VERSION; ?>"></script>
-<script type="text/javascript">defered_js.push('//api.ikk.me/guide.js');</script>
 <?php
 HOOK::run('page_footer_js');
 if(getSetting('stat_code')) echo '<div class="hidden">'.getSetting('stat_code').'</div>';
+if(defined('CLOUD_NOT_INITED')) echo '<div class="hidden"><img src="api.php?action=register_cloud" /></div>';
 ?>
 </body>
 </html>
