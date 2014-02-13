@@ -36,7 +36,15 @@ class HOOK {
 	function parse_module($module, $pluginid) {
 		global $_PLUGIN;
 		switch ($module['type']) {
-			case 'page': $_PLUGIN['page'][] = array('id' => "{$pluginid}-{$module[id]}", 'title' => $module['title'], 'file' => ROOT."./plugins/{$pluginid}/".$module['file'], 'admin' => $module['admin']);
+			case 'page':
+				$_PLUGIN['page'][] = array(
+					'id' => "{$pluginid}-{$module[id]}",
+					'title' => $module['title'],
+					'file' => ROOT."./plugins/{$pluginid}/".$module['file'],
+					'admin' => $module['admin'],
+					);
+				break;
+			case 'cron':
 				break;
 			default: throw new Exception('Unknown module type: '.$module['type']);
 		}
