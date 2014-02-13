@@ -65,8 +65,8 @@ if(getSetting('account_switch')){
 <p>为了确保账号安全，我们只储存你的百度 Cookie，不会保存你的账号密码信息。</p>
 <p>你可以通过修改密码的方式来让这些 Cookie 失效。</p><br>
 <form method="post" action="api.php?action=baidu_login" target="_blank">
-<p>百度账号：<input type="text" name="username" placeholder="百度通行证" required value="" /></p>
-<p>百度密码：<input type="password" name="password" placeholder="百度通行证密码" required value="" /></p>
+<p>百度通行证：<input type="text" name="username" placeholder="推荐使用邮箱登陆" required value="" /></p>
+<p>通行证密码：<input type="password" name="password" placeholder="百度通行证密码" required value="" /></p>
 <p><input type="submit" value="绑定百度账号" /></p>
 </form>
 </div>
@@ -125,7 +125,7 @@ if(getSetting('account_switch')){
 <br>
 <div class="baidu_account"></div>
 <br>
-<p><a href="index.php?action=clear_cookie&formhash=<?php echo $formhash; ?>" id="unbind_btn" class="btn">解除绑定</a> &nbsp; (解除绑定后自动签到将停止)</p>
+<p><a href="index.php?action=clear_cookie&formhash=<?php echo $formhash; ?>" id="unbind_btn" class="btn red">解除绑定</a> &nbsp; (解除绑定后自动签到将停止)</p>
 </div>
 <div class="tab tab-bind">
 <p>您还没有绑定百度账号！</p>
