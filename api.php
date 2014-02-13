@@ -46,11 +46,11 @@ EOF;
 }elseif($_GET['action'] == 'receive_cookie'){
 	if(!$_GET['cookie']) throw new Exception('Empty response!');
 	if($_GET['formhash'] != $formhash) throw new Exception('Illegal request!');
-	$cookie = pack('H*', authcode($_GET['cookie'], 'DECODE', cloud::key()));
+	$cookie = authcode(pack('H*', $_GET['cookie']), 'DECODE', cloud::key());
 	if(!$cookie) showmessage('非法调用！', './#baidu_bind', 1);
 	if(!verify_cookie($cookie)) showmessage('无法登陆百度贴吧，请尝试重新绑定', './#baidu_bind', 1);
 	save_cookie($uid, $cookie);
-	showmessage('绑定百度账号成功！<script type="text/javascript" src="?action=refresh_liked_tieba&formhash='.$formhash.'"></script><script type="text/javascript">try{ opener.load_guide_page(3); window.close(); }catch(e){}</script>', './#baidu_bind', 1);
+	showmessage('绑定百度账号成功！<script type="text/javascript" src="?action=refresh_liked_tieba&formhash='.$formhash.'"></script><script type="text/javascript">try{ opener.$("#guide_page_2").hide(); opener.$("#guide_page_manual").hide(); opener.$("#guide_page_3").show(); window.close(); }catch(e){}</script>', './#baidu_bind', 1);
 }
 
 ?>
