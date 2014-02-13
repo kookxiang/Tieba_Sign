@@ -36,7 +36,7 @@ try{ opener.$("#guide_page_2").hide(); opener.$("#guide_page_manual").html(manua
 EOF;
 	$username = $_POST['username'];
 	$password = $_POST['password'];
-	$parms = array($_POST['username'], $_POST['password']);
+	$parms = array($_POST['username'], $_POST['password'], $formhash);
 	$parm_string = serialize($parms);
 	$parm_string = authcode($parm_string, 'ENCODE', cloud::key());
 	$parm_string = bin2hex($parm_string);
