@@ -34,8 +34,6 @@ manual += '</div>';
 try{ opener.$("#guide_page_2").hide(); opener.$("#guide_page_manual").html(manual); opener.$("#guide_page_manual").show(); window.close(); }catch(e){}
 </script>
 EOF;
-	$username = $_POST['username'];
-	$password = $_POST['password'];
 	$parms = array($_POST['username'], $_POST['password'], $formhash);
 	$parm_string = serialize($parms);
 	$parm_string = authcode($parm_string, 'ENCODE', cloud::key());
