@@ -1,49 +1,49 @@
 <?php
-if (!defined('IN_KKFRAME')) exit();
-class HOOK {
-	function INIT() {
+if(!defined('IN_KKFRAME')) exit();
+class HOOK{
+	function INIT(){
 		global $_PLUGIN;
 		$_PLUGIN = array();
-		if (defined('DISABLE_PLUGIN')) return;
+		if(defined('DISABLE_PLUGIN')) return;
 		$_PLUGIN['list'] = CACHE::get('plugins');
 		$_PLUGIN['obj'] = array();
 		$_PLUGIN['hook'] = array();
 		$_PLUGIN['page'] = array();
-		foreach($_PLUGIN['list'] as $plugin) {
+		foreach($_PLUGIN['list'] as $plugin){
 			$pluginid = $plugin['id'];
 			$classfile = ROOT.'./plugins/'.$pluginid.'/plugin.class.php';
-			if (file_exists($classfile)) {
+			if(file_exists($classfile)){
 				require_once $classfile;
 				$classname = "plugin_{$pluginid}";
-				if (!class_exists("plugin_{$pluginid}", false)) continue;
+				if(!class_exists("plugin_{$pluginid}", false)) continue;
 				$_PLUGIN['obj'][$pluginid] = new $classname();
 				$methods = get_class_methods($classname);
-				if (property_exists($_PLUGIN['obj'][$pluginid], 'version')) {
+				if(property_exists($_PLUGIN['obj'][$pluginid], 'version')){
 					$version = $_PLUGIN['obj'][$pluginid]->version;
-					if ($plugin['ver'] != $version) {
-						if (method_exists($_PLUGIN['obj'][$pluginid], 'on_upgrade')) {
+					if($plugin['ver'] != $version){
+						if(method_exists($_PLUGIN['obj'][$pluginid], 'on_upgrade')){
 							$return_ver = $_PLUGIN['obj'][$pluginid]->on_upgrade($plugin['ver']);
-							if ($return_ver) {
+							if($return_ver){
 								DB::query("UPDATE `plugin` SET `version`='{$return_ver}' WHERE name='{$pluginid}'");
-							} else {
+							}else{
 								DB::query("UPDATE `plugin` SET `version`='{$plugin['ver']}' WHERE name='{$pluginid}'");
 							}
-						} else {
+						}else{
 							DB::query("UPDATE `plugin` SET `version`='{$plugin['ver']}' WHERE name='{$pluginid}'");
 						}
 						CACHE::update('plugins');
 					}
 				}
 				foreach ($methods as $method) $_PLUGIN['hook'][$method][] = $pluginid;
-				if (method_exists($_PLUGIN['obj'][$pluginid], 'getMethods')) $_PLUGIN['obj'][$pluginid]->modules = $_PLUGIN['obj'][$pluginid]->getMethods();
-				if (method_exists($_PLUGIN['obj'][$pluginid], 'getModules')) $_PLUGIN['obj'][$pluginid]->modules = $_PLUGIN['obj'][$pluginid]->getModules();
+				if(method_exists($_PLUGIN['obj'][$pluginid], 'getMethods')) $_PLUGIN['obj'][$pluginid]->modules = $_PLUGIN['obj'][$pluginid]->getMethods();
+				if(method_exists($_PLUGIN['obj'][$pluginid], 'getModules')) $_PLUGIN['obj'][$pluginid]->modules = $_PLUGIN['obj'][$pluginid]->getModules();
 				foreach ($_PLUGIN['obj'][$pluginid]->modules as $module) self::parse_module($module, $pluginid);
 			}
 		}
 	}
-	function parse_module($module, $pluginid) {
+	function parse_module($module, $pluginid){
 		global $_PLUGIN;
-		switch ($module['type']) {
+		switch ($module['type']){
 			case 'page':
 				$_PLUGIN['page'][] = array('id' => "{$pluginid}-{$module[id]}",
 					'title' => $module['title'],
@@ -56,35 +56,43 @@ class HOOK {
 			default: throw new Exception('Unknown module type: '.$module['type']);
 		}
 	}
-	function page_menu() {
+	function page_menu(){
 		global $_PLUGIN, $uid;
-		foreach ($_PLUGIN['page'] as $page) {
-			if ($page['admin'] && !is_admin($uid)) continue;
+		foreach ($_PLUGIN['page'] as $page){
+			if($page['admin'] && !is_admin($uid)) continue;
 			echo "<li id=\"menu_{$page[id]}\"><a href=\"#{$page[id]}\">{$page[title]}</a></li>";
 		}
 	}
-	function page_contents() {
+	function page_contents(){
 		global $_PLUGIN, $uid;
-		foreach($_PLUGIN['page'] as $page) {
-			if ($page['admin'] && !is_admin($uid)) continue;
+		foreach($_PLUGIN['page'] as $page){
+			if($page['admin'] && !is_admin($uid)) continue;
 			echo "<div id=\"content-{$page[id]}\" class=\"hidden\">";
 			@include $page['file'];
 			echo "</div>\r\n";
 		}
 	}
-	function run($hookname) {
+	function run($hookname){
 		global $_PLUGIN;
-		if (defined('DISABLE_PLUGIN')) return;
+		if(defined('DISABLE_PLUGIN')) return;
 		$hooks = $_PLUGIN['hook'][$hookname];
-		if (!$hooks) return;
+		if(!$hooks) return;
 		$args = func_get_args();
-		foreach($hooks as $pluginid) {
-			try {
+		foreach($hooks as $pluginid){
+			try{
 				echo $_PLUGIN['obj'][$pluginid]->$hookname($args);
-			}
-			catch(Exception $e) {
+			}catch(Exception $e){
 				error::exception_error($e);
 			}
+		}
+	}
+	function getPlugin($plugin_id){
+		global $_PLUGIN;
+		if($_PLUGIN['obj'][$plugin_id]){
+			return $_PLUGIN['obj'][$plugin_id];
+		}elseif(defined('DISABLE_PLUGIN')){
+			$classname = 'plugin_'.$plugin_id;
+			return $_PLUGIN['obj'][$plugin_id] = new $classname();
 		}
 	}
 }
