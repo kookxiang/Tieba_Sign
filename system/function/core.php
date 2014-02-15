@@ -385,6 +385,9 @@ function saveVersion($version){
 	$_config['version'] = $version;
 	save_config_file();
 }
+function mklink($sourceFile, $targetFile){
+	return @file_put_contents($targetFile, '<?php @include '.var_export($sourceFile, true).'; ?>');
+}
 // Function link
 function get_tbs($uid){
 	require_once SYSTEM_ROOT.'./function/sign.php';
