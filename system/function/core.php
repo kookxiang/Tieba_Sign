@@ -425,6 +425,10 @@ function do_login($uid){
 	require_once SYSTEM_ROOT.'./function/member.php';
 	_do_login($uid);
 }
+function do_register($username,$password,$email){
+	require_once SYSTEM_ROOT.'./function/member.php';
+	return _do_register($username,$password,$email);
+}
 function delete_user($uid){
 	require_once SYSTEM_ROOT.'./function/member.php';
 	_delete_user($uid);
