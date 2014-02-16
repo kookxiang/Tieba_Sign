@@ -23,7 +23,7 @@ function _do_login($uid){
 function _do_register($username,$password,$email){
 	$uid = DB::insert('member', array(
 				'username' => $username,
-				'password' => $password,
+				'password' => md5(ENCRYPT_KEY.md5($password).ENCRYPT_KEY),
 				'email' => $email,
 			));
 	DB::insert('member_setting', array('uid' => $uid, 'cookie' => ''));
