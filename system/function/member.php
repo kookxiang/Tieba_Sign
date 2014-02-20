@@ -19,3 +19,15 @@ function _do_login($uid){
 	$login_exp = TIMESTAMP + 900;
 	dsetcookie('token', authcode("{$cookiever}\t{$uid}\t{$user[username]}\t{$login_exp}\t{$password_hash}", 'ENCODE'));
 }
+
+function _do_register($username,$password,$email){
+	$uid = DB::insert('member', array(
+				'username' => $username,
+				'password' => md5(ENCRYPT_KEY.md5($password).ENCRYPT_KEY),
+				'email' => $email,
+			));
+	DB::insert('member_setting', array('uid' => $uid, 'cookie' => ''));
+	CACHE::update('username');
+	CACHE::save('user_setting_'.$uid, '');
+	return $uid;
+}
