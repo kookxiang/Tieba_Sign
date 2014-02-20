@@ -48,7 +48,7 @@ EOF;
 	if(!$cookie) showmessage('非法调用！', './#baidu_bind', 1);
 	if(!verify_cookie($cookie)) showmessage('无法登陆百度贴吧，请尝试重新绑定', './#baidu_bind', 1);
 	save_cookie($uid, $cookie);
-	showmessage('绑定百度账号成功！<script type="text/javascript" src="?action=refresh_liked_tieba&formhash='.$formhash.'"></script><script type="text/javascript">try{ opener.$("#guide_page_2").hide(); opener.$("#guide_page_manual").hide(); opener.$("#guide_page_3").show(); window.close(); }catch(e){}</script>', './#baidu_bind', 1);
+	showmessage('绑定百度账号成功！<br>正在同步喜欢的贴吧...<script type="text/javascript" src="index.php?action=refresh_liked_tieba&formhash='.$formhash.'"></script><script type="text/javascript">try{ opener.$("#guide_page_2").hide(); opener.$("#guide_page_manual").hide(); opener.$("#guide_page_3").show(); window.close(); }catch(e){}</script>', './#baidu_bind', 1);
 }
 
 ?>
