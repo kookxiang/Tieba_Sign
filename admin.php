@@ -141,6 +141,7 @@ switch($_GET['action']){
 		break;
 	case 'install_plugin':
 		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#plugin');
+		require_once SYSTEM_ROOT.'./class/plugin.php';
 		$plugin_id = $_GET['pluginid'];
 		if(preg_match('/[^A-Za-z0-9_-.]/', $plugin_id)) showmessage('插件ID不合法，请与插件作者联系', 'admin.php#plugin');
 		$classfile = ROOT.'./plugins/'.$plugin_id.'/plugin.class.php';
@@ -149,11 +150,22 @@ switch($_GET['action']){
 		$classname = "plugin_{$plugin_id}";
 		if(!class_exists("plugin_{$plugin_id}", false)) showmessage('插件类不合规范，请与插件作者联系', 'admin.php#plugin');
 		$obj = new $classname();
+		if ($obj instanceof Plugin){
+			$obj->checkCompatibility();
+			$compatibilityMode = false;
+		}else{
+			// 弹出旧版插件提示
+			$compatibilityMode = true;
+		}
 		$version = 0;
 		if(property_exists($obj, 'version')) $version = $obj->version;
 		DB::insert('plugin', array('name' => $plugin_id, 'version' => $version, 'enable' => 0));
 		CACHE::update('plugins');
-		if(method_exists($obj, 'on_install')) $obj->on_install();
+		if($compatibilityMode){
+			if(method_exists($obj, 'on_install')) $obj->on_install();
+		}else{
+			$obj->install();
+		}
 		showmessage('安装插件成功！', 'admin.php#plugin#');
 	case 'uninstall_plugin':
 		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#plugin');

@@ -4,6 +4,7 @@ class Plugin {
 	var $name;
 	var $description;
 	var $modules = array();
+	var $permission = array();
 	var $version = '0';
 	function getSetting($key, $default_value = false){
 		$vars = CACHE::get('plugin');
@@ -19,6 +20,15 @@ class Plugin {
 		DB::query("REPLACE INTO plugin_var SET `key` = '".addslashes($key)."', `value` = '".addslashes($value)."', pluginid='".addslashes($pluginid)."'");
 		CACHE::clean('plugin');
 	}
+	function checkCompatibility(){
+		return true;
+	}
+	function install(){
+		// install script
+	}
+	function uninstall(){
+		// uninstall script
+	}‎
 	private function getPluginId(){
 		return str_replace('plugin_', '', get_class($this));
 	}
