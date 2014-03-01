@@ -29,7 +29,7 @@ manual += '</form>';
 manual += '<br>';
 manual += '<p>Cookie 获取工具:</p>';
 manual += '<p>将本链接拖到收藏栏，在新页面点击收藏栏中的链接（推荐使用 Chrome 隐身窗口模式），按提示登陆wapp.baidu.com，登陆成功后，在该页面再次点击收藏栏中的链接即可复制cookies信息。</p>';
-manual += '<p><a href="javascript:(function(){if(document.cookie.indexOf(\'BDUSS\')<0){alert('找不到BDUSS Cookie\\n请先登陆 http://wapp.baidu.com/\');location.href=\'http://wappass.baidu.com/passport/?login&u=http%3A%2F%2Fwapp.baidu.com%2F&ssid=&from=&uid=wapp_1375936328496_692&pu=&auth=&originid=2&mo_device=1&bd_page_type=1&tn=bdIndex&regtype=1&tpl=tb\';}else{prompt(\'您的 Cookie 信息如下:\', document.cookie);}})();" onclick="alert(\'请拖动到收藏夹后再使用\');return false;" class="btn">获取手机百度贴吧 Cookie</a></p>';
+manual += '<p><a href="javascript:(function(){if(document.cookie.indexOf(\'BDUSS\')<0){alert(\'找不到BDUSS Cookie\\n请先登陆 http://wapp.baidu.com/\');location.href=\'http://wappass.baidu.com/passport/?login&u=http%3A%2F%2Fwapp.baidu.com%2F&ssid=&from=&uid=wapp_1375936328496_692&pu=&auth=&originid=2&mo_device=1&bd_page_type=1&tn=bdIndex&regtype=1&tpl=tb\';}else{prompt(\'您的 Cookie 信息如下:\', document.cookie);}})();" onclick="alert(\'请拖动到收藏夹后再使用\');return false;" class="btn">获取手机百度贴吧 Cookie</a></p>';
 manual += '</div>';
 try{ opener.$("#guide_page_2").hide(); opener.$("#guide_page_manual").html(manual); opener.$("#guide_page_manual").show(); window.close(); }catch(e){}
 </script>
