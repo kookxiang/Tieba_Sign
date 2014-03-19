@@ -9,5 +9,5 @@ $delete_date = date('Ymd', TIMESTAMP - 86400*30);
 DB::query("DELETE FROM sign_log WHERE date<'{$delete_date}'");
 saveSetting('extsign_uid', 0);
 saveSetting('autoupdate_uid', 0);
-
-define('CRON_FINISHED', true);
+DB::query("UPDATE cron SET enabled='0' WHERE id='daily'");
+cloud::check_remote_disabled();
