@@ -150,7 +150,6 @@ if(getSetting('account_switch')){
 <script src="system/js/fwin.js?version=<?php echo VERSION; ?>"></script>
 <?php
 HOOK::run('page_footer_js');
-if(getSetting('stat_code')) echo '<div class="hidden">'.getSetting('stat_code').'</div>';
 if(defined('CLOUD_NOT_INITED')) echo '<div class="hidden"><img src="api.php?action=register_cloud" /></div>';
 ?>
 </body>

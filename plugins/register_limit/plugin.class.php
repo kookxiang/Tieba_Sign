@@ -3,10 +3,10 @@ if(!defined('IN_KKFRAME')) exit('Access Denied!');
 class plugin_register_limit extends Plugin {
 	var $description = '限制单个 IP 的注册上限';
 	var $modules = array();
-	function on_install(){
+	function install(){
 		DB::query('CREATE TABLE IF NOT EXISTS `kk_ip_limit` ( `a` tinyint(3) unsigned NOT NULL, `b` tinyint(3) unsigned NOT NULL, `c` tinyint(3) unsigned NOT NULL, `d` tinyint(3) unsigned NOT NULL, `count` tinyint(3) unsigned NOT NULL, `lastact` int(10) unsigned NOT NULL, UNIQUE KEY `ip` (`a`,`b`,`c`,`d`)) ENGINE=MEMORY DEFAULT CHARSET=utf8 COLLATE=utf8_bin;');
 	}
-	function on_uninstall(){
+	function uninstall(){
 		DB::query('DROP TABLE kk_ip_limit');
 	}
 	function on_load(){

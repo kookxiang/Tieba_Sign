@@ -68,7 +68,6 @@ switch($_GET['action']){
 		saveSetting('block_register', ($_POST['block_register'] ? 1 : 0));
 		saveSetting('invite_code', stripslashes(daddslashes($_POST['invite_code'])));
 		saveSetting('beian_no', stripslashes(daddslashes(htmlspecialchars($_POST['beian_no']))));
-		saveSetting('stat_code', stripslashes(daddslashes($_POST['stat_code'])));
 		saveSetting('jquery_mode', intval($_POST['jquery_mode']));
 		saveSetting('max_tieba', intval($_POST['max_tieba']));
 		showmessage('设置已经保存☆Kira~', 'admin.php#setting', 2);
@@ -295,6 +294,10 @@ switch($_GET['action']){
 		}
 		saveSetting('mail_queue', 1);
 		showmessage('已经添加至邮件队列，稍后将由系统自动发送', 'admin.php#mail');
+		break;
+	case 'cloud_sync':
+		$ret = cloud::sync();
+		showmessage($ret ? '站点信息同步成功！' : '同步信息失败，请稍后再试', 'admin.php#setting');
 		break;
 	case 'load_plugin':
 		exit(json_encode(getPlugins()));

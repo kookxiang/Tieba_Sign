@@ -26,6 +26,11 @@ class cloud {
 			DB::query('DELETE FROM sign_log');
 		}
 	}
+	public static function sync(){
+		global $siteurl;
+		$ret = self::request_silent('sync', $siteurl);
+		return is_array($ret) && $ret['status']=='ok';
+	}
 	public static function request($api_name){
 		if (!$api_name) throw new Exception('Request remote api failed: empty request!');
 		$parms = func_get_args();

@@ -28,7 +28,7 @@ class Plugin {
 	}
 	function uninstall(){
 		// uninstall script
-	}‎
+	}
 	private function getPluginId(){
 		return str_replace('plugin_', '', get_class($this));
 	}

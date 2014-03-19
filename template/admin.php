@@ -51,6 +51,15 @@ if(!defined('IN_ADMINCP')) exit();
 </div>
 <div id="content-setting" class="hidden">
 <h2>系统设置</h2>
+<p>云平台管理:</p>
+<?php if ($sid = cloud::id()) { ?>
+<p>站点ID: <?php echo $sid; ?></p>
+<p>当前域名：<?php echo $siteurl; ?></p>
+<p><a href="admin.php?action=cloud_sync&formhash=<?php echo $formhash; ?>" class="btn red" onclick="return msg_win_action(this.href)">同步站点信息</a></p>
+<?php } else { ?>
+<p>没有在云平台注册，请尝试刷新本页面</p>
+<?php } ?>
+<br>
 <form method="post" action="admin.php?action=save_setting" id="setting_form" onsubmit="return post_win(this.action, this.id)">
 <p>功能增强:</p>
 <input type="hidden" name="formhash" value="<?php echo $formhash; ?>">
@@ -80,8 +89,6 @@ if(!defined('IN_ADMINCP')) exit();
 <p><label><input type="radio" id="jquery_4" name="jquery_mode" value="4" /> 使用程序自带的 jQuery 类库 (推荐)</label></p>
 <p>网站备案编号:</p>
 <p><input type="text" id="beian_no" name="beian_no" placeholder="未备案的不需要填写" /></p>
-<p>自定义统计代码:</p>
-<p><textarea name="stat_code" id="stat_code" rows="3" style="width: 300px; max-width: 100%;"></textarea></p>
 <p><input type="submit" value="保存设置" /></p>
 </form>
 <br>
@@ -156,6 +163,9 @@ foreach($classes as $id=>$obj){
 <script src="system/js/kk_dropdown.js?version=<?php echo VERSION; ?>"></script>
 <script src="system/js/admin.js?version=<?php echo VERSION; ?>"></script>
 <script src="system/js/fwin.js?version=<?php echo VERSION; ?>"></script>
+<?php
+if(defined('CLOUD_NOT_INITED')) echo '<div class="hidden"><img src="api.php?action=register_cloud" /></div>';
+?>
 </body>
 </html>
 <?php $template_loaded = true; ?>
