@@ -203,24 +203,6 @@ function get_setting($uid){
 	}
 	return $user_setting[$uid] = $cached_result;
 }
-function send_mail($address, $subject, $message, $delay = true){
-	if($delay){
-		DB::insert('mail_queue', array(
-			'to' => $address,
-			'subject' => $subject,
-			'content' => $message,
-			));
-		saveSetting('mail_queue', 1);
-		return true;
-	}else{
-		$mail = new mail_content();
-		$mail->address = $address;
-		$mail->subject = $subject;
-		$mail->message = $message;
-		$sender = new mail_sender();
-		return $sender->sendMail($mail);
-	}
-}
 function getSetting($k, $force = false){
 	if($force) return $setting[$k] = DB::result_first("SELECT v FROM setting WHERE k='{$k}'");
 	$cache = CACHE::get('setting');
@@ -433,3 +415,5 @@ function delete_user($uid){
 	require_once SYSTEM_ROOT.'./function/member.php';
 	_delete_user($uid);
 }
+
+define('CORE_FUNCTION', true);

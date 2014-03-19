@@ -90,8 +90,13 @@ if($_GET['action'] == 'logout' && $_GET['hash']==$formhash){
 <br>
 <p>如果您没有要求重置密码却收到本邮件，请及时删除此邮件以确保账户安全。</p>
 EOF;
-		$res = send_mail($user['email'], "贴吧签到助手 - 密码找回", $message);
-		showmessage($res ? '邮件发送成功，请到邮箱查收' : '邮件发送失败，请检查config中的设置', './');
+		DB::insert('mail_queue', array(
+			'to' => $user['email'],
+			'subject' => "贴吧签到助手 - 密码找回",
+			'content' => $message,
+			));
+		saveSetting('mail_queue', 1);
+		showmessage('邮件发送成功，请到邮箱查收', './');
 	}
 	header('Location: member.php');
 	exit();

@@ -1,11 +1,12 @@
 <?php
 if (!defined('IN_KKFRAME')) exit();
 class core {
-	function core() {
+	function init() {
 		global $_config, $template_loaded;
 		require_once SYSTEM_ROOT.'./config.inc.php';
 		DEBUG::INIT();
 		require_once SYSTEM_ROOT.'./function/core.php';
+		if(!defined('CORE_FUNCTION')) exit();
 		CACHE::load(array('plugins', 'setting'));
 		$this->init_header();
 		$this->init_useragent();
@@ -103,12 +104,17 @@ class core {
 		saveSetting('next_cron', $r ? $r['nextrun'] : TIMESTAMP + 1200);
 	}
 	function init_mail() {
-		$q = getSetting('mail_queue');
-		if (!$q) return;
-		$m = DB::fetch_first("SELECT * FROM mail_queue LIMIT 0,1");
-		if ($m) {
+		$queue = getSetting('mail_queue');
+		if (!$queue) return;
+		$mail = DB::fetch_first("SELECT * FROM mail_queue LIMIT 0,1");
+		if ($mail) {
 			DB::query("DELETE FROM mail_queue WHERE id='{$m[id]}'");
-			send_mail($m['to'], $m['subject'], $m['content'], false);
+			$mail = new mail_content();
+			$mail->address = $mail['to'];
+			$mail->subject = $mail['subject'];
+			$mail->message = $mail['content'];
+			$sender = new mail_sender();
+			$sender->sendMail($mail);
 		} else {
 			saveSetting('mail_queue', 0);
 		}

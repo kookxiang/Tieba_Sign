@@ -263,10 +263,20 @@ switch($_GET['action']){
 		$to = DB::result_first("SELECT email FROM member WHERE uid='{$uid}'");
 		$subject = '[贴吧签到助手] 邮件单发测试';
 		$content = "<p>此封邮件仅用于检测邮件系统是否正常工作。</p><p>此封邮件是由邮件系统直接发送的</p>";
-		$result = send_mail($to, $subject, $content, false);
+		$mail = new mail_content();
+		$mail->address = $to;
+		$mail->subject = $subject;
+		$mail->message = $content;
+		$sender = new mail_sender();
+		$sender->sendMail($mail);
 		$subject = '[贴吧签到助手] 邮件群发测试';
 		$content = "<p>此封邮件仅用于检测邮件队列是否正常工作。</p><p>此封邮件是从系统邮件队列中读取并发送的</p>";
-		send_mail($to, $subject, $content);
+		DB::insert('mail_queue', array(
+			'to' => $to,
+			'subject' => $subject,
+			'content' => $content,
+			));
+		saveSetting('mail_queue', 1);
 		showmessage(($result ? '2 封邮件已经发送，请查收' : '邮件发送失败'), 'admin.php#setting' ,2);
 		break;
 	case 'send_mail':
@@ -277,8 +287,13 @@ switch($_GET['action']){
 		$content .= "<p style=\"padding: 1.5em 1em 0; color: #999; font-size: 12px;\">—— 本邮件由 贴吧签到助手 (<a href=\"{$siteurl}\">{$siteurl}</a>) 管理员发送</p>";
 		$query = DB::query("SELECT email FROM member");
 		while($result = DB::fetch($query)){
-			send_mail($result['email'], $title, $content);
+			DB::insert('mail_queue', array(
+				'to' => $result['email'],
+				'subject' => $title,
+				'content' => $content,
+				));
 		}
+		saveSetting('mail_queue', 1);
 		showmessage('已经添加至邮件队列，稍后将由系统自动发送', 'admin.php#mail');
 		break;
 	case 'load_plugin':

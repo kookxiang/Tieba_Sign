@@ -8,6 +8,7 @@ while($_uid){
 	$_uid = DB::result_first("SELECT uid FROM member WHERE uid>'{$_uid}' ORDER BY uid ASC LIMIT 0,1");
 	saveSetting('mail_uid', $_uid);
 }
+saveSetting('mail_queue', 1);
 define('CRON_FINISHED', true);
 
 function check_if_msg($user){
@@ -55,7 +56,11 @@ EOF;
 		$log[] = $result;
 	}
 	$message .= '</tbody></table></div></body></html>';
-	$res = send_mail($user['email'], "[{$mdate}] 贴吧签到助手 - {$user[username]} - 签到报告", $message);
+	DB::insert('mail_queue', array(
+		'to' => $user['email'],
+		'subject' => "[{$mdate}] 贴吧签到助手 - {$user[username]} - 签到报告",
+		'content' => $message,
+		));
 }
 function _status($status){
 	switch($status){
