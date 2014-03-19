@@ -57,6 +57,7 @@ button, input[type=submit] { height: 30px; line-height: 30px; vertical-align: bo
 .btn img, button img { display: inline-block; margin: 4px 0 0; opacity: .55; vertical-align: middle; }
 .btn:hover img, button:hover img { opacity: .72; }
 .btn:active img, button:active img { opacity: 1; }
+a.btn { height: 28px; }
 
 .float-left { float: left; }
 .float-right { float: right; }
