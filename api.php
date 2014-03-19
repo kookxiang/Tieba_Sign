@@ -42,9 +42,10 @@ EOF;
 }elseif($_GET['action'] == 'register_cloud'){
 	cloud::do_register();
 }elseif($_GET['action'] == 'receive_cookie'){
-	if(!$_GET['cookie']) throw new Exception('Empty response!');
+	$cookie = $_POST['cookie'] ? $_POST['cookie'] : $_GET['cookie'];
+	if(!$cookie) throw new Exception('Empty response!');
 	if($_GET['formhash'] != $formhash) throw new Exception('Illegal request!');
-	$cookie = authcode(pack('H*', $_GET['cookie']), 'DECODE', cloud::key());
+	$cookie = authcode(pack('H*', $cookie), 'DECODE', cloud::key());
 	if(!$cookie) showmessage('非法调用！', './#baidu_bind', 1);
 	if(!verify_cookie($cookie)) showmessage('无法登陆百度贴吧，请尝试重新绑定', './#baidu_bind', 1);
 	save_cookie($uid, $cookie);
