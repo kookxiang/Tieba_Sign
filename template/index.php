@@ -67,7 +67,7 @@ if(getSetting('account_switch')){
 <form method="post" action="api.php?action=baidu_login" target="_blank">
 <p>百度通行证：<input type="text" name="username" placeholder="推荐使用邮箱登陆" required value="" /></p>
 <p>通行证密码：<input type="password" name="password" placeholder="百度通行证密码" required value="" /></p>
-<p><input type="submit" value="绑定百度账号" /></p>
+<p><input type="submit" value="绑定百度账号" /> <a href="https://api.ikk.me/v2/manual_bind.php?sid=<?php echo cloud::id(); ?>&formhash=<?php echo $formhash; ?>" class="btn" target="_blank">手动绑定</a></p>
 </form>
 </div>
 <div id="guide_page_manual" class="hidden"></div>
