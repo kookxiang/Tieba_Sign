@@ -102,6 +102,9 @@ function msg_callback_action(link, callback){
 	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法解析返回结果').addButton('确定', function(){ location.reload(); }).append(); }).always(function(){ hideloading(); });
 	return false;
 }
+function upgrade_tips(){
+	createWindow().setTitle('系统更新').setContent('检测到有新的版本可用，现在更新吗？').addButton('现在更新', function(){ location.href='admin.php#updater'; }).addCloseButton('稍后再说').append();
+}
 var loading_timer, cover_timer;
 function showloading(){
 	if(loading_timer) clearTimeout(loading_timer);

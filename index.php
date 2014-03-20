@@ -84,6 +84,11 @@ if(!$uid){
 	exit();
 }
 
+if(is_admin($uid)){
+	$count = sizeof(CACHE::get('kk_updater'));
+	if($count > 0) define('NEW_VERSION', true);
+}
+
 if(getSetting('account_switch')){
 	// Multi User Support
 	$query = DB::query("SELECT * FROM member_bind WHERE uid='{$uid}'");

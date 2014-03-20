@@ -108,13 +108,13 @@ class core {
 		if (!$queue) return;
 		$mail = DB::fetch_first("SELECT * FROM mail_queue LIMIT 0,1");
 		if ($mail) {
-			DB::query("DELETE FROM mail_queue WHERE id='{$m[id]}'");
-			$mail = new mail_content();
-			$mail->address = $mail['to'];
-			$mail->subject = $mail['subject'];
-			$mail->message = $mail['content'];
+			DB::query("DELETE FROM mail_queue WHERE id='{$mail[id]}'");
+			$_mail = new mail_content();
+			$_mail->address = $mail['to'];
+			$_mail->subject = $mail['subject'];
+			$_mail->message = $mail['content'];
 			$sender = new mail_sender();
-			$sender->sendMail($mail);
+			$sender->sendMail($_mail);
 		} else {
 			saveSetting('mail_queue', 0);
 		}

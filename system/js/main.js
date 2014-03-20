@@ -61,12 +61,14 @@ $(document).ready(function() {
 	parse_hash();
 	// Load JS
 	load_js();
+	if(new_version) upgrade_tips();
 });
 
 var guide_viewed = false;
 var stat = [];
 if (typeof defered_js == 'undefined') var defered_js = new Array;
 stat[0] = stat[1] = stat[2] = stat[3] = stat[4] = 0;
+var new_version = false;
 function load_liked_tieba(){
 	showloading();
 	$.getJSON("ajax.php?v=liked_tieba", function(result){
