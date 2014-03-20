@@ -104,6 +104,7 @@ class core {
 		saveSetting('next_cron', $r ? $r['nextrun'] : TIMESTAMP + 1200);
 	}
 	function init_mail() {
+		if (defined('DISABLE_CRON')) return;
 		$queue = getSetting('mail_queue');
 		if (!$queue) return;
 		$mail = DB::fetch_first("SELECT * FROM mail_queue LIMIT 0,1");
