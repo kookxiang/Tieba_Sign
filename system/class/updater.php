@@ -22,6 +22,7 @@ class Updater{
 	}
 	public static function check(){
 		$data = fetch_url(self::UPDATE_SERVER.'filelist.php?d='.self::UPDATE_ID);
+		CACHE::clean('kk_updater');
 		if (!$data) return -1;
 		$content = pack('H*', $data);
 		$file_list = unserialize($content);
