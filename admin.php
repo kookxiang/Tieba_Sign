@@ -276,7 +276,7 @@ switch($_GET['action']){
 			'content' => $content,
 			));
 		saveSetting('mail_queue', 1);
-		showmessage(($result ? '2 封邮件已经发送，请查收' : '邮件发送失败'), 'admin.php#setting' ,2);
+		showmessage('2 封邮件已经发送，请查收', 'admin.php#setting', 2);
 		break;
 	case 'send_mail':
 		if($formhash != $_POST['formhash']) showmessage('来源不可信，请重试', 'admin.php#mail');
