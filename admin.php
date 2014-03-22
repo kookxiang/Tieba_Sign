@@ -173,6 +173,7 @@ switch($_GET['action']){
 		$plugin_id = $_GET['pluginid'];
 		if(preg_match('/[^A-Za-z0-9_-.]/', $plugin_id)) showmessage('插件ID不合法，请与插件作者联系', 'admin.php#plugin');
 		DB::query("DELETE FROM `plugin` WHERE name='{$plugin_id}'");
+		DB::query("DELETE FROM plugin_var WHERE pluginid='".addslashes($plugin_id)."'");
 		$classfile = ROOT.'./plugins/'.$plugin_id.'/plugin.class.php';
 		if(file_exists($classfile)){
 			require_once $classfile;
@@ -198,7 +199,7 @@ switch($_GET['action']){
 				}
 			}
 		}
-		DB::query("DELETE FROM plugin_var WHERE pluginid='".addslashes($plugin_id)."'");
+		CACHE::update('plugin');
 		CACHE::update('plugins');
 		showmessage('卸载插件成功！', 'admin.php#plugin#');
 	case 'enable_plugin':
