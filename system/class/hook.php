@@ -20,7 +20,7 @@ class HOOK{
 				$methods = get_class_methods($classname);
 				if(property_exists($_PLUGIN['obj'][$pluginid], 'version')){
 					$version = $_PLUGIN['obj'][$pluginid]->version;
-					if($plugin['ver'] != $version){
+					if($version && $plugin['ver'] != $version){
 						if(method_exists($_PLUGIN['obj'][$pluginid], 'on_upgrade')){
 							$return_ver = $_PLUGIN['obj'][$pluginid]->on_upgrade($plugin['ver']);
 							if($return_ver){

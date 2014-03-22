@@ -2,16 +2,6 @@
 if (!defined('IN_KKFRAME')) exit();
 $_CACHE = array();
 class CACHE {
-	public static function load($keys) {
-		global $_CACHE;
-		if (!is_array($keys)) $keys = array($keys);
-		$k_list = implode("', '", $keys);
-		$query = DB::query("SELECT * FROM cache WHERE k IN ('{$k_list}')", 'SILENT');
-		while ($row = DB::fetch($query)) {
-			$arr = @unserialize($row['v']);
-			$_CACHE[ $row['k'] ] = $arr ? $arr : $row['v'];
-		}
-	}
 	public static function get($key) {
 		global $_CACHE;
 		if (isset($_CACHE[$key])) return $_CACHE[$key];

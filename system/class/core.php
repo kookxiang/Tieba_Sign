@@ -7,7 +7,6 @@ class core {
 		DEBUG::INIT();
 		require_once SYSTEM_ROOT.'./function/core.php';
 		if(!defined('CORE_FUNCTION')) exit();
-		CACHE::load(array('plugins', 'setting'));
 		$this->init_header();
 		$this->init_useragent();
 		Updater::init();
