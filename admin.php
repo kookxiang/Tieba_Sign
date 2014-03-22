@@ -177,6 +177,11 @@ switch($_GET['action']){
 			$classname = "plugin_{$plugin_id}";
 			if(class_exists("plugin_{$plugin_id}", false)){
 				$obj = new $classname();
+				if ($obj instanceof Plugin){
+					$compatibilityMode = false;
+				}else{
+					$compatibilityMode = true;
+				}
 				if(property_exists($obj, 'modules')){
 					foreach($obj->modules as $module){
 						if($module['type'] == 'cron'){
@@ -184,7 +189,11 @@ switch($_GET['action']){
 						}
 					}
 				}
-				if(method_exists($obj, 'on_uninstall')) $obj->on_uninstall();
+				if($compatibilityMode){
+					if(method_exists($obj, 'on_uninstall')) $obj->on_uninstall();
+				}else{
+					$obj->uninstall();
+				}
 			}
 		}
 		CACHE::update('plugins');
