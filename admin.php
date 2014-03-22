@@ -149,6 +149,8 @@ switch($_GET['action']){
 		$classname = "plugin_{$plugin_id}";
 		if(!class_exists("plugin_{$plugin_id}", false)) showmessage('插件类不合规范，请与插件作者联系', 'admin.php#plugin');
 		$obj = new $classname();
+		$method_blacklist = array('__construct', '__destruct', $classname);
+		foreach($method_blacklist as $method) if(method_exists($obj, $method)) showmessage('插件不符合性能要求规定，请与插件作者联系', 'admin.php#plugin');
 		if ($obj instanceof Plugin){
 			$obj->checkCompatibility();
 			$compatibilityMode = false;
@@ -196,6 +198,7 @@ switch($_GET['action']){
 				}
 			}
 		}
+		DB::query("DELETE FROM plugin_var WHERE pluginid='".addslashes($pluginid)."'");
 		CACHE::update('plugins');
 		showmessage('卸载插件成功！', 'admin.php#plugin#');
 	case 'enable_plugin':
@@ -205,6 +208,8 @@ switch($_GET['action']){
 		DB::query("UPDATE `plugin` SET `enable`=1 WHERE name='{$plugin_id}'");
 		$classname = "plugin_{$plugin_id}";
 		$obj = new $classname();
+		$method_blacklist = array('__construct', '__destruct', $classname);
+		foreach($method_blacklist as $method) if(method_exists($obj, $method)) showmessage('插件不符合性能要求规定，请与插件作者联系', 'admin.php#plugin');
 		if (property_exists($obj, 'modules')){
 			foreach($obj->modules as $module){
 				if($module['type'] == 'cron'){

@@ -17,6 +17,10 @@ class HOOK{
 				$classname = "plugin_{$pluginid}";
 				if(!class_exists("plugin_{$pluginid}", false)) continue;
 				$_PLUGIN['obj'][$pluginid] = new $classname();
+				if(method_exists($obj, '__construct') || method_exists($obj, '__destruct') || method_exists($obj, $classname)){
+					unset($_PLUGIN['obj'][$pluginid]);
+					continue;
+				}
 				$methods = get_class_methods($classname);
 				if(property_exists($_PLUGIN['obj'][$pluginid], 'version')){
 					$version = $_PLUGIN['obj'][$pluginid]->version;
