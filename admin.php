@@ -198,7 +198,7 @@ switch($_GET['action']){
 				}
 			}
 		}
-		DB::query("DELETE FROM plugin_var WHERE pluginid='".addslashes($pluginid)."'");
+		DB::query("DELETE FROM plugin_var WHERE pluginid='".addslashes($plugin_id)."'");
 		CACHE::update('plugins');
 		showmessage('卸载插件成功！', 'admin.php#plugin#');
 	case 'enable_plugin':
