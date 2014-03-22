@@ -26,10 +26,10 @@ class HOOK{
 							if($return_ver){
 								DB::query("UPDATE `plugin` SET `version`='{$return_ver}' WHERE name='{$pluginid}'");
 							}else{
-								DB::query("UPDATE `plugin` SET `version`='{$plugin['ver']}' WHERE name='{$pluginid}'");
+								DB::query("UPDATE `plugin` SET `version`='{$version}' WHERE name='{$pluginid}'");
 							}
 						}else{
-							DB::query("UPDATE `plugin` SET `version`='{$plugin['ver']}' WHERE name='{$pluginid}'");
+							DB::query("UPDATE `plugin` SET `version`='{$version}' WHERE name='{$pluginid}'");
 						}
 						CACHE::update('plugins');
 					}
