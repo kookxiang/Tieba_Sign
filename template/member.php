@@ -82,4 +82,3 @@ if($invite_code) echo '<p>邀请码：</p><p><input type="text" name="invite_cod
 </div>
 </body>
 </html>
-<?php $template_loaded = true; ?>

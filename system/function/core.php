@@ -415,5 +415,3 @@ function delete_user($uid){
 	require_once SYSTEM_ROOT.'./function/member.php';
 	_delete_user($uid);
 }
-
-define('CORE_FUNCTION', true);

@@ -155,4 +155,3 @@ if(defined('CLOUD_NOT_INITED')) echo '<div class="hidden"><img src="api.php?acti
 ?>
 </body>
 </html>
-<?php $template_loaded = true; ?>

@@ -2,11 +2,10 @@
 if (!defined('IN_KKFRAME')) exit();
 class core {
 	function init() {
-		global $_config, $template_loaded;
+		global $_config;
 		require_once SYSTEM_ROOT.'./config.inc.php';
 		DEBUG::INIT();
 		require_once SYSTEM_ROOT.'./function/core.php';
-		if(!defined('CORE_FUNCTION')) exit();
 		$this->init_header();
 		$this->init_useragent();
 		Updater::init();
@@ -14,13 +13,10 @@ class core {
 		$this->init_cookie();
 		cloud::init();
 		HOOK::INIT();
-		$template_loaded = true;
 		$this->init_final();
 	}
 	function __destruct() {
-		global $template_loaded;
 		if (!defined('SYSTEM_STARTED')) return;
-		if (!$template_loaded) error::system_error("Undefined error.");
 		HOOK::run('on_unload');
 		flush();
 		ob_end_flush();
