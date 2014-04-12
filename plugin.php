@@ -5,7 +5,6 @@ define('DISABLE_PLUGIN', true);
 require_once './system/common.inc.php';
 $plugin_id = htmlspecialchars($_GET['id']);
 $plugin_var = CACHE::get('plugin');
-$vars = $plugin_var[ $plugin_id ];
-if(!$vars) throw new Exception("Unknown plugin '{$plugin_id}'");
+if(!isset($plugin_var[ $plugin_id ])) throw new Exception("Unknown plugin '{$plugin_id}'");
 $obj = HOOK::getPlugin($plugin_id);
 $obj->handleAction();
