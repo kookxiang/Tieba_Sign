@@ -28,4 +28,12 @@ class plugin_cloud_stat extends Plugin{
 	function mklink($sourceFile, $targetFile){
 		return @file_put_contents($targetFile, '<?php @include '.var_export($sourceFile, true).'; ?>');
 	}
+	function handleAction(){
+		echo json_encode(array(
+			'ctieba' => intval($this->getSetting('cloud_tieba')),
+			'cexp' => intval($this->getSetting('cloud_exp')),
+			'tieba' => intval($this->getSetting('tieba')),
+			'exp' => intval($this->getSetting('exp')),
+		));
+	}
 }
