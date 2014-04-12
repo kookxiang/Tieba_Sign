@@ -29,6 +29,9 @@ class Plugin {
 	function uninstall(){
 		// uninstall script
 	}
+	function handleAction(){
+		throw new Exception('This plugin doesn\'t support to be called directly.');
+	}
 	private function getPluginId(){
 		return str_replace('plugin_', '', get_class($this));
 	}
