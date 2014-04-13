@@ -2,7 +2,6 @@
 if(!defined('IN_KKFRAME')) exit('Access Denied');
 class Updater{
 	const UPDATE_SERVER = 'http://update.ikk.me/';
-	const UPDATE_ID = 'tieba_sign';
 	public static function init(){
 		global $_config;
 		$current_version = $_config['version'];
@@ -21,7 +20,8 @@ class Updater{
 		exit();
 	}
 	public static function check(){
-		$data = fetch_url(self::UPDATE_SERVER.'filelist.php?d='.self::UPDATE_ID);
+		$d = getSetting('channel') == 'dev' ? 'tieba_sign' : 'tieba_sign_stable';
+		$data = fetch_url(self::UPDATE_SERVER.'filelist.php?d='.$d);
 		CACHE::clean('kk_updater');
 		if (!$data) return -1;
 		$content = pack('H*', $data);
@@ -93,7 +93,8 @@ class Updater{
 		return is_writable($path);
 	}
 	private static function _download_file($path, $hash, $try = 1) {
-		$content = fetch_url(self::UPDATE_SERVER.'get_file.php?d='.self::UPDATE_ID."&f={$path}");
+		$d = getSetting('channel') == 'dev' ? 'tieba_sign' : 'tieba_sign_stable';
+		$content = fetch_url(self::UPDATE_SERVER."get_file.php?d={$d}&f={$path}");
 		if (!$content) {
 			if ($try == 3) {
 				return -1;

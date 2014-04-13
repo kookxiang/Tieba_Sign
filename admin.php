@@ -138,6 +138,12 @@ switch($_GET['action']){
 		}
 		echo json_encode($out);
 		break;
+	case 'switch_channel':
+		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#updater');
+		$channel = $_GET['channel'];
+		if($channel != 'dev' && $channel != 'stable') showmessage('未知分支ID', 'admin.php#updater');
+		saveSetting('channel', $channel);
+		showmessage('分支切换成功.', 'admin.php#updater#');
 	case 'install_plugin':
 		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#plugin');
 		require_once SYSTEM_ROOT.'./class/plugin.php';
