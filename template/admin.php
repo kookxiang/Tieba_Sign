@@ -148,9 +148,9 @@ foreach($classes as $id=>$obj){
 <br>
 <?php
 if(getSetting('channel') == 'dev'){
-	echo '<p>当前分支：开发版 (<a href="admin.php?action=switch_channel&channel=stable&formhash='.$formhash.'" onclick="return msg_redirect_action(this.href)">切换到稳定版</a>)</p>';
+	echo '<p>当前分支：开发版 (<a id="switch_to_stable" href="javascript:;">切换到稳定版</a>)</p>';
 } else {
-	echo '<p>当前分支：稳定版 (<a href="admin.php?action=switch_channel&channel=dev&formhash='.$formhash.'" onclick="return msg_redirect_action(this.href)">切换到开发版</a>)</p>';
+	echo '<p>当前分支：稳定版 (<a id="switch_to_dev" href="javascript:;">切换到开发版</a>)</p>';
 }
 ?>
 <p>开发版拥有更快的更新速度，但同时也拥有一定的不稳定性.</p>
