@@ -64,7 +64,7 @@ function load_user(){
 	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法获取用户列表').addCloseButton('确定').append(); }).always(function(){ hideloading(); });
 }
 function switch_channel(channel, tips){
-	createWindow().setTitle('切换分支').setContent(tips).addButton('确定', function(){ msg_win_action("admin.php?action=switch_channel&channel="+channel+"&formhash="+formhash); }).addCloseButton('取消').append();
+	createWindow().setTitle('切换分支').setContent(tips).addButton('确定', function(){ msg_redirect_action("admin.php?action=switch_channel&channel="+channel+"&formhash="+formhash); }).addCloseButton('取消').append();
 }
 function updater_get_file(){
 	$.getJSON("admin.php?action=get_file", function(result){
