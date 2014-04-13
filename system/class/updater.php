@@ -53,24 +53,29 @@ class Updater{
 		if ($ret<0) return array('status' => $ret, 'file' => $path);
 		CACHE::save('need_download', $file_list);
 		$max = sizeof(CACHE::get('kk_updater'));
-		$current = DB::result_first('SELECT COUNT(*) FROM download');
+		$current = $max - sizeof($file_list);
 		return array('status' => 0, 'precent' => round($current / $max * 100), 'file' => $path);
 	}
 	public static function write_file(){
 		$err_file = $files = array();
-		$query = DB::query('SELECT * FROM download');
+		$query = DB::query('SELECT * FROM download ORDER BY path ASC');
 		while($file = DB::fetch($query)){
-			$file['content'] = pack('H*', $file['content']);
-			$files[] = $file;
+			list($part, $path) = explode('|', $file['path'], 2);
+			if(!$files[ $path ]){
+				$file['content'] = pack('H*', $file['content']);
+				$files[ $path ] = $file;
+			} else {
+				$files[ $path ]['content'] .= pack('H*', $file['content']);
+			}
 		}
 		if(!$files) return array('status' => -255);
-		foreach($files as $file) {
-			if(!self::_is_writable(ROOT.$file['path'])) $err_file[] = $file['path'];
+		foreach($files as $path => $file) {
+			if(!self::_is_writable(ROOT.$path)) $err_file[] = $path;
 		}
 		if($err_file) array('status' => -1, 'files' => $err_file);
-		foreach($files as $file) {
-			self::_write(ROOT.$file['path'], $file['content']);
-			if(md5_file(ROOT.$file['path']) != md5($file['content'])) return array('status' => -2, 'file' => $file['path']);
+		foreach($files as $path => $file) {
+			self::_write(ROOT.$path, $file['content']);
+			if(md5_file(ROOT.$path) != md5($file['content'])) return array('status' => -2, 'file' => $path);
 		}
 		DB::query('DELETE FROM download');
 		return array('status' => 0);
@@ -109,7 +114,15 @@ class Updater{
 				return self::_download_file($path, $hash, $try + 1);
 			}
 		}
-		DB::insert('download', array('path' => $path, 'content' => bin2hex($content)));
+		$length = $part = 0;
+		while($length < strlen($content)){
+			$part++;
+			$part_length = strlen($content) - $length > 8192 ? 8192 : strlen($content) - $length;
+			$_countent = substr($content, $length, $part_length);
+			$length += $part_length;
+			$_part = str_pad($part, 4, "0", STR_PAD_LEFT);
+			DB::insert('download', array('path' => "{$_part}|".$path, 'content' => bin2hex($_countent)));
+		}
 		return 0;
 	}
 }
