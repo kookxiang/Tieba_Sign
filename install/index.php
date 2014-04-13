@@ -15,14 +15,14 @@ switch($_GET['step']){
 		show_install_page('Welcome', $content);
 		break;
 	case 'check':
-		$content = '<p>安装前，程序需要检查当前的服务器环境是否允许运行“贴吧签到助手”</p><p>请确保表格中每一行均为绿色，以避免可能带来的问题</p><table><thead><tr><td>项目</td><td>要求</td><td>当前状态</td></tr></thead><tbody><tr><td>Zend Guard Loader</td><td>'.show_status(true).'</td><td>'.show_status(true).'</td></tr>';
-		$content .= '<tr><td>PHP 版本</td><td><span class="status on">5.3</span></td><td><span class="status '.(version_compare('5.3.0', PHP_VERSION, '<') ? 'on' : 'off').'">'.PHP_VERSION.'</span></td></tr>';
+		$content = '<p>安装前，程序需要检查当前的服务器环境是否允许运行“贴吧签到助手”</p><p>请确保表格中每一行均为绿色，以避免可能带来的问题</p><table><thead><tr><td>项目</td><td>要求</td><td>当前状态</td></tr></thead><tbody>';
+		$content .= '<tr><td>PHP 版本</td><td><span class="status on">5.2</span></td><td><span class="status '.(version_compare('5.2.0', PHP_VERSION, '<') ? 'on' : 'off').'">'.PHP_VERSION.'</span></td></tr>';
 		$content .= '<tr><td>PHP: allow_url_fopen</td><td>'.show_status(true).'</td><td>'.show_status(ini_get('allow_url_fopen')).'</td></tr>';
 		$content .= '<tr><td>CURL</td><td>'.show_status(true).'</td><td>'.show_status(function_exists('curl_init')).'</td></tr>';
-		$content .= '<tr><td>Socket 连接</td><td>'.show_status(true).'</td><td>'.show_status(function_exists('fsockopen')).'</td></tr>';
+		$content .= '<tr><td>Socket 连接</td><td>'.show_status(true).'</td><td>'.show_status(function_exists('fsockopen') || function_exists('pfsockopen')).'</td></tr>';
 		$content .= '<tr><td>system/config.inc.php</td><td>'.show_status(true, '可写').'</td><td>'.show_status(is_writable($config_file), '可写', '不可写').'</td></tr>';
 		$content .= '</tbody></table>';
-		if(ini_get('allow_url_fopen') && function_exists('curl_init') && function_exists('fsockopen') && is_writable($config_file)) $content .= '<br><p class="btns"><button onclick="location.href=\'./?step=database\';">下一步 &raquo;</button></p>';
+		if(ini_get('allow_url_fopen') && function_exists('curl_init') && (function_exists('fsockopen') || function_exists('pfsockopen')) && is_writable($config_file)) $content .= '<br><p class="btns"><button onclick="location.href=\'./?step=database\';">下一步 &raquo;</button></p>';
 		show_install_page('服务器兼容性检查', $content);
 		break;
 	case 'database':
