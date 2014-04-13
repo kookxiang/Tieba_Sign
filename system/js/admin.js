@@ -145,7 +145,7 @@ function load_setting(){
 		$('#max_tieba').val(result.max_tieba);
 		$('input[name=jquery_mode]').attr('checked', false);
 		switch(result.jquery_mode){
-			case '1': case '2': case '3': case '4': $('#jquery_'+result.jquery_mode).prop('checked', true); break;
+			case '1': case '2': case '3': $('#jquery_'+result.jquery_mode).prop('checked', true); break;
 			default: $('#jquery_1').prop('checked', true);
 		}
 	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法获取当前系统设置').addCloseButton('确定').append(); }).always(function(){ hideloading(); });
