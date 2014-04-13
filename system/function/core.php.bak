@@ -33,7 +33,7 @@ function template($file){
 	}
 	$path = ROOT."./template/{$template_name}/{$file}.php";
 	if(file_exists($path)) return $path;
-	$path = ROOT."./template/default/{$file}.php";
+	$path = ROOT."template/default/{$file}.php";
 	if(file_exists($path)) return $path;
 	error::system_error("Missing template '{$file}'.");
 }
