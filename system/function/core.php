@@ -228,13 +228,11 @@ function jquery_path(){
 	switch(getSetting('jquery_mode')){
 		case 1:
 			return '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js';
+		default:
 		case 2:
 			return '//lib.sinaapp.com/js/jquery/1.10.2/jquery-1.10.2.min.js';
 		case 3:
 			return 'http://libs.baidu.com/jquery/1.10.2/jquery.js';
-		default:
-		case 4:
-			return 'system/js/jquery.min.js';
 	}
 }
 function fetch_url($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $ip = '', $timeout = 15, $block = TRUE, $encodetype  = 'URLENCODE', $allowcurl = TRUE, $position = 0) {
