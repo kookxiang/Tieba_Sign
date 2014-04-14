@@ -396,7 +396,7 @@ function getTemplates(){
 			'author' => !empty($info['author'])? $info['author'] : '佚名',
 			'version' => !empty($info['version'])? $info['version'] : '0.0.0',
 			'site' => !empty($info['site'])? $info['site'] : 'http://www.kookxiang.com',
-			'preview' => !empty($info['preview'])? "template/{$folder}/".$info['preview'] : 'nopreview',
+			'preview' => !empty($info['preview'])? "template/{$folder}/".$info['preview'] : "template/default/".'nopreview',
 			'current' => $folder == $current_template,
 		);
 	}
