@@ -13,15 +13,15 @@ if(!defined('IN_KKFRAME')) exit();
 <link rel="shortcut icon" href="favicon.ico" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="renderer" content="webkit">
-<link rel="stylesheet" href="./style/main.css?version=<?php echo VERSION; ?>" type="text/css" />
-<link rel="stylesheet" href="./style/custom.css" type="text/css" />
+<link rel="stylesheet" href="./template/default/style/main.css?version=<?php echo VERSION; ?>" type="text/css" />
+<link rel="stylesheet" href="./template/default/style/custom.css" type="text/css" />
 </head>
 <body>
 <div class="wrapper" id="page_index">
-<div id="append_parent"><div class="cover hidden"></div><div class="loading-icon"><img src="style/loading.gif" /> 载入中...</div></div>
+<div id="append_parent"><div class="cover hidden"></div><div class="loading-icon"><img src="./template/default/style/loading.gif" /> 载入中...</div></div>
 <div class="main-box clearfix">
 <h1>贴吧签到助手</h1>
-<div class="avatar"><?php echo $username; echo $_COOKIE["avatar_{$uid}"] ? '<img id="avatar_img" src="'.$_COOKIE["avatar_{$uid}"].'">' : '<img id="avatar_img" class="hidden" src="style/member.png">'; ?></div>
+<div class="avatar"><?php echo $username; echo $_COOKIE["avatar_{$uid}"] ? '<img id="avatar_img" src="'.$_COOKIE["avatar_{$uid}"].'">' : '<img id="avatar_img" class="hidden" src="./template/default/style/member.png">'; ?></div>
 <ul class="menu hidden" id="member-menu">
 <li id="menu_password"><a href="javascript:;">修改密码</a></li>
 <?php
@@ -145,9 +145,9 @@ if(getSetting('account_switch')){
 </div>
 <script src="<?php echo jquery_path(); ?>"></script>
 <script type="text/javascript">var formhash = '<?php echo $formhash; ?>';var version = '<?php echo VERSION; ?>';</script>
-<script src="system/js/kk_dropdown.js?version=<?php echo VERSION; ?>"></script>
-<script src="system/js/main.js?version=<?php echo VERSION; ?>"></script>
-<script src="system/js/fwin.js?version=<?php echo VERSION; ?>"></script>
+<script src="./template/default/js/kk_dropdown.js?version=<?php echo VERSION; ?>"></script>
+<script src="./template/default/js/main.js?version=<?php echo VERSION; ?>"></script>
+<script src="./template/default/js/fwin.js?version=<?php echo VERSION; ?>"></script>
 <?php
 HOOK::run('page_footer_js');
 if(defined('NEW_VERSION')) echo '<script type="text/javascript">new_version = true</script>';

@@ -105,6 +105,13 @@ a.btn { height: 28px; }
 .menu li a:hover { color: #dedede; text-decoration: none; }
 .menu_switch_user .del { float: right; background: url(delete.png) no-repeat 0 50%; padding: 19px 18px 19px 0; text-indent: -9999px; overflow: hidden; height: 0; display: none; }
 .menu_switch_user:hover .del{ display: block; }
+
+.template-list {}
+.template-list li { float: left; width: 170px; height: 135px; text-align:center; padding:10px 10px 0 10px; margin: 5px; border-radius:5px; cursor:pointer; }
+.template-list li:hover{ background: #dedede; }
+.template-list li img { width: 170px; height: 110px; }
+.template-list li.current {background:-webkit-linear-gradient(top,#4d90fe,#357ae8); color:#fff; border: 1px solid #2f5bb7; }
+
 .copyright { margin-top: 65px; margin-bottom: 0; color: #4c4c4c; text-align: center; font-size: 12px; padding-bottom: 2em; }
 .copyright a { color: #159; }
 #page_login .copyright { margin-top: 150px; }

@@ -24,11 +24,17 @@ function template($file){
 	global $template_loaded;
 	$template_loaded = false;
 	HOOK::run("template_load_{$file}");
+	if($file != 'admin') $template_name = getSetting('template');
+	else $template_name = 'default';
 	if(IN_MOBILE){
-		$mobilefile = ROOT."./template/mobile/{$file}.php";
+		$mobilefile = ROOT."./template/{$template_name}/mobile/{$file}.php";
 		if(file_exists($mobilefile)) return $mobilefile;
+		$mobilefile_default = ROOT."./template/default/mobile/{$file}.php";
+		if(file_exists($mobilefile_default)) return $mobilefile_default;
 	}
-	$path = ROOT."./template/{$file}.php";
+	$path = ROOT."./template/{$template_name}/{$file}.php";
+	if(file_exists($path)) return $path;
+	$path = ROOT."./template/default/{$file}.php";
 	if(file_exists($path)) return $path;
 	error::system_error("Missing template '{$file}'.");
 }

@@ -12,8 +12,8 @@ if(!defined('IN_KKFRAME')) exit();
 <meta name="copyright" content="KK's Laboratory" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="renderer" content="webkit">
-<link rel="stylesheet" href="./style/main.css?version=<?php echo VERSION; ?>" type="text/css" />
-<link rel="stylesheet" href="./style/custom.css" type="text/css" />
+<link rel="stylesheet" href="./template/default/style/main.css?version=<?php echo VERSION; ?>" type="text/css" />
+<link rel="stylesheet" href="./template/default/style/custom.css" type="text/css" />
 </head>
 <body>
 <div class="wrapper" id="page_login">
@@ -77,7 +77,7 @@ if($invite_code) echo '<p>邀请码：</p><p><input type="text" name="invite_cod
 </div>
 <p class="copyright">贴吧签到助手 <?php echo VERSION; ?> - Designed by <a href="http://www.ikk.me" target="_blank">kookxiang</a>. 2014 &copy; <a href="http://www.kookxiang.com" target="_blank">KK's Laboratory</a> (<a href="https://me.alipay.com/kookxiang" target="_blank">赞助开发</a>)<?php if(getSetting('beian_no')) echo ' - <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">'.getSetting('beian_no').'</a>'; ?></p>
 <script src="<?php echo jquery_path(); ?>"></script>
-<script src="system/js/member.js?version=<?php echo VERSION; ?>"></script>
+<script src="./template/default/js/member.js?version=<?php echo VERSION; ?>"></script>
 <?php HOOK::run('member_footer'); ?>
 </div>
 </body>

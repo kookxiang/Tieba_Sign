@@ -323,12 +323,24 @@ switch($_GET['action']){
 	case 'load_plugin':
 		exit(json_encode(getPlugins()));
 		break;
+	case 'load_template':
+		exit(json_encode(getTemplates()));
+		break;
+	case 'set_template':
+		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#plugin');
+		if(preg_match('/[^A-Za-z0-9_-.]/', $_GET['template'])) showmessage('模板ID（文件夹名）不合法，请与模板作者联系', 'admin.php#template');
+		$templatefile = ROOT.'./template/'.$_GET['template'].'/template.xml';
+		if (file_exists($templatefile)) {
+			saveSetting('template', daddslashes($_GET['template']));
+			showmessage('模板切换成功！', 'admin.php#template');
+		}
+		else showmessage('非法操作！', 'admin.php#template');
+		break;
 	default:
 		$classes = getClasses();
 		include template('admin');
 		break;
 }
-
 function getClasses(){
 	$handle = opendir(SYSTEM_ROOT.'./class/mail/');
 	$classes = array();
@@ -367,6 +379,30 @@ function getPlugins(){
 		}
 	}
 	return array_merge($plugins, $new_plugins);
+}
+function getTemplates(){
+	$handle = opendir(ROOT.'./template/');
+	$templates = array();
+	$current_template = getSetting('template');
+	if(empty($current_template)) $current_template = 'default';
+	while (true){
+		$folder = readdir($handle);
+		if (!$folder) break;
+		if ($folder == '.' || $folder == '..') continue;
+		$infofile = ROOT.'./template/'.$folder.'/template.xml';
+		if(!file_exists($infofile)) continue;
+		$info = xml2array(file_get_contents($infofile));
+		$templates[] = array(
+			'id' => $folder,
+			'name' => !empty($info['name'])? $info['name'] : '未知模板',
+			'author' => !empty($info['author'])? $info['author'] : '佚名',
+			'version' => !empty($info['version'])? $info['version'] : '0.0.0',
+			'site' => !empty($info['site'])? $info['site'] : 'http://www.kookxiang.com',
+			'preview' => !empty($info['preview'])? "template/{$folder}/".$info['preview'] : "template/default/".'nopreview',
+			'current' => $folder == $current_template,
+		);
+	}
+	return $templates;
 }
 function is_plugin_enabled($pluginid){
 	static $enabled_plugin;
