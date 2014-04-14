@@ -129,7 +129,7 @@ foreach($classes as $id=>$obj){
 <p>插件的设计可以参考 Github 上的项目介绍.</p>
 <p>将插件文件放到 /plugins/ 文件夹下即可在此处看到对应的插件程序.</p>
 <p>如果你觉得某个插件有问题，你可以先尝试禁用它，禁用操作不会丢失数据.</p>
-<p>插件下载: <a href="http://bbs.kookxiang.com/forum-addon-1.html" target="_blank">http://bbs.kookxiang.com/forum-addon-1.html</a></p>
+<p>插件下载: <a href="http://www.kookxiang.com/forum-addon-1.html" target="_blank">http://www.kookxiang.com/forum-addon-1.html</a></p>
 <table>
 <thead><tr><td style="width: 40px">#</td><td>插件标识符 (ID)</td><td>插件介绍</td><td>当前版本</td><td>操作</td></tr></thead>
 <tbody></tbody>
@@ -139,7 +139,7 @@ foreach($classes as $id=>$obj){
 <h2>模板管理</h2>
 <p>这里显示了当前安装的所有模板，你可以选择一个作为 贴吧签到助手 的模板显示.</p>
 <p>将模板文件放到 /template/ 文件夹下即可在此处看到对应的模板.</p>
-<p>模板的设计教程与下载可以访问: <a href="http://bbs.kookxiang.com/forum-addon-1.html" target="_blank">http://bbs.kookxiang.com/forum-addon-1.html</a></p>
+<p>模板的设计教程与下载可以访问: <a href="http://www.kookxiang.com/forum-addon-1.html" target="_blank">http://www.kookxiang.com/forum-addon-1.html</a></p>
 <ul class="template-list">
 </ul>
 </div>
