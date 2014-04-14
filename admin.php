@@ -326,6 +326,14 @@ switch($_GET['action']){
 	case 'load_template':
 		exit(json_encode(getTemplates()));
 		break;
+	case 'set_template':
+		$templatefile = ROOT.'./template/'.$_GET['template'].'/template.info.php';
+		if (file_exists($templatefile)) {
+			saveSetting('template', $_GET['template']);
+			showmessage('模板切换成功！', 'admin.php#setting');
+		}
+		else showmessage('非法操作！', 'admin.php#setting');
+		break;
 	default:
 		$classes = getClasses();
 		include template('admin');
@@ -384,6 +392,7 @@ function getTemplates(){
 		if(!file_exists($infofile)) continue;
 		$info = include $infofile;
 		$templates[] = array(
+			'id' => $folder,
 			'name' => !empty($info['name'])? $info['name'] : '未知模板',
 			'author' => !empty($info['author'])? $info['author'] : '佚名',
 			'version' => !empty($info['version'])? $info['version'] : '0.0.0',

@@ -208,10 +208,11 @@ function load_template(){
 		if(!result) return;
 		$('#content-template .template-list').html('');
 		$.each(result, function(i, field){
-			$("#content-template .template-list").append("<li"+(field.current==true?" class=\"current\"":"")+"><div><img src=\""+(field.preview=='nopreview'?'template/default/style/nopreview.png':field.preview)+"\" title=\"预览图片\"/><div><p>"+field.name+"</p></div>");
+			$("#content-template .template-list").append("<li"+(field.current==true?" class=\"current\"":"")+" id=\""+field.id+"\"><div><img src=\""+(field.preview=='nopreview'?'template/default/style/nopreview.png':field.preview)+"\" title=\"预览图片\"/><div><p>"+field.name+"</p></div>");
 		});
 		$('#content-template .template-list li').click(function(){
-			return false;
+			var id = $(this).attr('id');
+			createWindow().setTitle('切换模板').setContent('确认要切换模板吗？').addButton('确定', function(){ msg_win_action("admin.php?action=set_template&template="+id+"&formhash="+formhash); }).addCloseButton('取消').append();
 		});
 	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法获取模板列表').addCloseButton('确定').append(); }).always(function(){ hideloading(); });
 }
