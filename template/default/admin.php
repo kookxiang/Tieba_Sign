@@ -14,7 +14,6 @@ if(!defined('IN_ADMINCP')) exit();
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="renderer" content="webkit">
 <link rel="stylesheet" href="./template/default/style/main.css?version=<?php echo VERSION; ?>" type="text/css" />
-<link rel="stylesheet" href="./template/default/style/custom.css" type="text/css" />
 </head>
 <body>
 <div class="wrapper" id="page_index">
