@@ -202,6 +202,19 @@ function load_plugin(){
 		});
 	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法获取插件列表').addCloseButton('确定').append(); }).always(function(){ hideloading(); });
 }
+function load_template(){
+	showloading();
+	$.getJSON("admin.php?action=load_template", function(result){
+		if(!result) return;
+		$('#content-template .template-list').html('');
+		$.each(result, function(i, field){
+			$("#content-template .template-list").append("<li"+(field.current==true?" class=\"current\"":"")+"><div><img src=\""+(field.preview=='nopreview'?'template/default/style/nopreview.png':field.preview)+"\" title=\"预览图片\"/><div><p>"+field.name+"</p></div>");
+		});
+		$('#content-template .template-list li').click(function(){
+			return false;
+		});
+	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法获取模板列表').addCloseButton('确定').append(); }).always(function(){ hideloading(); });
+}
 function parse_hash(){
 	var hash = location.hash.substring(1);
 	if(hash.indexOf('#') >= 0){

@@ -323,6 +323,9 @@ switch($_GET['action']){
 	case 'load_plugin':
 		exit(json_encode(getPlugins()));
 		break;
+	case 'load_template':
+		exit(json_encode(getTemplates()));
+		break;
 	default:
 		$classes = getClasses();
 		include template('admin');
@@ -367,6 +370,29 @@ function getPlugins(){
 		}
 	}
 	return array_merge($plugins, $new_plugins);
+}
+function getTemplates(){
+	$handle = opendir(ROOT.'./template/');
+	$templates = array();
+	$current_template = getSetting('template');
+	if(empty($current_template)) $current_template = 'default';
+	while (true){
+		$folder = readdir($handle);
+		if (!$folder) break;
+		if ($folder == '.' || $folder == '..') continue;
+		$infofile = ROOT.'./template/'.$folder.'/template.info.php';
+		if(!file_exists($infofile)) continue;
+		$info = include $infofile;
+		$templates[] = array(
+			'name' => !empty($info['name'])? $info['name'] : '未知模板',
+			'author' => !empty($info['author'])? $info['author'] : '佚名',
+			'version' => !empty($info['version'])? $info['version'] : '0.0.0',
+			'site' => !empty($info['site'])? $info['site'] : 'http://www.kookxiang.com',
+			'preview' => !empty($info['preview'])? "template/{$folder}/".$info['preview'] : 'nopreview',
+			'current' => $folder == $current_template,
+		);
+	}
+	return $templates;
 }
 function is_plugin_enabled($pluginid){
 	static $enabled_plugin;

@@ -140,7 +140,8 @@ foreach($classes as $id=>$obj){
 <p>这里显示了当前安装的所有模板，你可以选择一个作为 贴吧签到助手 的模板显示.</p>
 <p>将模板文件放到 /template/ 文件夹下即可在此处看到对应的模板.</p>
 <p>模板的设计教程与下载可以访问: <a href="http://bbs.kookxiang.com/forum-addon-1.html" target="_blank">http://bbs.kookxiang.com/forum-addon-1.html</a></p>
-
+<ul class="template-list">
+</ul>
 </div>
 <div id="content-updater" class="hidden">
 <style type="text/css">
@@ -176,9 +177,9 @@ if(getSetting('channel') == 'dev'){
 </div>
 <script src="<?php echo jquery_path(); ?>"></script>
 <script type="text/javascript">var formhash = '<?php echo $formhash; ?>';var version = '<?php echo VERSION; ?>';</script>
-<script src="system/js/kk_dropdown.js?version=<?php echo VERSION; ?>"></script>
-<script src="system/js/admin.js?version=<?php echo VERSION; ?>"></script>
-<script src="system/js/fwin.js?version=<?php echo VERSION; ?>"></script>
+<script src="./template/default/js/kk_dropdown.js?version=<?php echo VERSION; ?>"></script>
+<script src="./template/default/js/admin.js?version=<?php echo VERSION; ?>"></script>
+<script src="./template/default/js/fwin.js?version=<?php echo VERSION; ?>"></script>
 <?php
 if(defined('CLOUD_NOT_INITED')) echo '<div class="hidden"><img src="api.php?action=register_cloud" /></div>';
 ?>
