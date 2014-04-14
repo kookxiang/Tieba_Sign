@@ -18,7 +18,7 @@ if(!defined('IN_ADMINCP')) exit();
 </head>
 <body>
 <div class="wrapper" id="page_index">
-<div id="append_parent"><div class="cover hidden"></div><div class="loading-icon"><img src="style/loading.gif" /> 载入中...</div></div>
+<div id="append_parent"><div class="cover hidden"></div><div class="loading-icon"><img src="./template/default/style/loading.gif" /> 载入中...</div></div>
 <div class="main-box clearfix">
 <h1>贴吧签到助手 - 管理中心</h1>
 <div class="menubtn"><p>-</p><p>-</p><p>-</p></div>
@@ -28,6 +28,7 @@ if(!defined('IN_ADMINCP')) exit();
 <li id="menu_user"><a href="#user">用户管理</a></li>
 <li id="menu_stat"><a href="#stat">用户签到统计</a></li>
 <li id="menu_plugin"><a href="#plugin">插件管理</a></li>
+<li id="menu_template"><a href="#template">模板管理</a></li>
 <li id="menu_setting"><a href="#setting">系统设置</a></li>
 <li id="menu_mail"><a href="#mail">邮件群发</a></li>
 <li id="menu_updater"><a href="#updater">检查更新</a></li>
@@ -133,6 +134,13 @@ foreach($classes as $id=>$obj){
 <thead><tr><td style="width: 40px">#</td><td>插件标识符 (ID)</td><td>插件介绍</td><td>当前版本</td><td>操作</td></tr></thead>
 <tbody></tbody>
 </table>
+</div>
+<div id="content-template" class="hidden">
+<h2>模板管理</h2>
+<p>这里显示了当前安装的所有模板，你可以选择一个作为 贴吧签到助手 的模板显示.</p>
+<p>将模板文件放到 /template/ 文件夹下即可在此处看到对应的模板.</p>
+<p>模板的设计教程与下载可以访问: <a href="http://bbs.kookxiang.com/forum-addon-1.html" target="_blank">http://bbs.kookxiang.com/forum-addon-1.html</a></p>
+
 </div>
 <div id="content-updater" class="hidden">
 <style type="text/css">

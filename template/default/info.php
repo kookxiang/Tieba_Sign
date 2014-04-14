@@ -1,4 +1,5 @@
 <?php
+if(!defined('IN_ADMINCP')) exit();
 return array(
 	'name' => '默认风格',
 	'author' => 'kookxiang',

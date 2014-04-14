@@ -219,6 +219,8 @@ function parse_hash(){
 		$('#menu_mail').click();
 	}else if(hash == "plugin"){
 		$('#menu_plugin').click();
+	}else if(hash == "template"){
+		$('#menu_template').click();
 	}else if(hash == "updater"){
 		$('#menu_updater').click();
 	}else{

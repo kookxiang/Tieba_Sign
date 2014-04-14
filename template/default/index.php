@@ -18,10 +18,10 @@ if(!defined('IN_KKFRAME')) exit();
 </head>
 <body>
 <div class="wrapper" id="page_index">
-<div id="append_parent"><div class="cover hidden"></div><div class="loading-icon"><img src="style/loading.gif" /> 载入中...</div></div>
+<div id="append_parent"><div class="cover hidden"></div><div class="loading-icon"><img src="./template/default/style/loading.gif" /> 载入中...</div></div>
 <div class="main-box clearfix">
 <h1>贴吧签到助手</h1>
-<div class="avatar"><?php echo $username; echo $_COOKIE["avatar_{$uid}"] ? '<img id="avatar_img" src="'.$_COOKIE["avatar_{$uid}"].'">' : '<img id="avatar_img" class="hidden" src="style/member.png">'; ?></div>
+<div class="avatar"><?php echo $username; echo $_COOKIE["avatar_{$uid}"] ? '<img id="avatar_img" src="'.$_COOKIE["avatar_{$uid}"].'">' : '<img id="avatar_img" class="hidden" src="./template/default/style/member.png">'; ?></div>
 <ul class="menu hidden" id="member-menu">
 <li id="menu_password"><a href="javascript:;">修改密码</a></li>
 <?php
