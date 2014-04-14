@@ -327,7 +327,7 @@ switch($_GET['action']){
 		exit(json_encode(getTemplates()));
 		break;
 	case 'set_template':
-		$templatefile = ROOT.'./template/'.$_GET['template'].'/template.info.php';
+		$templatefile = ROOT.'./template/'.$_GET['template'].'/template.xml';
 		if (file_exists($templatefile)) {
 			saveSetting('template', $_GET['template']);
 			showmessage('模板切换成功！', 'admin.php#setting');
@@ -339,7 +339,6 @@ switch($_GET['action']){
 		include template('admin');
 		break;
 }
-
 function getClasses(){
 	$handle = opendir(SYSTEM_ROOT.'./class/mail/');
 	$classes = array();
@@ -388,9 +387,9 @@ function getTemplates(){
 		$folder = readdir($handle);
 		if (!$folder) break;
 		if ($folder == '.' || $folder == '..') continue;
-		$infofile = ROOT.'./template/'.$folder.'/template.info.php';
+		$infofile = ROOT.'./template/'.$folder.'/template.xml';
 		if(!file_exists($infofile)) continue;
-		$info = include $infofile;
+		$info = xml2array(file_get_contents($infofile));
 		$templates[] = array(
 			'id' => $folder,
 			'name' => !empty($info['name'])? $info['name'] : '未知模板',
