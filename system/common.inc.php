@@ -7,7 +7,8 @@ define('TIMESTAMP', time());
 define('VERSION', '1.14.4.12');
 
 define('DEBUG_ENABLED', isset($_GET['debug']));
-error_reporting(DEBUG_ENABLED ? E_ERROR | E_WARNING | E_PARSE : E_ERROR | E_PARSE);
+error_reporting(DEBUG_ENABLED ? E_ALL & !E_NOTICE & !E_STRICT : E_ERROR | E_PARSE);
+@ini_set('display_errors', DEBUG_ENABLED);
 
 require_once SYSTEM_ROOT.'./class/error.php';
 set_exception_handler(array('error', 'exception_error'));
