@@ -327,12 +327,14 @@ switch($_GET['action']){
 		exit(json_encode(getTemplates()));
 		break;
 	case 'set_template':
+		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#plugin');
+		if(preg_match('/[^A-Za-z0-9_-.]/', $_GET['template'])) showmessage('模板ID（文件夹名）不合法，请与模板作者联系', 'admin.php#template');
 		$templatefile = ROOT.'./template/'.$_GET['template'].'/template.xml';
 		if (file_exists($templatefile)) {
-			saveSetting('template', $_GET['template']);
-			showmessage('模板切换成功！', 'admin.php#setting');
+			saveSetting('template', daddslashes($_GET['template']));
+			showmessage('模板切换成功！', 'admin.php#template');
 		}
-		else showmessage('非法操作！', 'admin.php#setting');
+		else showmessage('非法操作！', 'admin.php#template');
 		break;
 	default:
 		$classes = getClasses();
