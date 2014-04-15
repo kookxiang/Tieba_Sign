@@ -394,10 +394,10 @@ function getTemplates(){
 		$info = xml2array(file_get_contents($infofile));
 		$templates[] = array(
 			'id' => $folder,
-			'name' => !empty($info['name'])? $info['name'] : '未知模板',
-			'author' => !empty($info['author'])? $info['author'] : '佚名',
-			'version' => !empty($info['version'])? $info['version'] : '0.0.0',
-			'site' => !empty($info['site'])? $info['site'] : 'http://www.kookxiang.com',
+			'name' => !empty($info['name'])? htmlspecialchars($info['name']) : '未知模板',
+			'author' => !empty($info['author'])? htmlspecialchars($info['author']) : '佚名',
+			'version' => !empty($info['version'])? htmlspecialchars($info['version']) : '0.0.0',
+			'site' => !empty($info['site'])? htmlspecialchars($info['site']) : 'http://www.kookxiang.com',
 			'preview' => (empty($info['preview']) || !file_exists(ROOT."./template/{$folder}/{$info['preview']}")) ?  "template/default/nopreview.png" : "template/{$folder}/{$info['preview']}",
 			'current' => $folder == $current_template,
 		);
