@@ -208,11 +208,17 @@ function load_template(){
 		if(!result) return;
 		$('#content-template .template-list').html('');
 		$.each(result, function(i, field){
-			$("#content-template .template-list").append("<li"+(field.current==true?" class=\"current\"":"")+" id=\""+field.id+"\"><div><img src=\""+(field.preview=='nopreview'?'template/default/style/nopreview.png':field.preview)+"\" title=\"预览图片\"/><div><p>"+field.name+"</p></div>");
+			$("#content-template .template-list").append('<li'+(field.current==true?' class="current"':'')+' templateid="'+field.id+'"name="'+field.name+'" author="'+field.author+'" site="'+field.site+'" version="'+field.version+'"><div><img src="'+field.preview+'" title="预览图片"/><div><p>'+field.name+'</p></div>');
 		});
 		$('#content-template .template-list li').click(function(){
-			var id = $(this).attr('id');
-			createWindow().setTitle('切换模板').setContent('确认要切换模板吗？').addButton('确定', function(){ msg_win_action("admin.php?action=set_template&template="+id+"&formhash="+formhash); }).addCloseButton('取消').append();
+			var obj = $(this);
+			var current = obj.attr('class')=='current';
+			var title = current ? '当前模板为 '+obj.attr('name') : '确定要切换到 '+obj.attr('name')+' 吗？';
+			var tips = '该模板作者为 <a href="'+obj.attr('site')+'" target="_blank">'+obj.attr('author')+'</a> ，当前版本为 '+obj.attr('version')+'<br><img style="width:390px;border:1px solid #979595; border-radius:3px;margin:8px 0 -10px 0;" src="'+obj.find('img').eq(0).attr('src')+'" />';
+			var tipsWindow = createWindow().setTitle(title).setContent(tips);
+			if (current) tipsWindow.addCloseButton('确定');
+			else tipsWindow.addButton('确定', function(){ msg_win_action("admin.php?action=set_template&template="+obj.attr('templateid')+"&formhash="+formhash); }).addCloseButton('取消');
+			tipsWindow.append();
 		});
 	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法获取模板列表').addCloseButton('确定').append(); }).always(function(){ hideloading(); });
 }

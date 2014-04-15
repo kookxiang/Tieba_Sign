@@ -389,7 +389,7 @@ function getTemplates(){
 		$folder = readdir($handle);
 		if (!$folder) break;
 		if ($folder == '.' || $folder == '..') continue;
-		$infofile = ROOT.'./template/'.$folder.'/template.xml';
+		$infofile = ROOT."./template/{$folder}/template.xml";
 		if(!file_exists($infofile)) continue;
 		$info = xml2array(file_get_contents($infofile));
 		$templates[] = array(
@@ -398,7 +398,7 @@ function getTemplates(){
 			'author' => !empty($info['author'])? $info['author'] : '佚名',
 			'version' => !empty($info['version'])? $info['version'] : '0.0.0',
 			'site' => !empty($info['site'])? $info['site'] : 'http://www.kookxiang.com',
-			'preview' => !empty($info['preview'])? "template/{$folder}/".$info['preview'] : "template/default/".'nopreview',
+			'preview' => (empty($info['preview']) || !file_exists(ROOT."./template/{$folder}/{$info['preview']}")) ?  "template/default/nopreview.png" : "template/{$folder}/{$info['preview']}",
 			'current' => $folder == $current_template,
 		);
 	}

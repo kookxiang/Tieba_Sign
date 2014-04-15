@@ -109,7 +109,7 @@ a.btn { height: 28px; }
 .template-list {}
 .template-list li { float: left; width: 170px; height: 135px; text-align:center; padding:10px 10px 0 10px; margin: 5px; border-radius:5px; cursor:pointer; }
 .template-list li:hover{ background: #dedede; }
-.template-list li img { width: 170px; height: 110px; }
+.template-list li img { width: 170px; height: 110px; border:1px solid #dedede; border-radius:3px; }
 .template-list li.current {background:-webkit-linear-gradient(top,#4d90fe,#357ae8); color:#fff; border: 1px solid #2f5bb7; }
 
 .copyright { margin-top: 65px; margin-bottom: 0; color: #4c4c4c; text-align: center; font-size: 12px; padding-bottom: 2em; }
