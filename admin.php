@@ -331,7 +331,10 @@ switch($_GET['action']){
 		if(preg_match('/[^A-Za-z0-9_-.]/', $_GET['template'])) showmessage('模板ID（文件夹名）不合法，请与模板作者联系', 'admin.php#template');
 		$templatefile = ROOT.'./template/'.$_GET['template'].'/template.xml';
 		if (file_exists($templatefile)) {
+			$info = xml2array(file_get_contents($infofile));
+			if(!$info || !$info['target_version'] || !is_array($info['target_version']) || $info['ui_version']!=UI_VERSION) showmessage('此模板不兼容当前版本', 'admin.php#template');
 			saveSetting('template', daddslashes($_GET['template']));
+			if(!in_array(VERSION, $info['target_version'])) showmessage('模板切换成功！<br>注：此风格不适宜当前版本，可能有轻微错位.', 'admin.php#template');
 			showmessage('模板切换成功！', 'admin.php#template');
 		}
 		else showmessage('非法操作！', 'admin.php#template');
