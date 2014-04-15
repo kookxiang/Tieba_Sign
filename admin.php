@@ -331,8 +331,11 @@ switch($_GET['action']){
 		if(preg_match('/[^A-Za-z0-9_-.]/', $_GET['template'])) showmessage('模板ID（文件夹名）不合法，请与模板作者联系', 'admin.php#template');
 		$templatefile = ROOT.'./template/'.$_GET['template'].'/template.xml';
 		if (file_exists($templatefile)) {
+			$info = xml2array(file_get_contents($templatefile));
+			if(!$info || !$info['target_version'] || !is_array($info['target_version']) || $info['ui_version']!=UI_VERSION) showmessage('此模板不兼容当前版本', 'admin.php#template');
 			saveSetting('template', daddslashes($_GET['template']));
-			showmessage('模板切换成功！', 'admin.php#template');
+			if(!in_array(VERSION, $info['target_version'])) showmessage('模板切换成功！<br>注：此风格不适宜当前版本，可能有轻微错位.', 'admin.php#template#');
+			showmessage('模板切换成功！', 'admin.php#template#');
 		}
 		else showmessage('非法操作！', 'admin.php#template');
 		break;
@@ -394,10 +397,10 @@ function getTemplates(){
 		$info = xml2array(file_get_contents($infofile));
 		$templates[] = array(
 			'id' => $folder,
-			'name' => !empty($info['name'])? $info['name'] : '未知模板',
-			'author' => !empty($info['author'])? $info['author'] : '佚名',
-			'version' => !empty($info['version'])? $info['version'] : '0.0.0',
-			'site' => !empty($info['site'])? $info['site'] : 'http://www.kookxiang.com',
+			'name' => !empty($info['name'])? htmlspecialchars($info['name']) : '未知模板',
+			'author' => !empty($info['author'])? htmlspecialchars($info['author']) : '佚名',
+			'version' => !empty($info['version'])? htmlspecialchars($info['version']) : '0.0.0',
+			'site' => !empty($info['site'])? htmlspecialchars($info['site']) : 'http://www.kookxiang.com',
 			'preview' => (empty($info['preview']) || !file_exists(ROOT."./template/{$folder}/{$info['preview']}")) ?  "template/default/nopreview.png" : "template/{$folder}/{$info['preview']}",
 			'current' => $folder == $current_template,
 		);
