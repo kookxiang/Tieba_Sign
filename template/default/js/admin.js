@@ -217,7 +217,7 @@ function load_template(){
 			var tips = '<p style="width:100%;"><img style="width:100%; border:1px solid #979595; border-radius:3px;margin:8px 0 -10px 0;" src="'+obj.find('img').eq(0).attr('src')+'" /></p><p>感谢本模板作者 <a href="'+obj.attr('site')+'" target="_blank">'+obj.attr('author')+'</a></p>';
 			var tipsWindow = createWindow().setTitle(title).setContent(tips);
 			if (current) tipsWindow.addCloseButton('关闭');
-			else tipsWindow.addButton('使用此模板', function(){ msg_win_action("admin.php?action=set_template&template="+obj.attr('templateid')+"&formhash="+formhash); }).addCloseButton('关闭');
+			else tipsWindow.addButton('使用此模板', function(){ msg_redirect_action("admin.php?action=set_template&template="+obj.attr('templateid')+"&formhash="+formhash); }).addCloseButton('关闭');
 			tipsWindow.append();
 		});
 	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法获取模板列表').addCloseButton('确定').append(); }).always(function(){ hideloading(); });
