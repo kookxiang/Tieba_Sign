@@ -24,7 +24,7 @@ function template($file){
 	global $template_loaded;
 	$template_loaded = false;
 	HOOK::run(str_replace('/', '_', "template_load_{$file}"));
-	$template_name = define('IN_ADMINCP') ? 'default' : getSetting('template');
+	$template_name = defined('IN_ADMINCP') ? 'default' : getSetting('template');
 	if(IN_MOBILE){
 		$mobilefile = ROOT."./template/{$template_name}/mobile/{$file}.php";
 		if(file_exists($mobilefile)) return $mobilefile;
