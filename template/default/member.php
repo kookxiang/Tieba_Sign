@@ -1,10 +1,12 @@
 <?php
 if(!defined('IN_KKFRAME')) exit();
+$title_extra = getSetting('title_extra');
+$title = $title_extra ? "用户中心 - 贴吧签到助手 - {$title_extra}" : "用户中心 - 贴吧签到助手 - {$title_extra}";
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>用户中心 - 贴吧签到助手</title>
+<title><?php echo $title; ?></title>
 <?php include template('widget/meta'); ?>
 </head>
 <body>

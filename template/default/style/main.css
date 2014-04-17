@@ -78,6 +78,7 @@ a.btn { height: 28px; }
 #page_login .login-info input { width: 90%; border-radius: 2px; border: 1px solid #cdcdcd; }
 
 #page_index h1 { margin: 0 -15px; padding: 0 15px 0.46em; height: 25px; }
+.extra_title { font-size: 14px; margin-left: 20px; }
 #append_parent { color: #000; z-index: 20; }
 .btns { height: 36px; line-height: 36px; text-align: right; padding: 0 10px; }
 .btns * { margin-left: 5px; }

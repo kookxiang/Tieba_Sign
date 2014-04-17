@@ -152,6 +152,7 @@ function load_setting(){
 		$('#beian_no').attr('value', result.beian_no ? result.beian_no : '');
 		$('#stat_code').html(result.stat_code ? result.stat_code : '');
 		$('#max_tieba').val(result.max_tieba);
+		$('#extra_title').val(result.extra_title);
 		$('input[name=jquery_mode]').attr('checked', false);
 		switch(result.jquery_mode){
 			case '1': case '2': case '3': case '4': $('#jquery_'+result.jquery_mode).prop('checked', true); break;
