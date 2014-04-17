@@ -70,6 +70,7 @@ switch($_GET['action']){
 		saveSetting('beian_no', stripslashes(daddslashes(htmlspecialchars($_POST['beian_no']))));
 		saveSetting('jquery_mode', intval($_POST['jquery_mode']));
 		saveSetting('max_tieba', intval($_POST['max_tieba']));
+		saveSetting('extra_title', stripslashes(daddslashes(htmlspecialchars($_POST['extra_title']))));
 		showmessage('设置已经保存☆Kira~', 'admin.php#setting', 2);
 		break;
 	case 'deluser':

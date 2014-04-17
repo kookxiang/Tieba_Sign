@@ -89,6 +89,8 @@ if(!defined('IN_ADMINCP')) exit();
 <p><label><input type="radio" id="jquery_4" name="jquery_mode" value="4" /> 使用程序自带的 jQuery 类库 (推荐)</label></p>
 <p>网站备案编号:</p>
 <p><input type="text" id="beian_no" name="beian_no" placeholder="未备案的不需要填写" /></p>
+<p>网站副标题: (将显示在标题中)</p>
+<p><input type="text" id="extra_title" name="extra_title" placeholder="如：KK 后宫团专用版" /></p>
 <p><input type="submit" value="保存设置" /></p>
 </form>
 <br>
