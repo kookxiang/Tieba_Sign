@@ -21,8 +21,8 @@ class Updater{
 	}
 	public static function check(){
 		$d = getSetting('channel') == 'dev' ? 'tieba_sign' : 'tieba_sign_stable';
-		$data = fetch_url(self::UPDATE_SERVER.'filelist.php?d='.$d);
-		CACHE::clean('kk_updater');
+		$data = kk_fetch_url(self::UPDATE_SERVER.'filelist.php?d='.$d);
+		saveSetting('new_version', 0);
 		if (!$data) return -1;
 		$content = pack('H*', $data);
 		$file_list = unserialize($content);
@@ -38,6 +38,7 @@ class Updater{
 			}
 		}
 		if(!$list) return 0;
+		saveSetting('new_version', 1);
 		sort($list);
 		sort($err_file);
 		CACHE::save('kk_updater', $err_file);
@@ -78,6 +79,7 @@ class Updater{
 			if(md5_file(ROOT.$path) != md5($file['content'])) return array('status' => -2, 'file' => $path);
 		}
 		DB::query('DELETE FROM download');
+		saveSetting('new_version', 0);
 		return array('status' => 0);
 	}
 	private static function _write($path, $content){
@@ -99,7 +101,7 @@ class Updater{
 	}
 	private static function _download_file($path, $hash, $try = 1) {
 		$d = getSetting('channel') == 'dev' ? 'tieba_sign' : 'tieba_sign_stable';
-		$content = fetch_url(self::UPDATE_SERVER."get_file.php?d={$d}&f={$path}");
+		$content = kk_fetch_url(self::UPDATE_SERVER."get_file.php?d={$d}&f={$path}");
 		if (!$content) {
 			if ($try == 3) {
 				return -1;

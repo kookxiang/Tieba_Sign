@@ -236,7 +236,7 @@ function jquery_path(){
 			return 'system/js/jquery.min.js';
 	}
 }
-function fetch_url($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $ip = '', $timeout = 15, $block = TRUE, $encodetype  = 'URLENCODE', $allowcurl = TRUE, $position = 0) {
+function kk_fetch_url($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $ip = '', $timeout = 15, $block = TRUE, $encodetype  = 'URLENCODE', $allowcurl = TRUE, $position = 0) {
 	$return = '';
 	$matches = parse_url($url);
 	$scheme = $matches['scheme'];

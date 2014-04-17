@@ -1,7 +1,7 @@
 <?php
 if(!defined('IN_KKFRAME')) exit();
 $title_extra = getSetting('title_extra');
-$title = $title_extra ? "用户中心 - 贴吧签到助手 - {$title_extra}" : "用户中心 - 贴吧签到助手 - {$title_extra}";
+$title = $title_extra ? "用户中心 - 贴吧签到助手 - {$title_extra}" : '用户中心 - 贴吧签到助手';
 ?>
 <!DOCTYPE html>
 <html>

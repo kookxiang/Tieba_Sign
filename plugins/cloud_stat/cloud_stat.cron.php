@@ -18,7 +18,7 @@ $obj->saveSetting('exp', $exp);
 $sid = cloud::id();
 $key = cloud::key();
 $sign = md5($key.$sid.$tieba.$exp.$key);
-$ret = fetch_url("http://api.ikk.me/stat.php?sid={$sid}&tieba={$tieba}&exp={$exp}&sign={$sign}");
+$ret = kk_fetch_url("http://api.ikk.me/stat.php?sid={$sid}&tieba={$tieba}&exp={$exp}&sign={$sign}");
 if($ret) {
 	$data = json_decode($ret);
 	if($data){

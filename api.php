@@ -13,7 +13,7 @@ if($_GET['action'] == 'baidu_login'){
 	$parm_string = serialize($parms);
 	$parm_string = authcode($parm_string, 'ENCODE', cloud::key());
 	$parm_string = bin2hex($parm_string);
-	header('Location: '.cloud::API_ROOT_HTTPS.'login.php?sid='.cloud::id().'&parm='.$parm_string);
+	header('Location: '.cloud::get_api_path().'login.php?sid='.cloud::id().'&parm='.$parm_string);
 }elseif($_GET['action'] == 'register_cloud'){
 	cloud::do_register();
 }elseif($_GET['action'] == 'receive_cookie'){
