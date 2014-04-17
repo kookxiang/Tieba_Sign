@@ -55,7 +55,16 @@ if(!defined('IN_ADMINCP')) exit();
 <?php if ($sid = cloud::id()) { ?>
 <p>站点ID: <?php echo $sid; ?></p>
 <p>当前域名：<?php echo $siteurl; ?></p>
-<p><a href="admin.php?action=cloud_sync&formhash=<?php echo $formhash; ?>" class="btn red" onclick="return msg_win_action(this.href)">同步站点信息</a></p>
+<p>
+<a href="admin.php?action=cloud_sync&formhash=<?php echo $formhash; ?>" class="btn red" onclick="return msg_win_action(this.href)">同步站点信息</a>
+<?php
+if(!getSetting('use_sae_api')){
+	echo '<a href="admin.php?action=use_sae_api&formhash='.$formhash.'" class="btn submit" onclick="return msg_redirect_action(this.href)">切换到 SAE API</a>';
+} else {
+	echo '<a href="admin.php?action=use_default_api&formhash='.$formhash.'" class="btn submit" onclick="return msg_redirect_action(this.href)">切换到默认 API</a>';
+}
+?>
+</p>
 <?php } else { ?>
 <p>没有在云平台注册，请尝试刷新本页面</p>
 <?php } ?>

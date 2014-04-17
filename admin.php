@@ -145,6 +145,16 @@ switch($_GET['action']){
 		if($channel != 'dev' && $channel != 'stable') showmessage('未知分支ID', 'admin.php#updater');
 		saveSetting('channel', $channel);
 		showmessage('分支切换成功.', 'admin.php#updater#');
+	case 'use_default_api':
+		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#setting');
+		saveSetting('use_sae_api', false);
+		showmessage('API 地址切换成功.', 'admin.php#setting#');
+	case 'use_sae_api':
+		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#setting');
+		$ret = cloud::request('goto_sae');
+		if(!is_array($ret) || $ret['status']!='ok') showmessage('SAE API 正在封测中，您暂时没有使用权限.', 'admin.php#setting');
+		saveSetting('use_sae_api', true);
+		showmessage('API 地址切换成功.', 'admin.php#setting#');
 	case 'install_plugin':
 		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#plugin');
 		require_once SYSTEM_ROOT.'./class/plugin.php';
