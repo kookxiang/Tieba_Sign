@@ -18,7 +18,7 @@ class plugin_cloud_stat extends Plugin{
 			CACHE::update('plugins');
 			showmessage('创建文件 system/function/cron/cloud_stat.php 失败，请检查文件权限', 'admin.php#plugin#');
 		}
-		$ret = fetch_url("http://api.ikk.me/stat.php");
+		$ret = kk_fetch_url("http://api.ikk.me/stat.php");
 		if(!$ret) return;
 		$data = json_decode($ret);
 		if(!$data) return;

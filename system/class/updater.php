@@ -21,7 +21,7 @@ class Updater{
 	}
 	public static function check(){
 		$d = getSetting('channel') == 'dev' ? 'tieba_sign' : 'tieba_sign_stable';
-		$data = fetch_url(self::UPDATE_SERVER.'filelist.php?d='.$d);
+		$data = kk_fetch_url(self::UPDATE_SERVER.'filelist.php?d='.$d);
 		CACHE::clean('kk_updater');
 		if (!$data) return -1;
 		$content = pack('H*', $data);
@@ -99,7 +99,7 @@ class Updater{
 	}
 	private static function _download_file($path, $hash, $try = 1) {
 		$d = getSetting('channel') == 'dev' ? 'tieba_sign' : 'tieba_sign_stable';
-		$content = fetch_url(self::UPDATE_SERVER."get_file.php?d={$d}&f={$path}");
+		$content = kk_fetch_url(self::UPDATE_SERVER."get_file.php?d={$d}&f={$path}");
 		if (!$content) {
 			if ($try == 3) {
 				return -1;
