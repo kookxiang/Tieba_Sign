@@ -1,7 +1,10 @@
 <?php
 if(!defined('IN_KKFRAME')) exit();
+$extra_title = getSetting('extra_title');
+$title = '贴吧签到助手';
+if($extra_title) $title .= "<span class=\"extra_title mobile_hidden\">—— {$extra_title}</span>";
 ?>
-<h1>贴吧签到助手</h1>
+<h1><?php echo $title; ?></h1>
 <div class="avatar"><?php echo $username; echo $_COOKIE["avatar_{$uid}"] ? '<img id="avatar_img" src="'.$_COOKIE["avatar_{$uid}"].'">' : '<img id="avatar_img" class="hidden" src="./template/default/style/member.png">'; ?></div>
 <ul class="menu hidden" id="member-menu">
 <li id="menu_password"><a href="javascript:;">修改密码</a></li>

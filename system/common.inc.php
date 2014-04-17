@@ -23,6 +23,8 @@ function class_loader($class_name){
 	list($type, $plugin_id) = explode('_', $class_name, 2);
 	if ($type == 'plugin') {
 		$file_path = "plugins/{$plugin_id}/plugin.class.php";
+	} elseif ($type == 'widget') {
+		$file_path = "system/class/widget/{$class_name}.php";
 	} elseif ($type == 'mail' || $class_name == 'mailer') {
 		$file_path = "system/class/mail.php";
 	} else {
