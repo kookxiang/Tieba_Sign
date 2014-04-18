@@ -209,7 +209,9 @@ function load_template(){
 		if(!result) return;
 		$('#content-template .template-list').html('');
 		$.each(result, function(i, field){
-			$("#content-template .template-list").append('<li'+(field.current==true?' class="current"':'')+' templateid="'+field.id+'"name="'+field.name+'" author="'+field.author+'" site="'+field.site+'" version="'+field.version+'"><div><img src="'+field.preview+'" title="预览图片"/><div><p>'+field.name+'</p></div>');
+			var content = '<li'+(field.current==true?' class="current"':'')+' templateid="'+field.id+'"name="'+field.name+'" author="'+field.author+'" site="'+field.site+'" version="'+field.version+'"><div><img src="'+field.preview+'" title="预览图片"/><div><p>'+field.name+'</p></div>';
+			if(field.current == true) $("#content-template .template-list").prepend(content);
+			else $("#content-template .template-list").append(content);
 		});
 		$('#content-template .template-list li').click(function(){
 			var obj = $(this);
