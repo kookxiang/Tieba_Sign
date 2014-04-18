@@ -76,6 +76,7 @@ function updater_get_file(){
 			switch(result.status){
 				case -1:	$('#content-updater .result').append('下载文件 '+result.file+' 失败');	break;
 				case -2:	$('#content-updater .result').append('校验文件 '+result.file+' 出错');	break;
+				case -3:	$('#content-updater .result').append('当前环境不支持自动更新，请手动更新');	break;
 			}
 			setTimeout(function(){ location.reload(); }, 5000);
 			return;

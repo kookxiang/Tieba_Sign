@@ -4,7 +4,11 @@ class Updater{
 	const UPDATE_SERVER = 'http://update.ikk.me/';
 	public static function init(){
 		global $_config;
-		$current_version = $_config['version'];
+		if($_config['version']){
+			$current_version = $_config['version'];
+		} else {
+			$current_version = getSetting('version');
+		}
 		if ($current_version == VERSION) return;
 		$version = $current_version;
 		while($version){
@@ -47,6 +51,7 @@ class Updater{
 		return $list;
 	}
 	public static function loop(){
+		if(defined('IN_XAE')) return array('status' => -3);
 		$file_list = CACHE::get('need_download');
 		list($path, $hash) = array_pop($file_list);
 		if(!$path) return array('status' => 1);

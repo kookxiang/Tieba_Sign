@@ -14,11 +14,6 @@ error_reporting(DEBUG_ENABLED ? E_ALL & !E_NOTICE & !E_STRICT : E_ERROR | E_PARS
 require_once SYSTEM_ROOT.'./class/error.php';
 set_exception_handler(array('error', 'exception_error'));
 
-if(!file_exists(SYSTEM_ROOT.'./config.inc.php')){
-	header('Location: ./install/');
-	exit();
-}
-
 function class_loader($class_name){
 	list($type, $plugin_id) = explode('_', $class_name, 2);
 	if ($type == 'plugin') {
@@ -44,6 +39,20 @@ if (function_exists('spl_autoload_register')){
 	function __autoload($class_name){
 		class_loader($class_name);
 	}
+}
+
+require_once SYSTEM_ROOT.'./function/core.php';
+
+// support for xae
+if(defined('SAE_ACCESSKEY')){
+	define('IN_SAE', true);
+	define('IN_XAE', true);
+	require_once SYSTEM_ROOT.'./function/sae.php';
+}
+
+if(!defined('IN_XAE') && !file_exists(SYSTEM_ROOT.'./config.inc.php')){
+	header('Location: ./install/');
+	exit();
 }
 
 $system = new core();
