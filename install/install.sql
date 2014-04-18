@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `cache` (
   `k` varchar(32) NOT NULL,
   `v` text NOT NULL,
   PRIMARY KEY (`k`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `cron` (
   `id` varchar(16) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `cron` (
   `nextrun` int(10) unsigned NOT NULL,
   `order` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `mail_queue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `mail_queue` (
   `subject` varchar(255) NOT NULL,
   `content` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `member` (
   `uid` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   `password` varchar(32) NOT NULL,
   `email` varchar(32) NOT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `member_bind` (
   `uid` int(10) unsigned NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `member_setting` (
   `wenku_sign` tinyint(1) NOT NULL DEFAULT '0',
   `cookie` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `my_tieba` (
   `tid` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `my_tieba` (
   `skiped` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`tid`),
   KEY `uid` (`uid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `plugin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -78,13 +78,13 @@ CREATE TABLE IF NOT EXISTS `plugin` (
   `version` varchar(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `setting` (
   `k` varchar(32) NOT NULL,
   `v` varchar(64) NOT NULL,
   PRIMARY KEY (`k`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `sign_log` (
   `tid` int(10) unsigned NOT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `sign_log` (
   `retry` tinyint(3) unsigned NOT NULL DEFAULT '0',
   UNIQUE KEY `tid` (`tid`,`date`),
   KEY `uid` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT IGNORE INTO `cron` (`id`, `enabled`, `nextrun`, `order`) VALUES
 ('daily', 0, 0, 0),
