@@ -33,6 +33,8 @@ $title = $title_extra ? "用户中心 - 贴吧签到助手 - {$title_extra}" : '
 <?php include template('widget/find_password'); ?>
 </div>
 </div>
+<!-- 开发不易，跪求各位大大放俺一条生路 -->
+<!-- 你可以在这加你自己的链接，但是麻烦保留下我的链接 Thanks -->
 <p class="copyright">贴吧签到助手 <?php echo VERSION; ?> - Designed by <a href="http://www.ikk.me" target="_blank">kookxiang</a>. 2014 &copy; <a href="http://www.kookxiang.com" target="_blank">KK's Laboratory</a> (<a href="https://me.alipay.com/kookxiang" target="_blank">赞助开发</a>)<?php if(getSetting('beian_no')) echo ' - <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">'.getSetting('beian_no').'</a>'; ?></p>
 <script src="<?php echo jquery_path(); ?>"></script>
 <script src="./template/default/js/member.js?version=<?php echo VERSION; ?>"></script>
