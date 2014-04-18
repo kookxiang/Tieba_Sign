@@ -352,6 +352,14 @@ function fsocketopen($hostname, $port = 80, &$errno, &$errstr, $timeout = 15) {
 	}
 	return $fp;
 }
+function send_mail($to, $subject, $content){
+	DB::insert('mail_queue', array(
+			'to' => $to,
+			'subject' => $subject,
+			'content' => $content,
+			));
+	saveSetting('mail_queue', 1);
+}
 function xml2array(&$xml, $isnormal = FALSE) {
 	$xml_parser = new XMLparse($isnormal);
 	$data = $xml_parser->parse($xml);
