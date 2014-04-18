@@ -1,69 +1,46 @@
 <?php
-if(defined('SAE_ACCESSKEY')){
-	header('Location: sae.php');
-	exit();
-}
+if(!defined('SAE_ACCESSKEY')) exit();
+define('IN_KKFRAME', true);
+define('SYSTEM_ROOT', dirname(__FILE__).'/');
+define('ROOT', dirname(SYSTEM_ROOT).'/');
 error_reporting(E_ERROR | E_PARSE);
-$config_file = dirname(__FILE__).'/../system/config.inc.php';
-include_once $config_file;
-if($_config){
+$_config = array(
+	'db' => array(
+		'server' => SAE_MYSQL_HOST_M,
+		'port' => SAE_MYSQL_PORT,
+		'username' => SAE_MYSQL_USER,
+		'password' => SAE_MYSQL_PASS,
+		'name' => SAE_MYSQL_DB,
+		'pconnect' => false,
+	),
+);
+require_once '../system/class/debug.php';
+require_once '../system/class/error.php';
+set_exception_handler(array('error', 'exception_error'));
+require_once '../system/class/db.php';
+$query = DB::query("SELECT v FROM setting LIMIT 0,1", 'SILENT');
+if($query){
 	header('Location: ..');
 	exit();
 }
 
-@touch($config_file);
-
 switch($_GET['step']){
 	default:
-		$content = '<p>欢迎使用 贴吧签到助手 安装向导！</p><p>本程序将会指引你在服务器上配置好“贴吧签到助手”</p><p>点击右侧的“下一步”按钮开始</p><p class="btns"><button onclick="location.href=\'./?step=check\';">下一步 &raquo;</button>';
+		$content = '<p>欢迎使用 贴吧签到助手 安装向导！</p><p>本程序将会指引你在服务器上配置好“贴吧签到助手”</p><p>点击右侧的“下一步”按钮开始</p><p class="btns"><button onclick="location.href=\'./sae.php?step=database\';">下一步 &raquo;</button>';
 		show_install_page('Welcome', $content);
 		break;
-	case 'check':
-		$content = '<p>安装前，程序需要检查当前的服务器环境是否允许运行“贴吧签到助手”</p><p>请确保表格中每一行均为绿色，以避免可能带来的问题</p><table><thead><tr><td>项目</td><td>要求</td><td>当前状态</td></tr></thead><tbody>';
-		$content .= '<tr><td>PHP 版本</td><td><span class="status on">5.2</span></td><td><span class="status '.(version_compare('5.2.0', PHP_VERSION, '<') ? 'on' : 'off').'">'.PHP_VERSION.'</span></td></tr>';
-		$content .= '<tr><td>PHP: allow_url_fopen</td><td>'.show_status(true).'</td><td>'.show_status(ini_get('allow_url_fopen')).'</td></tr>';
-		$content .= '<tr><td>CURL</td><td>'.show_status(true).'</td><td>'.show_status(function_exists('curl_init')).'</td></tr>';
-		$content .= '<tr><td>Socket 连接</td><td>'.show_status(true).'</td><td>'.show_status(function_exists('fsockopen') || function_exists('pfsockopen')).'</td></tr>';
-		$content .= '<tr><td>system/config.inc.php</td><td>'.show_status(true, '可写').'</td><td>'.show_status(is_writable($config_file), '可写', '不可写').'</td></tr>';
-		$content .= '</tbody></table>';
-		if(ini_get('allow_url_fopen') && function_exists('curl_init') && (function_exists('fsockopen') || function_exists('pfsockopen')) && is_writable($config_file)) $content .= '<br><p class="btns"><button onclick="location.href=\'./?step=database\';">下一步 &raquo;</button></p>';
-		show_install_page('服务器兼容性检查', $content);
-		break;
 	case 'database':
-		$content = '<div class="config"><p>请填写数据库连接信息</p><br>';
-		$content .= '<form action="./?step=install" method="post" onsubmit="show_waiting();">';
-		$content .= '<p><span>数据库服务器:</span><input type="text" name="db_server" value="localhost" /></p>';
-		$content .= '<p><span>数据库端口:</span><input type="text" name="db_port" value="3306" /></p>';
-		$content .= '<p><span>数据库用户名:</span><input type="text" name="db_username" value="root" /></p>';
-		$content .= '<p><span>数据库密码:</span><input type="password" name="db_password" /></p>';
-		$content .= '<p><span>数据库名:</span><input type="text" name="db_name" value="kk_sign" /></p>';
-		$content .= '<p><span>&nbsp;</span><label><input type="checkbox" name="pconnect" value="1" /> 保持与数据库服务器的连接</label></p>';
-		$content .= '<br><p><span>管理员用户名:</span><input type="text" name="username" required /></p>';
+		$content = '<div class="config"><p>请填写基本信息</p><br>';
+		$content .= '<form action="./sae.php?step=install" method="post" onsubmit="show_waiting();">';
+		$content .= '<p><span>管理员用户名:</span><input type="text" name="username" required /></p>';
 		$content .= '<p><span>管理员密码:</span><input type="password" name="password" required /></p>';
 		$content .= '<p><span>管理员邮箱:</span><input type="text" name="email" required /></p>';
 		$content .= '<p class="btns"><span>&nbsp;</span><input type="submit" value="下一步 &raquo;" /></p>';
 		$content .= '</form></div><div class="waiting hidden"><p>程序正在执行必要的安装步骤，请耐心等待...</p></div>';
 		$content .= '<script type="text/javascript">function show_waiting(){ $(".config").hide(); $(".waiting").show(); }</script>';
-		show_install_page('数据库配置', $content);
+		show_install_page('系统配置', $content);
 		break;
 	case 'install':
-		$db_host = $_POST['db_server'];
-		$db_port = intval($_POST['db_port']);
-		$db_username = $_POST['db_username'];
-		$db_password = $_POST['db_password'];
-		$db_name = $_POST['db_name'];
-		$db_pconnect = isset($_POST['pconnect']);
-		$function = $db_pconnect ? 'mysql_connect' : 'mysql_pconnect';
-		$link = mysql_connect("{$db_host}:{$db_port}", $db_username, $db_password);
-		if(!$link) show_back('数据库配置', '错误：无法连接数据库服务器！</p><p>'.mysql_error());
-		$selected = mysql_select_db($db_name, $link);
-		if(!$selected){
-			// 尝试新建
-			mysql_query("CREATE DATABASE `{$db_name}`", $link);
-			$selected = mysql_select_db($db_name, $link);
-			if(!$selected) show_back('数据库配置', '错误：指定的数据库不可用</p><p>'.mysql_error());
-		}
-		mysql_query("SET character_set_connection=utf8, character_set_results=utf8, character_set_client=binary");
 		$syskey = random(32);
 		$username = addslashes($_POST['username']);
 		$password = md5($syskey.md5($_POST['password']).$syskey);
@@ -76,17 +53,16 @@ switch($_GET['step']){
 		preg_match('/version ([0-9a-z.]+)/i', $install_script, $match);
 		$version = trim($match[1]);
 		if(!$version) show_back('正在安装', '安装脚本有误，请重新上传');
-		$err = runquery($install_script, $link);
-		mysql_query("INSERT INTO member SET username='{$username}', password='{$password}', email='{$email}'");
-		$uid = mysql_insert_id($link);
-		mysql_query("INSERT INTO member_setting SET uid='{$uid}', cookie=''");
+		$err = runquery($install_script);
+		DB::query("INSERT INTO member SET username='{$username}', password='{$password}', email='{$email}'");
+		$uid = DB::insert_id();
+		DB::query("INSERT INTO member_setting SET uid='{$uid}', cookie=''");
 		saveSetting('block_register', 1);
 		saveSetting('jquery_mode', 2);
 		saveSetting('admin_uid', $uid);
 		saveSetting('SYS_KEY', $syskey);
-		if($err) show_back('正在安装', '安装过程出现错误:</p><p>'.mysql_error());
+		saveSetting('version', $version);
 		$_config = array(
-			'version' => $version,
 			'db' => array(
 				'server' => $db_host,
 				'port' => $db_port,
@@ -99,7 +75,7 @@ switch($_GET['step']){
 		$content = '<?php'.PHP_EOL.'/* Auto-generated config file */'.PHP_EOL.'$_config = ';
 		$content .= var_export($_config, true).';'.PHP_EOL.'?>';
 		file_put_contents($config_file, $content);
-		$content = '<p>贴吧签到助手 已经成功安装！</p><p>要正常签到，请为脚本 cron.php 添加每分钟一次的计划任务。</p><p>系统默认关闭用户注册，如果有需要，请到后台启用用户注册功能。</p><br><p class="btns"><button onclick="location.href=\'../\';">登录 &raquo;</button>';
+		$content = '<p>贴吧签到助手 已经成功安装！</p><p>系统默认关闭用户注册，如果有需要，请到后台启用用户注册功能。</p><br><p class="btns"><button onclick="location.href=\'../\';">登录 &raquo;</button>';
 		show_install_page('安装成功', $content);
 }
 
@@ -124,15 +100,14 @@ function runquery($sql, $link){
 	foreach(explode(";\n", trim($sql)) as $query) {
 		$query = trim($query);
 		if(!$query) continue;
-		$ret = mysql_query($query, $link);
-		if(!$ret) return mysql_error();
+		DB::query($query, $link);
 	}
 }
 
 function saveSetting($k, $v){
 	global $link;
 	$v = addslashes($v);
-	mysql_query("REPLACE INTO setting SET v='{$v}', k='{$k}'", $link);
+	DB::query("REPLACE INTO setting SET v='{$v}', k='{$k}'", $link);
 }
 
 function random($length, $numeric = 0) {

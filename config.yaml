@@ -1,0 +1,13 @@
+---
+name: appid
+version: 1
+
+cron:
+- description: SignTask
+  url: cron.php
+  schedule: */1 * * * *
+
+handle:
+- expire: if( path ~ "css" ) time 864000
+- expire: if( path ~ "png" ) time 864000
+- compress: if ( out_header["Content-Length"]>=512 ) compress
