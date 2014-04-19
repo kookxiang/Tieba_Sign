@@ -171,11 +171,11 @@ function _status(status){
 	stat[ (status+2) ]++;
 	if(isMobile()){
 		switch(status){
-			case -2:	return '<img src="style/warn.png" />';
-			case -1:	return '<img src="style/error.gif" />';
-			case 0:		return '<img src="style/retry.gif" />';
-			case 1:		return '<img src="style/warn.png" />';
-			case 2:		return '<img src="style/done.gif" />';
+			case -2:	return '<img src="template/default/style/warn.png" />';
+			case -1:	return '<img src="template/default/style/error.gif" />';
+			case 0:		return '<img src="template/default/style/retry.gif" />';
+			case 1:		return '<img src="template/default/style/warn.png" />';
+			case 2:		return '<img src="template/default/style/done.gif" />';
 		}
 	}else{
 		switch(status){
