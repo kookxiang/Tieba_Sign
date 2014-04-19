@@ -230,7 +230,7 @@ function jquery_path(){
 		case 2:
 			return '//lib.sinaapp.com/js/jquery/1.10.2/jquery-1.10.2.min.js';
 		case 3:
-			return 'http://libs.baidu.com/jquery/1.10.2/jquery.js';
+			return 'http://libs.baidu.com/jquery/2.0.0/jquery.min.js';
 		default:
 		case 4:
 			return 'system/js/jquery.min.js';
