@@ -1,7 +1,7 @@
 <?php
 if(!defined('IN_KKFRAME')) exit('Access Denied');
 if(!$current_version){
-	if(getSetting('version')){
+	if(!defined('IN_XAE') && getSetting('version')){
 		saveVersion(getSetting('version'));
 		header('Location: ./');
 		exit();

@@ -76,6 +76,7 @@ function updater_get_file(){
 			switch(result.status){
 				case -1:	$('#content-updater .result').append('下载文件 '+result.file+' 失败');	break;
 				case -2:	$('#content-updater .result').append('校验文件 '+result.file+' 出错');	break;
+				case -3:	$('#content-updater .result').append('当前环境不支持自动更新，请手动更新');	break;
 			}
 			setTimeout(function(){ location.reload(); }, 5000);
 			return;
@@ -209,7 +210,9 @@ function load_template(){
 		if(!result) return;
 		$('#content-template .template-list').html('');
 		$.each(result, function(i, field){
-			$("#content-template .template-list").append('<li'+(field.current==true?' class="current"':'')+' templateid="'+field.id+'"name="'+field.name+'" author="'+field.author+'" site="'+field.site+'" version="'+field.version+'"><div><img src="'+field.preview+'" title="预览图片"/><div><p>'+field.name+'</p></div>');
+			var content = '<li'+(field.current==true?' class="current"':'')+' templateid="'+field.id+'"name="'+field.name+'" author="'+field.author+'" site="'+field.site+'" version="'+field.version+'"><div><img src="'+field.preview+'" title="预览图片"/><div><p>'+field.name+'</p></div>';
+			if(field.current == true) $("#content-template .template-list").prepend(content);
+			else $("#content-template .template-list").append(content);
 		});
 		$('#content-template .template-list li').click(function(){
 			var obj = $(this);

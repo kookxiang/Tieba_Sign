@@ -85,8 +85,7 @@ if(!$uid){
 }
 
 if(is_admin($uid)){
-	$count = sizeof(CACHE::get('kk_updater'));
-	if($count > 0) define('NEW_VERSION', true);
+	if(getSetting('new_version')) define('NEW_VERSION', true);
 }
 
 if(getSetting('account_switch')){

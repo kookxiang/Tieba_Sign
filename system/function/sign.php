@@ -47,7 +47,7 @@ function _get_liked_tieba($cookie){
 	while (true){
 		$pn++;
 		$mylikeurl = "http://tieba.baidu.com/f/like/mylike?&pn=$pn";
-		$result = fetch_url($mylikeurl, 0, '', $cookie);
+		$result = kk_fetch_url($mylikeurl, 0, '', $cookie);
 		$result = wrap_text($result);
 		$pre_reg = '/<tr><td>.*?<ahref="\/f\?kw=.*?"title="(.*?)"/';
 		preg_match_all($pre_reg, $result, $matches);

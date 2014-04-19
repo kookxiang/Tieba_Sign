@@ -24,7 +24,7 @@ class error {
 		$debug_backtrace = debug_backtrace();
 		krsort($debug_backtrace);
 		foreach ($debug_backtrace as $k => $error) {
-			$file = str_replace(SYSTEM_ROOT, '', $error['file']);
+			$file = str_replace(ROOT, '', $error['file']);
 			$func = isset($error['class']) ? $error['class'] : '';
 			$func .= isset($error['type']) ? $error['type'] : '';
 			$func .= isset($error['function']) ? $error['function'] : '';
@@ -101,7 +101,7 @@ class error {
 				$fun .= ')';
 				$error['function'] = $fun;
 			}
-			$phpmsg[] = array('file' => str_replace(array(SYSTEM_ROOT, '\\'), array('', '/'), $error['file']), 'line' => $error['line'], 'function' => $error['function'],);
+			$phpmsg[] = array('file' => str_replace(array(ROOT, '\\'), array('', '/'), $error['file']), 'line' => $error['line'], 'function' => $error['function'],);
 		}
 		self::show_error($type, $errormsg, $phpmsg);
 		exit();

@@ -208,7 +208,7 @@ function getSetting($k, $force = false){
 	return $cache[$k];
 }
 function saveSetting($k, $v){
-	if($k == 'version') return saveVersion($v);
+	if(!defined('IN_XAE') && $k == 'version') return saveVersion($v);
 	static $cache_cleaned = false;
 	$v = addslashes($v);
 	DB::query("REPLACE INTO setting SET v='{$v}', k='{$k}'");
@@ -236,7 +236,7 @@ function jquery_path(){
 			return 'system/js/jquery.min.js';
 	}
 }
-function fetch_url($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $ip = '', $timeout = 15, $block = TRUE, $encodetype  = 'URLENCODE', $allowcurl = TRUE, $position = 0) {
+function kk_fetch_url($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $ip = '', $timeout = 15, $block = TRUE, $encodetype  = 'URLENCODE', $allowcurl = TRUE, $position = 0) {
 	$return = '';
 	$matches = parse_url($url);
 	$scheme = $matches['scheme'];

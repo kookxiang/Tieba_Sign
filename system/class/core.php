@@ -3,9 +3,8 @@ if (!defined('IN_KKFRAME')) exit();
 class core {
 	function init() {
 		global $_config;
-		require_once SYSTEM_ROOT.'./config.inc.php';
+		if(!$_config) require_once SYSTEM_ROOT.'./config.inc.php';
 		DEBUG::INIT();
-		require_once SYSTEM_ROOT.'./function/core.php';
 		$this->init_header();
 		$this->init_useragent();
 		Updater::init();
