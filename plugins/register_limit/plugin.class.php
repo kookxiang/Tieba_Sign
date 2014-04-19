@@ -9,6 +9,9 @@ class plugin_register_limit extends Plugin {
 	function uninstall(){
 		DB::query('DROP TABLE kk_ip_limit');
 	}
+	function checkCompatibility(){
+		if(defined('IN_SAE')) showmessage('本插件不兼容当前运行环境.');
+	}
 	function on_load(){
 		if($_GET['action'] != 'register') return;
 		if(!$_POST) return;
