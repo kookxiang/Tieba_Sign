@@ -1,5 +1,4 @@
 <?php
-define('DISABLE_CRON', true);
 define('DISABLE_PLUGIN', true);
 require_once './system/common.inc.php';
 

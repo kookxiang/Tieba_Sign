@@ -71,7 +71,7 @@ class core {
 		HOOK::run('on_load');
 	}
 	function init_cron() {
-		if (defined('DISABLE_CRON')) return;
+		if (defined('ENABLE_CRON')) return;
 		$n = mktime(0, 0, 0);
 		$p = TIMESTAMP;
 		$c = getSetting('next_cron');
