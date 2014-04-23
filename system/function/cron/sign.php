@@ -5,7 +5,7 @@ $count = DB::result_first("SELECT COUNT(*) FROM `sign_log` WHERE status IN (0, 1
 if($count){
 	$num = 0;
 	$first = true;
-	while($num++ < 30){
+	while($num++ < 7){
 		$offset = rand(1, $count) - 1;
 		$res = DB::fetch_first("SELECT tid, status FROM `sign_log` WHERE status IN (0, 1) AND date='{$date}' LIMIT {$offset},1");
 		$tid = $res['tid'];
@@ -39,7 +39,6 @@ if($count){
 			}
 			$time = 1;
 		}
-		if(!defined('SIGN_LOOP')) break;
 		if($time) sleep($time);
 		if($time && $count > 1) $count--;
 	}
