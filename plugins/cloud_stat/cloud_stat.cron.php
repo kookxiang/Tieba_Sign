@@ -27,4 +27,4 @@ if($ret) {
 	}
 }
 
-define('CRON_FINISHED', true);
+cron_set_nextrun($tomorrow + 3600);

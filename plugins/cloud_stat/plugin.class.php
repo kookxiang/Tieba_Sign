@@ -6,7 +6,7 @@ class plugin_cloud_stat extends Plugin{
 		array('type' => 'page', 'id' => 'index', 'title' => '签到云统计', 'file' => 'index.inc.php'),
 		array('type' => 'cron', 'cron' => array('id' => 'cloud_stat', 'order' => '105')),
 	);
-	var $version = '1.0';
+	var $version = '1.1';
 	function install(){
 		$count = DB::result_first('SELECT COUNT(*) FROM sign_log WHERE status=2');
 		$this->saveSetting('tieba', $count);
@@ -27,6 +27,15 @@ class plugin_cloud_stat extends Plugin{
 	}
 	function mklink($sourceFile, $targetFile){
 		return @file_put_contents($targetFile, '<?php @include '.var_export($sourceFile, true).'; ?>');
+	}
+	function on_upgrade($from_version){
+		switch($from_version){
+			case '1.0':
+				DB::query("UPDATE cron SET id='cloud_stat/cloud_stat' WHERE id='cloud_stat'");
+				return '1.1';
+			default:
+				throw new Exception("Unknown plugin version: {$from_version}");
+		}
 	}
 	function handleAction(){
 		echo json_encode(array(
