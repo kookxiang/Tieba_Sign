@@ -81,7 +81,7 @@ class core {
 		define('CRON_ID', $cron['id']);
 		list($pluginid, $cronscript) = explode('/', CRON_ID, 2);
 		if($pluginid && $cronscript){
-			$script_path = SYSTEM_ROOT."./plugins/{$pluginid}/{$cronscript}.cron.php";
+			$script_path = ROOT."./plugins/{$pluginid}/{$cronscript}.cron.php";
 		}else{
 			$script_path = SYSTEM_ROOT.'./function/cron/'.CRON_ID.'.php';
 		}
