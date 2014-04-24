@@ -5,7 +5,7 @@ $count = DB::result_first("SELECT COUNT(*) FROM `sign_log` WHERE status IN (0, 1
 set_time_limit(20);
 $endtime = TIMESTAMP + 15;
 if($count){
-	while($endtime <= time()){
+	while($endtime > time()){
 		if($count < 0) break;
 		$offset = 0;
 		$res = DB::fetch_first("SELECT tid, status FROM `sign_log` WHERE status IN (0, 1) AND date='{$date}' LIMIT {$offset},1");
