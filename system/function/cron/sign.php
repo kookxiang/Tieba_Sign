@@ -2,11 +2,12 @@
 if(!defined('IN_KKFRAME')) exit();
 $date = date('Ymd', TIMESTAMP);
 $count = DB::result_first("SELECT COUNT(*) FROM `sign_log` WHERE status IN (0, 1) AND date='{$date}'");
+set_time_limit(20);
+$endtime = TIMESTAMP + 15;
 if($count){
-	$num = 0;
-	$first = true;
-	while($num++ < 7){
-		$offset = rand(1, $count) - 1;
+	while($endtime <= time()){
+		if($count < 0) break;
+		$offset = 0;
 		$res = DB::fetch_first("SELECT tid, status FROM `sign_log` WHERE status IN (0, 1) AND date='{$date}' LIMIT {$offset},1");
 		$tid = $res['tid'];
 		if(!$tid) break;
@@ -22,7 +23,6 @@ if($count){
 		if($status == 2){
 			if($exp){
 				DB::query("UPDATE sign_log SET status='2', exp='{$exp}' WHERE tid='{$tieba[tid]}' AND date='{$date}'");
-				$num++;
 				$time = 2;
 			}else{
 				DB::query("UPDATE sign_log SET status='2' WHERE tid='{$tieba[tid]}' AND date='{$date}' AND status<2");
@@ -39,8 +39,10 @@ if($count){
 			}
 			$time = 1;
 		}
-		if($time) sleep($time);
-		if($time && $count > 1) $count--;
+		if($time){
+			sleep($time);
+			$count--;
+		}
 	}
 }else{
 	define('CRON_FINISHED', true);
