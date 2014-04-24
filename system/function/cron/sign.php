@@ -2,13 +2,13 @@
 if(!defined('IN_KKFRAME')) exit();
 $date = date('Ymd', TIMESTAMP);
 $count = DB::result_first("SELECT COUNT(*) FROM `sign_log` WHERE status IN (0, 1) AND date='{$date}'");
-set_time_limit(20);
-$endtime = TIMESTAMP + 15;
+set_time_limit(60);
+$endtime = TIMESTAMP + 45;
 if($count){
 	while($endtime > time()){
 		if($count < 0) break;
 		$offset = 0;
-		$res = DB::fetch_first("SELECT tid, status FROM `sign_log` WHERE status IN (0, 1) AND date='{$date}' LIMIT {$offset},1");
+		$res = DB::fetch_first("SELECT tid, status FROM `sign_log` WHERE status IN (0, 1) AND date='{$date}' ORDER BY uid LIMIT {$offset},1");
 		$tid = $res['tid'];
 		if(!$tid) break;
 		if($res['status'] == 2 || $res['status'] == -2) continue;
