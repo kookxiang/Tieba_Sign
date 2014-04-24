@@ -4,9 +4,12 @@ class plugin_cloud_stat extends Plugin{
 	var $description = '云统计，记录建站以来的签到次数以及获得经验数';
 	var $modules = array(
 		array('type' => 'page', 'id' => 'index', 'title' => '签到云统计', 'file' => 'index.inc.php'),
-		array('type' => 'cron', 'cron' => array('id' => 'cloud_stat', 'order' => '105')),
+		array('type' => 'cron', 'cron' => array('id' => 'cloud_stat/cloud_stat', 'order' => '105')),
 	);
 	var $version = '1.1';
+	function checkCompatibility(){
+		if(version_compare(VERSION, '1.14.4.24', '<')) showmessage('本插件不兼容此版的贴吧签到助手.');
+	}
 	function install(){
 		$count = DB::result_first('SELECT COUNT(*) FROM sign_log WHERE status=2');
 		$this->saveSetting('tieba', $count);
