@@ -9,4 +9,4 @@ while($_uid){
 	$_uid = DB::result_first("SELECT uid FROM member WHERE uid>'{$_uid}' ORDER BY uid ASC LIMIT 0,1");
 	saveSetting('extsign_uid', $_uid);
 }
-define('CRON_FINISHED', true);
+cron_set_nextrun($tomorrow + 1800);

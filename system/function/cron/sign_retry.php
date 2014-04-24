@@ -44,6 +44,5 @@ if($count){
 		if($count > 1) $count--;
 	}
 }else{
-	$nexttime = TIMESTAMP + 1800;
-	DB::query("UPDATE cron SET nextrun='{$nexttime}' WHERE id='sign_retry'");
+	cron_set_nextrun(TIMESTAMP + 1800);
 }

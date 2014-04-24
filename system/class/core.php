@@ -72,30 +72,25 @@ class core {
 	}
 	function init_cron() {
 		if (!defined('ENABLE_CRON')) return;
-		$n = mktime(0, 0, 0);
-		$p = TIMESTAMP;
-		$c = getSetting('next_cron');
-		$d = date('Ymd', TIMESTAMP);
-		$dd = getSetting('date');
-		if ($d != $dd) {
-			$r = $n + 1800;
-			DB::query("UPDATE cron SET enabled='1', nextrun='{$r}'");
-			DB::query("UPDATE cron SET nextrun='{$n}' WHERE id='daily'");
-			saveSetting('date', $d);
-			saveSetting('next_cron', TIMESTAMP);
-			return;
+		$today = mktime(0, 0, 0);
+		$tomorrow = $today + 86400;
+		$nowtime = TIMESTAMP;
+		$cron_next_run = getSetting('next_cron');
+		if ($cron_next_run > $nowtime) return;
+		$cron = DB::fetch_first("SELECT * FROM cron WHERE nextrun<'{$nowtime}' ORDER BY `order` LIMIT 0,1");
+		define('CRON_ID', $cron['id']);
+		list($pluginid, $cronscript) = explode('/', CRON_ID, 2);
+		if($pluginid && $cronscript){
+			$script_path = SYSTEM_ROOT."./plugins/{$pluginid}/{$cronscript}.cron.php";
+		}else{
+			$script_path = SYSTEM_ROOT.'./function/cron/'.CRON_ID.'.php';
 		}
-		if ($c > $p) return;
-		$t = DB::fetch_first("SELECT * FROM cron WHERE enabled='1' AND nextrun<'{$p}' ORDER BY `order` LIMIT 0,1");
-		$s = SYSTEM_ROOT."./function/cron/{$t[id]}.php";
-		if (file_exists($s)) {
-			include $s;
+		if (file_exists($script_path)) {
+			include $script_path;
+			if (defined('CRON_FINISHED')) cron_set_nextrun($tomorrow + 1800);
 		} else {
-			define('CRON_FINISHED', true);
+			cron_set_nextrun($tomorrow + 1800);
 		}
-		if (defined('CRON_FINISHED')) DB::query("UPDATE cron SET enabled='0' WHERE id='{$t[id]}'");
-		$r = DB::fetch_first("SELECT nextrun FROM cron WHERE enabled='1' ORDER BY nextrun ASC LIMIT 0,1");
-		saveSetting('next_cron', $r ? $r['nextrun'] : TIMESTAMP + 1200);
 	}
 	function init_mail() {
 		if (defined('DISABLE_CRON')) return;

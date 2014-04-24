@@ -388,6 +388,13 @@ function saveVersion($version){
 function mklink($sourceFile, $targetFile){
 	return @file_put_contents($targetFile, '<?php @include '.var_export($sourceFile, true).'; ?>');
 }
+function cron_set_nextrun($timestamp){
+	if(!defined('CRON_ID')) throw new Exception('Unknown cron id');
+	$timestamp = intval($timestamp);
+	DB::query("UPDATE cron SET nextrun='{$timestamp}' WHERE id='".addslashes(CRON_ID)."'");
+	$nextrun = DB::fetch_first("SELECT nextrun FROM cron WHERE enabled='1' ORDER BY nextrun ASC LIMIT 0,1");
+	saveSetting('next_cron', $nextrun ? $nextrun['nextrun'] : TIMESTAMP + 1200);
+}
 // Function link
 function get_tbs($uid){
 	require_once SYSTEM_ROOT.'./function/sign.php';

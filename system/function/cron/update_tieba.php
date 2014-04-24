@@ -11,7 +11,5 @@ if(getSetting('autoupdate')){
 		if(++$num > 20)	exit();
 	}
 	saveSetting('autoupdate_uid', 0);
-	define('CRON_FINISHED', true);
-}else{
-	define('CRON_FINISHED', true);
 }
+cron_set_nextrun($tomorrow);

@@ -45,5 +45,5 @@ if($count){
 		}
 	}
 }else{
-	define('CRON_FINISHED', true);
+	cron_set_nextrun($tomorrow + 1800);
 }

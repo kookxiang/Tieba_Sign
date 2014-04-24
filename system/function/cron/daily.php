@@ -1,6 +1,8 @@
 <?php
 if(!defined('IN_KKFRAME')) exit();
 
+cron_set_nextrun($tomorrow);
+
 CACHE::clear();
 $date = date('Ymd', TIMESTAMP+900);
 DB::query("ALTER TABLE sign_log CHANGE `date` `date` INT NOT NULL DEFAULT '{$date}'");

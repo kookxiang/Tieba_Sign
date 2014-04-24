@@ -9,7 +9,7 @@ while($_uid){
 	saveSetting('mail_uid', $_uid);
 }
 saveSetting('mail_queue', 1);
-define('CRON_FINISHED', true);
+cron_set_nextrun($tomorrow + 21600);
 
 function check_if_msg($user){
 	$date = date('Ymd', TIMESTAMP);
