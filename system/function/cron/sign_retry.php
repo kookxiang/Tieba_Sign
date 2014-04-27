@@ -2,7 +2,7 @@
 if(!defined('IN_KKFRAME')) exit();
 $date = date('Ymd', TIMESTAMP);
 $count = DB::result_first("SELECT COUNT(*) FROM `sign_log` WHERE status IN (0, 1) AND date='{$date}'");
-if($count){
+if($count && $nowtime - $today > 3600){
 	$num = 0;
 	$first = true;
 	while($num++ < 30){
