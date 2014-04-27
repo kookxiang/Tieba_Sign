@@ -103,7 +103,7 @@ function msg_callback_action(link, callback){
 	return false;
 }
 function upgrade_tips(){
-	createWindow().setTitle('系统更新').setContent('检测到有新的版本可用，现在更新吗？').addButton('现在更新', function(){ location.href='admin.php#updater'; }).addButton('稍后再说', function(){ $.get('index.php?ignore_update=yes'); }).append();
+	createWindow().setTitle('系统更新').setContent('检测到有新的版本可用，现在更新吗？').addButton('现在更新', function(){ location.href='admin.php#updater'; }).addButton('稍后再说', function(){ $.get('index.php?ignore_update=yes'); }, 'btn').append();
 }
 var loading_timer, cover_timer;
 function showloading(){
