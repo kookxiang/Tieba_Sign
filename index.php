@@ -83,7 +83,10 @@ if(!$uid){
 	exit();
 }
 
-if(is_admin($uid)){
+if($_GET['ignore_update']){
+	dsetcookie('ignore_update', '1', 7200);
+	exit();
+}elseif(is_admin($uid) && !$_COOKIE['ignore_update']){
 	if(getSetting('new_version')) define('NEW_VERSION', true);
 }
 

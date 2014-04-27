@@ -16,9 +16,9 @@ function createWindow(){
 		this.content = str;
 		return this;
 	}
-	win.addButton = function(title, callback){
+	win.addButton = function(title, callback, buttonClass){
 		var btn = document.createElement('button');
-		btn.className = "btn submit";
+		btn.className = typeof buttonClass == 'undefined' ? "btn submit" : buttonClass;
 		btn.innerHTML = title;
 		btn.onclick = function(){
 			callback();
@@ -103,7 +103,7 @@ function msg_callback_action(link, callback){
 	return false;
 }
 function upgrade_tips(){
-	createWindow().setTitle('系统更新').setContent('检测到有新的版本可用，现在更新吗？').addButton('现在更新', function(){ location.href='admin.php#updater'; }).addCloseButton('稍后再说').append();
+	createWindow().setTitle('系统更新').setContent('检测到有新的版本可用，现在更新吗？').addButton('现在更新', function(){ location.href='admin.php#updater'; }).addButton('稍后再说', function(){ $.get('index.php?ignore_update=yes'); }).append();
 }
 var loading_timer, cover_timer;
 function showloading(){
