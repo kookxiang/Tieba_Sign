@@ -1,1 +1,0 @@
-<?php @include ROOT.'plugins/cloud_stat/cloud_stat.cron.php'; ?>
