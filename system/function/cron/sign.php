@@ -33,9 +33,9 @@ if($count){
 			if($retry >= 100){
 				DB::query("UPDATE sign_log SET status='-1' WHERE tid='{$tieba[tid]}' AND date='{$date}' AND status<2");
 			}elseif($status == 1){
-				DB::query("UPDATE sign_log SET status='1', retry=retry+1 WHERE tid='{$tieba[tid]}' AND date='{$date}' AND status<2");
+				DB::query("UPDATE sign_log SET status='1', retry=retry+10 WHERE tid='{$tieba[tid]}' AND date='{$date}' AND status<2");
 			}else{
-				DB::query("UPDATE sign_log SET status='1', retry=retry+15 WHERE tid='{$tieba[tid]}' AND date='{$date}' AND status<2");
+				DB::query("UPDATE sign_log SET status='1', retry=retry+33 WHERE tid='{$tieba[tid]}' AND date='{$date}' AND status<2");
 			}
 			$time = 1;
 		}
