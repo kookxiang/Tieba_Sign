@@ -68,6 +68,7 @@ class plugin_xxx_post extends Plugin{
 	}
 	function on_upgrade($from_version){
 		switch ($from_version){
+			case '0':
 			case '0.2.2_13':
 			case '0.2.3':
 			case '0.3.0':
