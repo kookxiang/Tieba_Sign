@@ -1,18 +1,4 @@
 // KK Drop-down menu
-Element.prototype.get_absolute_y = function(){
-	if(this.offsetParent){
-		return this.offsetTop + this.offsetParent.get_absolute_y();
-	}else{
-		return this.offsetTop;
-	}
-};
-Element.prototype.get_absolute_x = function(){
-	if(this.offsetParent){
-		return this.offsetLeft + this.offsetParent.get_absolute_x();
-	}else{
-		return this.offsetLeft;
-	}
-};
 (function(){
 	function open_menu(obj){
 		var menuid = 'dropdown_' + obj.getAttribute('menu-id');
@@ -21,10 +7,10 @@ Element.prototype.get_absolute_x = function(){
 		document.getElementById(menuid).onmouseover = function(){ obj.hover = true; };
 		document.getElementById(menuid).onmouseout = function(){ obj.hover = false; };
 		document.getElementById(menuid).style.display = 'block';
-		document.getElementById(menuid).style.top = obj.get_absolute_y() + obj.offsetHeight + 'px';
-		var left = obj.get_absolute_x() + obj.offsetWidth - document.getElementById(menuid).offsetWidth;
+		document.getElementById(menuid).style.top = obj.offsetTop + obj.offsetHeight + 'px';
+		var left = obj.offsetLeft + obj.offsetWidth - document.getElementById(menuid).offsetWidth;
 		if(left <= 0){
-			document.getElementById(menuid).style.left = obj.get_absolute_x() - 5 + 'px';
+			document.getElementById(menuid).style.left = obj.offsetLeft - 5 + 'px';
 		}else{
 			document.getElementById(menuid).style.left = left + 'px';
 		}
@@ -77,8 +63,8 @@ Element.prototype.get_absolute_x = function(){
 		select_replacer.onmouseout = function(){ this.hover = false; };
 		select_replacer.onmouseover = function(){ this.hover = true;}
 		select_replacer.onclick = function(){ open_menu(this); };
-		document.body.appendChild(dropdown_obj);
 		select_obj.parentNode.insertBefore(select_replacer, select_obj);
+		select_obj.parentNode.insertBefore(dropdown_obj, select_obj);
 	}
 })();
 
