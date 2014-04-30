@@ -230,7 +230,7 @@ switch($_GET['action']){
 		if (property_exists($obj, 'modules')){
 			foreach($obj->modules as $module){
 				if($module['type'] == 'cron'){
-					DB::insert('cron', array_merge($module['cron'], array('enabled' => 1)), false, true);
+					DB::insert('cron', array_merge($module['cron'], array('nextrun' => TIMESTAMP)), false, true);
 				}
 			}
 		}
