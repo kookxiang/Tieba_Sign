@@ -351,6 +351,7 @@ switch($_GET['action']){
 		break;
 	default:
 		$classes = getClasses();
+		if(getSetting('next_cron') < TIMESTAMP - 7200) define('CRON_ERROR', true);
 		include template('admin');
 		break;
 }
