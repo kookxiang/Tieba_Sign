@@ -78,6 +78,9 @@ class plugin_xxx_post extends Plugin{
 					UPDATE cron SET id='xxx_post/c_se' WHERE id='xxx_post_se';
 					UPDATE cron SET id='xxx_post/c_sxbk' WHERE id='xxx_post_sxbk';
 					");
+				$this->saveSetting ( 'sxbk', '0' );
+				$this->saveSetting ( 'se', '21' );
+				$this->saveSetting ( 'first_end','15');
 				return '0.3.1';
 			default:
 				throw new Exception("Unknown plugin version: {$from_version}");
