@@ -22,6 +22,7 @@ if(!defined('IN_ADMINCP')) exit();
 <li id="menu_template"><a href="#template">模板管理</a></li>
 <li id="menu_setting"><a href="#setting">系统设置</a></li>
 <li id="menu_mail"><a href="#mail">邮件群发</a></li>
+<li id="menu_cron"><a href="#cron">计划任务</a></li>
 <li id="menu_updater"><a href="#updater">检查更新</a></li>
 <li><a href="./">返回前台</a></li>
 </ul>
@@ -145,6 +146,14 @@ foreach($classes as $id=>$obj){
 <p>模板的设计教程与下载可以访问: <a href="http://www.kookxiang.com/forum-addon-1.html" target="_blank">http://www.kookxiang.com/forum-addon-1.html</a></p>
 <ul class="template-list">
 </ul>
+</div>
+<div id="content-cron" class="hidden">
+<h2>计划任务</h2>
+<p>看什么看，不知道这个功能没做好么，给我乖乖等下次更新！</p>
+<table>
+<thead><tr><td style="width: 40px">#</td><td>类型</td><td>计划任务名称</td><td>下次执行</td><td>当前状态</td></tr></thead>
+<tbody></tbody>
+</table>
 </div>
 <div id="content-updater" class="hidden">
 <style type="text/css">
