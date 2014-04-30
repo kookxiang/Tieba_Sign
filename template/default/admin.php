@@ -149,9 +149,10 @@ foreach($classes as $id=>$obj){
 </div>
 <div id="content-cron" class="hidden">
 <h2>计划任务</h2>
-<p>看什么看，不知道这个功能没做好么，给我乖乖等下次更新！</p>
+<p>你可以通过这个表格检查系统任务的运行状态。</p>
+<p>如果所有任务均处于队列中状态，证明您很可能没有添加计划任务。</p>
 <table>
-<thead><tr><td style="width: 40px">#</td><td>类型</td><td>计划任务名称</td><td>下次执行</td><td>当前状态</td></tr></thead>
+<thead><tr><td style="width: 40px">#</td><td>类型</td><td>计划任务脚本名</td><td>下次执行</td><td>当前状态</td></tr></thead>
 <tbody></tbody>
 </table>
 </div>

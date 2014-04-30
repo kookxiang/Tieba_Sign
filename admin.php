@@ -336,6 +336,9 @@ switch($_GET['action']){
 	case 'load_template':
 		exit(json_encode(getTemplates()));
 		break;
+	case 'load_cron':
+		exit(json_encode(getCron()));
+		break;
 	case 'set_template':
 		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#plugin');
 		if(preg_match('/[^A-Za-z0-9_-.]/', $_GET['template'])) showmessage('模板ID（文件夹名）不合法，请与模板作者联系', 'admin.php#template');
@@ -417,6 +420,25 @@ function getTemplates(){
 		);
 	}
 	return $templates;
+}
+function getCron(){
+	$query = DB::query("SELECT * FROM cron ORDER BY `order`");
+	$system_cron = $plugin_cron = array();
+	while($cron = DB::fetch($query)){
+		unset($cron['enabled']);
+		$cron['nextrun'] = $cron['nextrun'] - TIMESTAMP;
+		list($pluginid, $cronscript) = explode('/', $cron['id'], 2);
+		if($pluginid && $cronscript){
+			$cron['id'] = "{$cronscript}.cron.php";
+			$cron['type'] = "插件 {$pluginid} 任务";
+			$plugin_cron[] = $cron;
+		}else{
+			$cron['id'] = "{$cron[id]}.php";
+			$cron['type'] = "系统内置任务";
+			$system_cron[] = $cron;
+		}
+	}
+	return array_merge($system_cron, $plugin_cron);
 }
 function is_plugin_enabled($pluginid){
 	static $enabled_plugin;

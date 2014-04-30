@@ -161,6 +161,42 @@ function load_setting(){
 		}
 	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法获取当前系统设置').addCloseButton('确定').append(); }).always(function(){ hideloading(); });
 }
+function load_cron(){
+	showloading();
+	$.getJSON("admin.php?action=load_cron", function(result){
+		if(!result) return;
+		$('#content-cron table tbody').html('');
+		$.each(result, function(i, field){
+			var content = '';
+			content += '<tr>';
+			content += '<td>'+(i+1)+'</td>';
+			content += '<td>'+field.type+'</td>';
+			content += '<td>'+field.id+'</td>';
+			if(field.nextrun > 0){
+				content += '<td>'+format_time(field.nextrun)+'后</td>';
+				content += '<td>执行完毕</td>';
+			}else{
+				content += '<td>'+format_time(-field.nextrun)+'前</td>';
+				content += '<td>队列中</td>';
+			}
+			content += '</tr>';
+			$('#content-cron table tbody').append(content);
+		});
+	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法获取计划任务列表').addCloseButton('确定').append(); }).always(function(){ hideloading(); });
+}
+function format_time(time){
+	if(time > 604800){
+		return '>7天';
+	}else if(time > 86400){
+		return Math.floor(time / 86400)+'天';
+	}else if(time > 3600){
+		return Math.floor(time / 3600)+'小时';
+	}else if(time > 60){
+		return Math.floor(time / 60)+'分钟';
+	}else{
+		return time+'秒';
+	}
+}
 function load_plugin(){
 	showloading();
 	$.getJSON("admin.php?action=load_plugin", function(result){
@@ -245,6 +281,8 @@ function parse_hash(){
 		$('#menu_plugin').click();
 	}else if(hash == "template"){
 		$('#menu_template').click();
+	}else if(hash == "cron"){
+		$('#menu_cron').click();
 	}else if(hash == "updater"){
 		$('#menu_updater').click();
 	}else{
