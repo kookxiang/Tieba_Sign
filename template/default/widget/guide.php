@@ -29,6 +29,6 @@ if(!defined('IN_KKFRAME')) exit();
 <p>您可以点击 <a href="#setting">高级设置</a> 更改邮件设定，或更改其他附加设定。</p><br>
 <p>感谢您的使用！</p><br>
 <p>程序作者：kookxiang (<a href="http://www.ikk.me" target="_blank">http://www.ikk.me</a>)</p>
-<p>赞助开发：<a href="https://me.alipay.com/kookxiang" target="_blank">https://me.alipay.com/kookxiang</a></p>
+<p>赞助开发：<a href="http://go.ikk.me/donate" target="_blank">http://go.ikk.me/donate</a> (你的支持就是我的动力)</p>
 </div>
 </div>
