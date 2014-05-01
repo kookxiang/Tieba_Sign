@@ -155,6 +155,7 @@ foreach($classes as $id=>$obj){
 <thead><tr><td style="width: 40px">#</td><td>类型</td><td>计划任务脚本名</td><td>下次执行</td><td>当前状态</td></tr></thead>
 <tbody></tbody>
 </table>
+<p><a href="admin.php?action=clear_cron&formhash=<?php echo $formhash; ?>" class="btn red" onclick="return msg_callback_action(this.href, load_cron)">清理无效任务</a></p>
 </div>
 <div id="content-updater" class="hidden">
 <style type="text/css">

@@ -339,6 +339,24 @@ switch($_GET['action']){
 	case 'load_cron':
 		exit(json_encode(getCron()));
 		break;
+	case 'clear_cron':
+		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#cron');
+		$query = DB::query("SELECT * FROM cron ORDER BY `order`");
+		$deleted = 0;
+		while($cron = DB::fetch($query)){
+			list($pluginid, $cronscript) = explode('/', $cron['id'], 2);
+			if($pluginid && $cronscript){
+				$path = ROOT."./plugins/{$pluginid}/{$cronscript}.cron.php";
+			}else{
+				$path = SYSTEM_ROOT."./function/cron/{$cron[id]}.php";
+			}
+			if(!file_exists($path)){
+				DB::query("DELETE FROM cron WHERE id='".addslashes($cron['id'])."'");
+				$deleted++;
+			}
+		}
+		showmessage("共清理了 {$deleted} 个无效的计划任务");
+		break;
 	case 'set_template':
 		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#plugin');
 		if(preg_match('/[^A-Za-z0-9_-.]/', $_GET['template'])) showmessage('模板ID（文件夹名）不合法，请与模板作者联系', 'admin.php#template');
