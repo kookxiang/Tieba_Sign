@@ -37,7 +37,7 @@ switch($_GET['step']){
 		$content .= '<p><span>数据库用户名:</span><input type="text" name="db_username" value="root" /></p>';
 		$content .= '<p><span>数据库密码:</span><input type="password" name="db_password" /></p>';
 		$content .= '<p><span>数据库名:</span><input type="text" name="db_name" value="kk_sign" /></p>';
-		$content .= '<p><span>&nbsp;</span><label><input type="checkbox" name="pconnect" value="1" /> 保持与数据库服务器的连接</label></p>';
+		if(function_exists('mysql_pconnect')) $content .= '<p><span>&nbsp;</span><label><input type="checkbox" name="pconnect" value="1" /> 保持与数据库服务器的连接</label></p>';
 		$content .= '<br><p><span>管理员用户名:</span><input type="text" name="username" required /></p>';
 		$content .= '<p><span>管理员密码:</span><input type="password" name="password" required /></p>';
 		$content .= '<p><span>管理员邮箱:</span><input type="text" name="email" required /></p>';
