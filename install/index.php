@@ -26,7 +26,7 @@ switch($_GET['step']){
 		$content .= '<tr><td>Socket 连接</td><td>'.show_status(true).'</td><td>'.show_status(function_exists('fsockopen') || function_exists('pfsockopen')).'</td></tr>';
 		$content .= '<tr><td>system/config.inc.php</td><td>'.show_status(true, '可写').'</td><td>'.show_status(is_writable($config_file), '可写', '不可写').'</td></tr>';
 		$content .= '</tbody></table>';
-		if(ini_get('allow_url_fopen') && function_exists('curl_init') && (function_exists('fsockopen') || function_exists('pfsockopen')) && is_writable($config_file)) $content .= '<br><p class="btns"><button onclick="location.href=\'./?step=database\';">下一步 &raquo;</button></p>';
+		if(function_exists('curl_init') && (function_exists('fsockopen') || function_exists('pfsockopen')) && is_writable($config_file)) $content .= '<br><p class="btns"><button onclick="location.href=\'./?step=database\';">下一步 &raquo;</button></p>';
 		show_install_page('服务器兼容性检查', $content);
 		break;
 	case 'database':
