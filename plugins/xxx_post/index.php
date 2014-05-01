@@ -89,8 +89,8 @@ table.x_table thead tr{background-color:#dedede;}
 			<?php if ($obj->getSetting ( 'sxbk' ) == 1) echo '<option value="4">极限刷帖</option>'; ?>
 		</select>
 		，<span id="x_p_runtimes_hide">每次回
-		<input type="number" name="x_p_runtimes" id="x_p_runtimes" min="1" max="6" disabled>
-		贴(最多为6)，</span>发出一贴后等待
+		<input type="number" name="x_p_runtimes" id="x_p_runtimes" min="1" max="<?php echo $obj->getSetting('max_runtime', 6); ?>" disabled>
+		贴(最多为<?php echo $obj->getSetting('max_runtime', 6); ?>)，</span>发出一贴后等待
 		<input type="number" name="x_p_delay" id="x_p_delay" min="0" max="15" disabled>
 		分钟再发下一帖</p>
 		<p><input type="submit" value="保存设置"></p>

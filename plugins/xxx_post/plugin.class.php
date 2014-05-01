@@ -22,38 +22,38 @@ class plugin_xxx_post extends Plugin{
 		while ($table= DB::fetch($query)) $tables[]=implode ('', $table );
 		if (!in_array ( 'xxx_post_posts', $tables )){
 		runquery("
-			CREATE TABLE IF NOT EXISTS `xxx_post_posts` ( 
-				`sid` int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-				`uid` int(10) unsigned NOT NULL, 
-				`fid` int(10) unsigned NOT NULL, 
-				`tid` int(12) unsigned NOT NULL, 
-				`name` varchar(127) NOT NULL, 
-				`unicode_name` varchar(512) NOT NULL, 
+			CREATE TABLE IF NOT EXISTS `xxx_post_posts` (
+				`sid` int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+				`uid` int(10) unsigned NOT NULL,
+				`fid` int(10) unsigned NOT NULL,
+				`tid` int(12) unsigned NOT NULL,
+				`name` varchar(127) NOT NULL,
+				`unicode_name` varchar(512) NOT NULL,
 				`post_name` varchar(127) NOT NULL
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-			
+
 			CREATE TABLE IF NOT EXISTS `xxx_post_setting` (
-				`uid` int(10) unsigned NOT NULL PRIMARY KEY, 
-				`client_type` tinyint(1) NOT NULL DEFAULT '5', 
-				`frequency` tinyint(1) NOT NULL DEFAULT '2', 
+				`uid` int(10) unsigned NOT NULL PRIMARY KEY,
+				`client_type` tinyint(1) NOT NULL DEFAULT '5',
+				`frequency` tinyint(1) NOT NULL DEFAULT '2',
 				`delay` tinyint(2) NOT NULL DEFAULT '1',
-				`runtime` int(10) unsigned NOT NULL DEFAULT '0', 
+				`runtime` int(10) unsigned NOT NULL DEFAULT '0',
 				`runtimes` int(5) unsigned NOT NULL DEFAULT '6'
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-			
-			CREATE TABLE IF NOT EXISTS `xxx_post_content` ( 
-				`cid` int(10) unsigned AUTO_INCREMENT PRIMARY KEY, 
-				`uid` int(10) unsigned NOT NULL, 
+
+			CREATE TABLE IF NOT EXISTS `xxx_post_content` (
+				`cid` int(10) unsigned AUTO_INCREMENT PRIMARY KEY,
+				`uid` int(10) unsigned NOT NULL,
 				`content` varchar(1024) NOT NULL
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-			
+
 			CREATE TABLE IF NOT EXISTS `xxx_post_log` (
 				`sid` int(10) unsigned NOT NULL,
 				`uid` int(10) unsigned NOT NULL,
-				`date` int(11) NOT NULL DEFAULT '0', 
+				`date` int(11) NOT NULL DEFAULT '0',
 				`status` tinyint(4) NOT NULL DEFAULT '0',
-				`retry` tinyint(3) unsigned NOT NULL DEFAULT '0', 
-				UNIQUE KEY `sid` (`sid`,`date`), 
+				`retry` tinyint(3) unsigned NOT NULL DEFAULT '0',
+				UNIQUE KEY `sid` (`sid`,`date`),
 				KEY `uid` (`uid`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 		");
@@ -91,6 +91,8 @@ class plugin_xxx_post extends Plugin{
 			$sxbkset=trim($_POST ['sxbkset']);
 			$se_set=intval(trim($_POST['se_set']));
 			$first_end=intval(trim($_POST['first_end']));
+			$max_runtime=intval($_POST['max_runtime']);
+			$max_runtime = max(6, $max_runtime);
 			if (! $sxbkset)	$sxbkset = 0;
 			if($se_set<12) $se_set=12;
 			else if ($se_set>22) $se_set=22;
@@ -99,17 +101,20 @@ class plugin_xxx_post extends Plugin{
 			$this->saveSetting('sxbk',$sxbkset);
 			$this->saveSetting('se',$se_set);
 			$this->saveSetting('first_end',$first_end);
+			$this->saveSetting('max_runtime', $max_runtime);
 			showmessage ( "设置保存成功" );
 		} else {
 			$sxbk=$this->getSetting('sxbk');
 			$se_set=$this->getSetting('se');
 			$first_end=$this->getSetting('first_end');
+			$max_runtime=$this->getSetting('max_runtime', 6);
 			$sxbk = $sxbk ? 'checked="cheched"' : '';
 			return <<<EOF
 <P><label><input type="checkbox" name="sxbkset" value="1" $sxbk> 允许极限刷帖（此功能及其消耗服务器资源，而且会导致sign_retry任务无法执行，如果你是管理员，可以考虑禁用这个选项）</label></p>
 <p>时间控制(24小时制):</p>
 <p>在<input type="number" name="first_end" min="1" max="22" value="$first_end" style="outline:none;margin-left:4px;margin-right:4px"/>点之前结束第一次回帖</p>
 <p>在<input type="number" name="se_set" min="12" max="22" style="outline:none;margin-left:4px;margin-right:4px" value="$se_set"/>点之后开始第二次回帖</p>
+<p>每位用户每次最多回<input type="number" name="max_runtime" min="6" max="999" style="outline:none;margin-left:4px;margin-right:4px" value="$max_runtime"/>个帖子</p>
 EOF;
 		}
 	}
@@ -141,7 +146,7 @@ EOF;
 				} else {
 					DB::insert ( 'xxx_post_content', array (
 							'uid' => $uid,
-							'content' => $contx 
+							'content' => $contx
 					) );
 					$data ['msg'] = "设置成功";
 				}
@@ -157,7 +162,7 @@ EOF;
 							continue;
 						DB::insert ( 'xxx_post_content', array (
 								'uid' => $uid,
-								'content' => $contx 
+								'content' => $contx
 						) );
 					}
 					$data ['msg'] = "设置成功";
@@ -168,6 +173,8 @@ EOF;
 				$frequency = intval($_POST ['x_p_frequency']);
 				$runtimes = intval($_POST ['x_p_runtimes']);
 				$delay = intval($_POST ['x_p_delay']);
+				$max_runtime=$this->getSetting('max_runtime', 6);
+				$runtimes = min($max_runtime, $runtimes);
 				if ($delay < 0)	$delay = 0;
 				else if ($delay > 15)  $delay = 15;
 				if ($runtimes < 1)	$delay = 1;
@@ -254,7 +261,7 @@ EOF;
 						'tid' => $tid,
 						'name' => $fname,
 						'unicode_name' => $unicode_name,
-						'post_name' => $post_name 
+						'post_name' => $post_name
 				) );
 				$data ['msg'] = "添加成功";
 				break;
