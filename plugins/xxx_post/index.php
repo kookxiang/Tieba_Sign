@@ -104,7 +104,7 @@ table.x_table thead tr{background-color:#dedede;}
 <table class="x_table">
 	<thead><tr><td style="width:20px">序号</td><td>贴吧</td><td>贴子</td><td style="width: 20%">操作</td></tr></thead>
 	<tbody id="xxx_post_show">
-		<tr><td colspan="4"><img src="./style/loading.gif">载入中请稍后</td></tr>
+		<tr><td colspan="4"><img src="./template/default/style/loading.gif">载入中请稍后</td></tr>
 	</tbody>
 </table>
 <p>
@@ -116,7 +116,7 @@ table.x_table thead tr{background-color:#dedede;}
 <h3>添加回帖内容</h3><p>回帖时随机使用其中之一，不添加的话会使用系统内置的</p>
 <table class="x_table">
 	<thead><tr><td style="width: 20px">序号</td><td>回帖内容</td><td style="width: 20%">操作</td></tr></thead>
-	<tbody id="xxx_post_contents"><tr><td colspan="4"><img src="./style/loading.gif">载入中请稍后</td></tr></tbody>
+	<tbody id="xxx_post_contents"><tr><td colspan="4"><img src="./template/default/style/loading.gif">载入中请稍后</td></tr></tbody>
 </table>
 <p>
 	<a class="btn" id="xxx_post_add_content">添加内容</a>
