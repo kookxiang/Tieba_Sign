@@ -31,9 +31,9 @@ $(".x_tab_content>div").each(function(i){
 $(".nav-tabs >li>a").click(function(){
 	if($(this).parent().hasClass("active")) return 0;
 	else{
-		$(".x_tab_content>.x_tab_content_"+$(this).parent().siblings().filter(".active").index()).slideUp();
+		$(".x_tab_content>.x_tab_content_"+$(this).parent().siblings().filter(".active").index()).hide();
 		$(this).parent().siblings().filter(".active").removeClass("active");
-		$(".x_tab_content>.x_tab_content_"+$(this).parent().index()).slideDown();
+		$(".x_tab_content>.x_tab_content_"+$(this).parent().index()).show();
 		$(this).parent().addClass("active");
 		if($(this).parent().index()==0)  {load_post_set();load_post_adv_set();}
 		else if($(this).parent().index()==1) load_post_log();
