@@ -19,7 +19,7 @@ if($count){
 		$x_content_count = DB::result_first("SELECT COUNT(*) FROM xxx_post_content WHERE uid='{$tiezi[uid]}'");
 		$x_content_offset = rand(1, $x_content_count) - 1;
 		$x_content = DB::result_first("SELECT content FROM xxx_post_content WHERE uid='{$tiezi[uid]}' limit $x_content_offset,1");
-		list($statue,$result) = client_rppost($tiezi['uid'],$tiezi,$x_content['content']);
+		list($statue,$result) = client_rppost($tiezi['uid'],$tiezi,$x_content);
 		if($statue == 2){
 			$x_delay=DB::result_first("select delay from xxx_post_setting where uid={$tiezi[uid]}");
 			if($x_delay){

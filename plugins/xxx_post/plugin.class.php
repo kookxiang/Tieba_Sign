@@ -267,14 +267,16 @@ EOF;
 				break;
 			case 'test_post' :
 				include 'plugins/xxx_post/core.php';
-				$tieba = DB::fetch_first ( "SELECT * FROM xxx_post_posts WHERE uid='$uid' ORDER BY RAND() LIMIT 0,1" );
-				if (! $tieba) showmessage ('没有添加帖子，请先添加！');
-				$x_content_count = DB::result_first("SELECT COUNT(*) FROM xxx_post_content WHERE uid='{$tiezi[uid]}'");
+				$tiezi_count = DB::result_first ( "SELECT COUNT(*) FROM xxx_post_posts WHERE uid='$uid'" );
+				$tiezi_offset = rand(1, $tiezi_count) - 1;
+				$tiezi=DB::fetch_first ( "SELECT * FROM xxx_post_posts WHERE uid='$uid' limit $tiezi_offset,1" );
+				if (! $tiezi) showmessage ('没有添加帖子，请先添加！');
+				$x_content_count = DB::result_first("SELECT COUNT(*) FROM xxx_post_content WHERE uid='$uid'");
 				$x_content_offset = rand(1, $x_content_count) - 1;
-				$x_content = DB::result_first("SELECT content FROM xxx_post_content WHERE uid='{$tiezi[uid]}' limit $x_content_offset,1");
-				list ( $status, $result ) = client_rppost ( $uid, $tieba, $x_content ['content'] );
+				$x_content = DB::result_first("SELECT content FROM xxx_post_content WHERE uid='$uid' limit $x_content_offset,1");
+				list ( $status, $result ) = client_rppost ( $uid, $tiezi, $x_content);
 				$status = $status == 2 ? '发帖成功' : '发帖失败';
-				showmessage ( "<p>测试帖子：【{$tieba[name]}吧】{$tieba[post_name]}</p><p>测试结果：{$status}</p><p>详细信息：{$result}</p>" );
+				showmessage ( "<p>测试帖子：【{$tiezi[name]}吧】{$tiezi[post_name]}</p><p>测试结果：{$status}</p><p>详细信息：{$result}</p>" );
 				break;
 			case 'post-log' :
 				$date = date ( 'Ymd' );
