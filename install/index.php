@@ -2,6 +2,9 @@
 if(defined('SAE_ACCESSKEY')){
 	header('Location: sae.php');
 	exit();
+}elseif(getenv('OPENSHIFT_APP_NAME')){
+	header('Location: openshift.php');
+	exit();
 }
 error_reporting(E_ERROR | E_PARSE);
 $config_file = dirname(__FILE__).'/../system/config.inc.php';
