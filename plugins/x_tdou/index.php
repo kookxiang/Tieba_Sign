@@ -6,7 +6,7 @@ if(!defined('IN_KKFRAME')) exit('Access Denied!');
 <table>
 	<thead><tr><td style="width:20px">日期</td><td>T豆数量</td></tr></thead>
 	<tbody id="x_tdou_log">
-		<tr><td colspan="2"><img src="./style/loading.gif">载入中请稍后</td></tr>
+		<tr><td colspan="2"><img src="./template/default/style/loading.gif">载入中，请稍候...</td></tr>
 	</tbody>
 </table>
 <a href="plugin.php?id=x_tdou&action=test" class="btn" onclick="return msg_win_action(this.href)">测试</a>
