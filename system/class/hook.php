@@ -36,7 +36,7 @@ class HOOK{
 							DB::query("UPDATE `plugin` SET `version`='{$version}' WHERE name='{$pluginid}'");
 						}
 						// Reload cron scripts
-						DB::query("DELETE FROM cron WHERE id LIKE '%".$_PLUGIN['obj'][$pluginid]."%'");
+						DB::query("DELETE FROM cron WHERE id LIKE '%".$pluginid."%'");
 						foreach($_PLUGIN['obj'][$pluginid]->modules as $module){
 							if($module['type'] == 'cron'){
 								DB::insert('cron', array_merge($module['cron'], array('nextrun' => TIMESTAMP)), false, true);
