@@ -7,6 +7,7 @@ class core {
 		DEBUG::INIT();
 		$this->init_header();
 		$this->init_useragent();
+		CACHE::pre_fetch('setting', 'plugin', 'plugins');
 		Updater::init();
 		$this->init_syskey();
 		$this->init_cookie();
