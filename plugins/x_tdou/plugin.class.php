@@ -4,10 +4,10 @@ class plugin_x_tdou extends Plugin {
 	var $description = '贴吧自动领取T豆并自动砸蛋';
 	var $modules = array(
 		array('id' => 'log', 'type' => 'page', 'title' => 'T豆获取记录', 'file' => 'index.php'),
-		array('type' => 'cron', 'cron' => array('id' => 'x_tdou/daily', 'order' => '72')),
-		array('type' => 'cron', 'cron' => array('id' => 'x_tdou/get', 'order' => '73')),
+		array('type' => 'cron', 'cron' => array('id' => 'x_tdou/cron/daily', 'order' => '72')),
+		array('type' => 'cron', 'cron' => array('id' => 'x_tdou/cron/get', 'order' => '73')),
 	);
-	var $version = '0.1.9';
+	var $version = '0.0.0';
 	var $update_time = '2014-05-04';
 	public function install() {
 		DB::query("CREATE TABLE IF NOT EXISTS `x_tdou_log` (`uid` int(10) unsigned NOT NULL, `date` int(11) NOT NULL DEFAULT '0', `nextrun` int(10) unsigned NOT NULL DEFAULT '0', `num` int(4) NOT NULL DEFAULT '0', `retry` tinyint(1) NOT NULL DEFAULT '0', UNIQUE KEY `uid`(`uid`, `date`)) ENGINE=MyISAM DEFAULT CHARSET=utf8");
