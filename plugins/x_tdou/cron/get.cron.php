@@ -1,6 +1,5 @@
 <?php
 if(!defined('IN_KKFRAME')) exit();
-require_once ROOT.'./plugins/x_tdou/core.php';
 $now = TIMESTAMP;
 $date = date('Ymd', TIMESTAMP);
 $count = DB::result_first("SELECT COUNT(*) FROM `x_tdou_log` WHERE retry<5 AND date='{$date}'");
