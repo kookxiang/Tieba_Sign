@@ -35,7 +35,7 @@ switch($_GET['step']){
 		$db_username = getenv('OPENSHIFT_MYSQL_DB_USERNAME');
 		$db_password = getenv('OPENSHIFT_MYSQL_DB_PASSWORD');
 		$db_name = getenv('OPENSHIFT_APP_NAME');
-		$db_pconnect = true;
+		$db_pconnect = false;
 		$function = $db_pconnect ? 'mysql_connect' : 'mysql_pconnect';
 		$link = mysql_connect("{$db_host}:{$db_port}", $db_username, $db_password);
 		if(!$link) show_back('数据库配置', '错误：无法连接数据库服务器！</p><p>'.mysql_error());
@@ -82,7 +82,7 @@ switch($_GET['step']){
 		$content = '<?php'.PHP_EOL.'/* Auto-generated config file */'.PHP_EOL.'$_config = ';
 		$content .= var_export($_config, true).';'.PHP_EOL.'?>';
 		file_put_contents($config_file, $content);
-		$content = '<p>贴吧签到助手 已经成功安装！</p><p>要正常签到，请为脚本 cron.php 添加每分钟一次的计划任务。</p><p>系统默认关闭用户注册，如果有需要，请到后台启用用户注册功能。</p><p style="color: red">Openshift 用户如出现错误请前往管理界面重启应用</p><br><p class="btns"><button onclick="location.href=\'../\';">登录 &raquo;</button>';
+		$content = '<p>贴吧签到助手 已经成功安装！</p><p>系统默认关闭用户注册，如果有需要，请到后台启用用户注册功能。</p><p style="color: red">Openshift 用户如出现错误请前往管理界面重启应用</p><br><p class="btns"><button onclick="location.href=\'../\';">登录 &raquo;</button>';
 		show_install_page('安装成功', $content);
 }
 
