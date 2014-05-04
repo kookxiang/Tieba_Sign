@@ -7,7 +7,7 @@ class plugin_x_tdou extends Plugin {
 		array('type' => 'cron', 'cron' => array('id' => 'x_tdou/cron/daily', 'order' => '72')),
 		array('type' => 'cron', 'cron' => array('id' => 'x_tdou/cron/get', 'order' => '73')),
 	);
-	var $version = '0.0.0';
+	var $version = '0.2.0';
 	var $update_time = '2014-05-04';
 	public function install() {
 		DB::query("CREATE TABLE IF NOT EXISTS `x_tdou_log` (`uid` int(10) unsigned NOT NULL, `date` int(11) NOT NULL DEFAULT '0', `nextrun` int(10) unsigned NOT NULL DEFAULT '0', `num` int(4) NOT NULL DEFAULT '0', `retry` tinyint(1) NOT NULL DEFAULT '0', UNIQUE KEY `uid`(`uid`, `date`)) ENGINE=MyISAM DEFAULT CHARSET=utf8");
