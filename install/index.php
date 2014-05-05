@@ -80,6 +80,7 @@ switch($_GET['step']){
 		$version = trim($match[1]);
 		if(!$version) show_back('正在安装', '安装脚本有误，请重新上传');
 		$err = runquery($install_script, $link);
+		if($err) show_back('正在安装', '安装过程出现错误:</p><p>'.$err);
 		mysql_query("INSERT INTO member SET username='{$username}', password='{$password}', email='{$email}'");
 		$uid = mysql_insert_id($link);
 		mysql_query("INSERT INTO member_setting SET uid='{$uid}', cookie=''");
@@ -87,7 +88,6 @@ switch($_GET['step']){
 		saveSetting('jquery_mode', 2);
 		saveSetting('admin_uid', $uid);
 		saveSetting('SYS_KEY', $syskey);
-		if($err) show_back('正在安装', '安装过程出现错误:</p><p>'.mysql_error());
 		$_config = array(
 			'version' => $version,
 			'db' => array(
@@ -124,7 +124,7 @@ function show_status($status, $on_txt = 'On', $off_txt = 'Off'){
 
 function runquery($sql, $link){
 	$sql = str_replace("\r", "\n", $sql);
-	foreach(explode(";\n", trim($sql)) as $query) {
+	foreach(explode(";\n", $sql) as $query) {
 		$query = trim($query);
 		if(!$query) continue;
 		$ret = mysql_query($query, $link);
