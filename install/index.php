@@ -1,11 +1,4 @@
 <?php
-if(defined('SAE_ACCESSKEY')){
-	header('Location: sae.php');
-	exit();
-}elseif(getenv('OPENSHIFT_APP_NAME')){
-	header('Location: openshift.php');
-	exit();
-}
 error_reporting(E_ERROR | E_PARSE);
 $config_file = dirname(__FILE__).'/../system/config.inc.php';
 include_once $config_file;
@@ -18,6 +11,13 @@ if($_config){
 
 switch($_GET['step']){
 	default:
+		if(defined('SAE_ACCESSKEY')){
+			header('Location: sae.php');
+			exit();
+		}elseif(getenv('OPENSHIFT_APP_NAME')){
+			echo '<script type="text/javascript">if(confirm("要使用 OpenShift 一键安装向导吗？")) location.href="openshift.php";</script>';
+			exit();
+		}
 		$content = '<p>欢迎使用 贴吧签到助手 安装向导！</p><p>本程序将会指引你在服务器上配置好“贴吧签到助手”</p><p>点击右侧的“下一步”按钮开始</p><p class="btns"><button onclick="location.href=\'./?step=check\';">下一步 &raquo;</button>';
 		show_install_page('Welcome', $content);
 		break;
