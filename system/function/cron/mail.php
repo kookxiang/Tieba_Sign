@@ -1,15 +1,14 @@
 <?php
 if(!defined('IN_KKFRAME')) exit();
 
-$_uid = getSetting('mail_uid') ? getSetting('mail_uid') : 1;
+cron_set_nextrun($tomorrow + 21600);
+$_uid = 1;
 while($_uid){
 	$user = DB::fetch_first("SELECT uid, username, email FROM member WHERE uid='{$_uid}'");
 	if(check_if_msg($user)) sendmsg($user);
 	$_uid = DB::result_first("SELECT uid FROM member WHERE uid>'{$_uid}' ORDER BY uid ASC LIMIT 0,1");
-	saveSetting('mail_uid', $_uid);
 }
 saveSetting('mail_queue', 1);
-cron_set_nextrun($tomorrow + 21600);
 
 function check_if_msg($user){
 	$date = date('Ymd', TIMESTAMP);
