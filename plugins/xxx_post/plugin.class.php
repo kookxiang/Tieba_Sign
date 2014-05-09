@@ -120,6 +120,7 @@ EOF;
 	}
 	function handleAction(){
 		global $uid;
+		if(!$uid) return;
 		switch ($_GET ['action']) {
 			case 'delsid' :
 				$_sid = intval ( $_GET ['sid'] );
