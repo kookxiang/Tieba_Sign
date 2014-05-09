@@ -9,6 +9,7 @@ class HOOK{
 		$_PLUGIN['obj'] = array();
 		$_PLUGIN['hook'] = array();
 		$_PLUGIN['page'] = array();
+		$_PLUGIN['shortcut'] = array();
 		foreach($_PLUGIN['list'] as $plugin){
 			$pluginid = $plugin['id'];
 			$classfile = ROOT.'./plugins/'.$pluginid.'/plugin.class.php';
@@ -56,9 +57,17 @@ class HOOK{
 		global $_PLUGIN;
 		switch ($module['type']){
 			case 'page':
-				$_PLUGIN['page'][] = array('id' => "{$pluginid}-{$module[id]}",
+				$_PLUGIN['page'][] = array(
+					'id' => "{$pluginid}-{$module[id]}",
 					'title' => $module['title'],
 					'file' => ROOT."./plugins/{$pluginid}/".$module['file'],
+					'admin' => $module['admin'],
+					);
+				break;
+			case 'shortcut':
+				$_PLUGIN['shortcut'][] = array(
+					'title' => $module['title'],
+					'link' => $module['link'],
 					'admin' => $module['admin'],
 					);
 				break;
@@ -69,18 +78,28 @@ class HOOK{
 	}
 	function page_menu(){
 		global $_PLUGIN, $uid;
-		foreach ($_PLUGIN['page'] as $page){
-			if($page['admin'] && !is_admin($uid)) continue;
-			echo "<li id=\"menu_{$page[id]}\"><a href=\"#{$page[id]}\">{$page[title]}</a></li>";
+		if($_PLUGIN['page']){
+			foreach ($_PLUGIN['page'] as $page){
+				if($page['admin'] && !is_admin($uid)) continue;
+				echo "<li id=\"menu_{$page[id]}\"><a href=\"#{$page[id]}\">{$page[title]}</a></li>";
+			}
+		}
+		if($_PLUGIN['shortcut']){
+			foreach ($_PLUGIN['shortcut'] as $page){
+				if($page['admin'] && !is_admin($uid)) continue;
+				echo "<li><a href=\"{$page[link]}\">{$page[title]}</a></li>";
+			}
 		}
 	}
 	function page_contents(){
 		global $_PLUGIN, $uid;
-		foreach($_PLUGIN['page'] as $page){
-			if($page['admin'] && !is_admin($uid)) continue;
-			echo "<div id=\"content-{$page[id]}\" class=\"hidden\">";
-			@include $page['file'];
-			echo "</div>\r\n";
+		if($_PLUGIN['page']){
+			foreach($_PLUGIN['page'] as $page){
+				if($page['admin'] && !is_admin($uid)) continue;
+				echo "<div id=\"content-{$page[id]}\" class=\"hidden\">";
+				@include $page['file'];
+				echo "</div>\r\n";
+			}
 		}
 	}
 	function run($hookname){
