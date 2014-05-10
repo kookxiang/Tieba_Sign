@@ -252,7 +252,7 @@ function load_js(){
 function loadTiebaAutoComplete(){
 	if(typeof localStorage == 'undefined') return;
 	$('#autocomplete-tieba').remove();
-	$('#append_parent').append('<datalist id="autocomplete-tieba"></datalist>');
+	$('#append_parent').append('<datalist id="autocomplete-tieba" class="hidden"></datalist>');
 	var tieba = localStorage['tieba_name'].split('||');
 	if(tieba.length == 0) return;
 	for(var i=0; i<tieba.length; i++){
