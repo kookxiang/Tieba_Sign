@@ -10,7 +10,7 @@ $("#xxx_post_add_tid").click(function(){
 	createWindow().setTitle("添加帖子").setContent('<p>你可以指定帖子进行回复</p><p>请输入帖子的地址:</p><p>例如:http://tieba.baidu.com/p/2692275116</p><form method="get" action="plugin.php?id=xxx_post&action=get-tid" id="xxx_post_tid_form" onsubmit="return post_win(this.action, this.id,x_reload)"><input type="text" id="xxx_post_tid" name="xxx_post_tid" style="width:90%"/></form>').addButton("确定", function(){ $('#xxx_post_tid_form').submit(); }).addCloseButton("取消").append();
 	});
 $("#x_p_add_tb").click(function(){
-	createWindow().setTitle("添加帖吧").setContent('<p>你可以只指定贴吧，并从该贴吧首页随机选择帖子进行回复</p><p>请输入帖吧的名字（不要带“吧”字）:</p><p>例如:要添加chrome吧，请输入chrome</p><form method="get" action="plugin.php?id=xxx_post&action=add-tieba" id="xxx_post_add_tb_form" onsubmit="return post_win(this.action, this.id,x_reload)"><input type="text" id="xxx_post_add_tieba" name="xxx_post_add_tieba" style="width:90%"/></form>').addButton("确定", function(){ $('#xxx_post_add_tb_form').submit(); }).addCloseButton("取消").append();
+	createWindow().setTitle("添加帖吧").setContent('<p>你可以只指定贴吧，并从该贴吧首页随机选择帖子进行回复</p><p>请输入帖吧的名字（不要带“吧”字）:</p><p>例如:要添加chrome吧，请输入chrome</p><form method="get" action="plugin.php?id=xxx_post&action=add-tieba" id="xxx_post_add_tb_form" onsubmit="return post_win(this.action, this.id,x_reload)"><input type="text" id="xxx_post_add_tieba" name="xxx_post_add_tieba" list="autocomplete-tieba" style="width:90%"/></form>').addButton("确定", function(){ $('#xxx_post_add_tb_form').submit(); }).addCloseButton("取消").append();
 	});
 $("#xxx_post_add_content").click(function(){
 	createWindow().setTitle("添加回帖内容").setContent('<p>请输入要回复的内容（最多1000字符）:</p><form method="get" action="plugin.php?id=xxx_post&action=set-content" id="xxx_post_content_form" onsubmit="return post_win(this.action, this.id,x_reload)"><textarea name="post_content" id="post_content" rows="5" style="width: 95%"></textarea></form>').addButton("确定", function(){ $('#xxx_post_content_form').submit(); }).addCloseButton("取消").append();
@@ -20,10 +20,10 @@ $("#x_p_add_con").click(function(){
 	});
 $("#x_p_del_con").click(function(){
 	createWindow().setTitle("批量删除").setContent('你确定要删除全部回复内容吗？').addButton("确定", function(){msg_callback_action('plugin.php?id=xxx_post&action=del-all-cont',x_reload);}).addCloseButton("取消").append();
-});	
+});
 $("#x_p_del_tid").click(function(){
 	createWindow().setTitle("批量删除").setContent('你确定要删除全部贴子吗？').addButton("确定", function(){msg_callback_action('plugin.php?id=xxx_post&action=del-all-tid',x_reload);}).addCloseButton("取消").append();
-});	
+});
 $(".x_tab_content>div").each(function(i){
 	$(this).addClass("x_tab_content_"+i);
 	if(i!=0) $(this).hide();
