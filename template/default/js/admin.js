@@ -59,7 +59,7 @@ function load_user(){
 		if(!result) return;
 		$('#content-user table tbody').html('');
 		$.each(result, function(i, field){
-			$("#content-user table tbody").append("<tr><td>"+field.uid+"</td><td>"+field.username+"</td><td>"+field.email+"</td><td><a href=\"admin.php?action=update_liked_tieba&uid="+field.uid+"&formhash="+formhash+"\" onclick=\"return msg_win_action(this.href)\">刷新喜欢的贴吧</a> | <a href=\"javascript:;\" onclick=\"return deluser('"+field.uid+"')\">删除用户</a></td></tr>");
+			$("#content-user table tbody").append("<tr><td>"+field.uid+"</td><td>"+field.username+"</td><td class=\"mobile_hidden\">"+field.email+"</td><td><a href=\"admin.php?action=update_liked_tieba&uid="+field.uid+"&formhash="+formhash+"\" onclick=\"return msg_win_action(this.href)\">"+(isMobile() ? '刷新' : '刷新喜欢的贴吧')+"</a> | <a href=\"javascript:;\" onclick=\"return deluser('"+field.uid+"')\">"+(isMobile() ? '删除' : '删除用户')+"</a></td></tr>");
 		});
 	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法获取用户列表').addCloseButton('确定').append(); }).always(function(){ hideloading(); });
 }

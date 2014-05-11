@@ -174,7 +174,7 @@ div.select:hover { border-color: #bdbdbd; }
 	.avatar { right: 50px; }
 	.menubtn { display: block; }
 	.main-content input[type=text], .main-content input[type=password] { width: 90%; }
-	.fwin { width: 300px; border-radius: 0; }
+	.fwin { width: 85%; border-radius: 0; min-width: 200px; max-width: 320px; }
 	.mobile_hidden { display: none; }
 	.mobile_min { width: 30px; }
 }

@@ -29,7 +29,7 @@ if(!defined('IN_ADMINCP')) exit();
 <div id="content-user">
 <h2>用户管理</h2>
 <table>
-<thead><tr><td style="width: 40px">UID</td><td>用户名</td><td>邮箱</td><td>操作</td></tr></thead>
+<thead><tr><td style="width: 40px">UID</td><td>用户名</td><td class="mobile_hidden">邮箱</td><td>操作</td></tr></thead>
 <tbody></tbody>
 </table>
 </div>
