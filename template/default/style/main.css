@@ -134,7 +134,6 @@ a.btn { height: 28px; }
 .baidu_account p { line-height: 36px; margin-bottom: 0; }
 .baidu_account { margin: 5px 15px 15px; }
 
-#page_index .main-box { box-shadow: 0 0 65px #222; width: 85%; }
 #page_index .sidebar { background: #232b2d; color: #556366; }
 #page_index h1 { background: #1b2224; color: #fff; padding: 0 15px; height: 50px; line-height: 50px; z-index: 5; position: relative; }
 #page_index .main-content { color: #000; }
