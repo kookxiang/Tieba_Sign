@@ -6,6 +6,7 @@ function createWindow(){
 	win.content = 'null';
 	win.btns = document.createElement('p');
 	win.btns.className = 'btns';
+	win.allow_close = true;
 	win.with_cover = true;
 	win.setTitle = function(str){
 		this.title = str;
@@ -37,6 +38,15 @@ function createWindow(){
 		return this;
 	}
 	win.append = function(){
+		if (this.allow_close) {
+			var closebtn = document.createElement('span');
+			closebtn.className = 'close';
+			closebtn.innerText = 'x';
+			closebtn.onclick = function(){
+				win.close();
+			};
+			this.obj.appendChild(closebtn);
+		}
 		var win_title = document.createElement('h3');
 		win_title.innerHTML = this.title;
 		var obj = this.obj;
@@ -46,25 +56,21 @@ function createWindow(){
 		var win_content = document.createElement('div');
 		win_content.className = 'fcontent';
 		win_content.innerHTML = this.content;
-		this.obj.appendChild(win_content);
 		if (this.btns.innerHTML) {
-			this.obj.appendChild(this.btns);
+			win_content.appendChild(this.btns);
 		}
+		this.obj.appendChild(win_content);
 		$('#append_parent').append(this.obj);
-		var top = (document.body.clientHeight - this.obj.clientHeight) / 2;
-		var left = (document.body.clientWidth - this.obj.clientWidth) / 2;
+		var top = ($('body').height() - this.obj.clientHeight) / 2;
+		var left = ($('body').width() - this.obj.clientWidth) / 2;
 		this.obj.style.top = top + 'px';
 		this.obj.style.left = left + 'px';
-		if(this.with_cover){
-			$('.wrapper').addClass('blur');
-			showcover();
-		}
+		if(this.with_cover) showcover();
 		return false;
 	}
 	win.close = function(){
 		if(this.with_cover) hidecover();
 		win.obj.className = 'fwin h';
-		$('.wrapper').removeClass('blur');
 		setTimeout(function(){ $(win.obj).remove(); }, 300);
 	}
 	return win;

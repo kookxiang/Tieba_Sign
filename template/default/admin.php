@@ -8,12 +8,10 @@ if(!defined('IN_ADMINCP')) exit();
 <?php include template('widget/meta'); ?>
 </head>
 <body>
-<div class="wrapper" id="page_index">
 <div id="append_parent"><div class="cover hidden"></div><div class="loading-icon"><img src="./template/default/style/loading.gif" /> 载入中...</div></div>
-<div class="main-box clearfix">
+<div class="wrapper" id="page_index">
 <h1>贴吧签到助手 - 管理中心</h1>
 <div class="menubtn"><p>-</p><p>-</p><p>-</p></div>
-<div class="main-wrapper">
 <div class="sidebar">
 <ul id="menu" class="menu">
 <li id="menu_user"><a href="#user">用户管理</a></li>
@@ -182,7 +180,6 @@ if(getSetting('channel') == 'dev'){
 <div class="filelist hidden">
 <ul></ul>
 <p><button class="btn red">开始更新</button></p>
-</div>
 </div>
 </div>
 </div>
