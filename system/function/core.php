@@ -224,7 +224,8 @@ function runquery($sql){
 	}
 }
 function jquery_path(){
-	switch(getSetting('jquery_mode')){
+	$path = defined('IN_ADMINCP') ? 0 : getSetting('jquery_mode');
+	switch($path){
 		case 1:
 			return '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js';
 		case 2:
