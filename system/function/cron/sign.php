@@ -2,9 +2,12 @@
 if(!defined('IN_KKFRAME')) exit();
 $date = date('Ymd', TIMESTAMP);
 $count = DB::result_first("SELECT COUNT(*) FROM `sign_log` WHERE status IN (0, 1) AND date='{$date}'");
-set_time_limit(60);
+@set_time_limit(60);
 $endtime = TIMESTAMP + 45;
-if($count){
+if($nowtime - $today < 1800){
+	cron_set_nextrun($today + 1800);
+}elseif($count){
+	cron_set_nextrun(TIMESTAMP - 1);
 	while($endtime > time()){
 		if($count < 0) break;
 		$offset = 0;
@@ -45,5 +48,5 @@ if($count){
 		}
 	}
 }else{
-	cron_set_nextrun($tomorrow + 1800);
+	cron_set_nextrun($nowtime + 1800);
 }
