@@ -7,7 +7,11 @@ if($count) {
 	$count = DB::result_first("SELECT COUNT(*) FROM `x_tdou_log` WHERE nextrun<$now and retry<5 AND date='{$date}'");
 	if(!$count) {
 		$r = DB::result_first("SELECT nextrun FROM x_tdou_log WHERE nextrun>$now and retry<5 AND date='{$date}' ORDER BY nextrun ASC LIMIT 0,1");
-		if(!$r) cron_set_nextrun(TIMESTAMP + 300);
+		if(!$r){
+			cron_set_nextrun(TIMESTAMP + 1800);
+		}else{
+			cron_set_nextrun($r);
+		}
 	} else {
 		$num = 0;
 		while($num++ < 25) {
