@@ -1,10 +1,10 @@
 <?php
 if(!defined('IN_KKFRAME')) exit('Access Denied!');
 ?>
-<h2>T豆获取记录</h2><p style="color:#757575;font-size:12px">当前插件版本：<?php echo HOOK::getPlugin('x_tdou')->version; ?> | 更新日期：<?php echo HOOK::getPlugin('x_tdou')->update_time; ?> | Designed By <a href="http://tieba.baidu.com/home/main?un=%D0%C7%CF%D2%D1%A9&fr=index" target="_blank">@星弦雪</a> && <a href="http://www.ikk.me" target="_blank">@kookxiang</a></p>
-<p>这个插件可以帮助你自动领取T豆在线奖励以及自动砸蛋</p>
+<h2>豆票获取记录</h2><p style="color:#757575;font-size:12px">当前插件版本：<?php echo HOOK::getPlugin('x_tdou')->version; ?> | 更新日期：<?php echo HOOK::getPlugin('x_tdou')->update_time; ?> | Designed By <a href="http://tieba.baidu.com/home/main?un=%D0%C7%CF%D2%D1%A9&fr=index" target="_blank">@星弦雪</a> && <a href="http://www.ikk.me" target="_blank">@kookxiang</a></p>
+<p>这个插件可以帮助你自动领取豆票在线奖励以及自动砸蛋</p>
 <table>
-	<thead><tr><td style="width:20px">日期</td><td>T豆数量</td></tr></thead>
+	<thead><tr><td style="width:20px">日期</td><td>豆票数量</td></tr></thead>
 	<tbody id="x_tdou_log">
 		<tr><td colspan="2"><img src="./template/default/style/loading.gif">载入中，请稍候...</td></tr>
 	</tbody>

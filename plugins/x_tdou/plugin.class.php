@@ -1,9 +1,9 @@
 <?php
 if(!defined('IN_KKFRAME')) exit('Access Denied!');
 class plugin_x_tdou extends Plugin {
-	var $description = '贴吧自动领取T豆并自动砸蛋';
+	var $description = '贴吧自动领取豆票并自动砸蛋';
 	var $modules = array(
-		array('id' => 'log', 'type' => 'page', 'title' => 'T豆获取记录', 'file' => 'index.php'),
+		array('id' => 'log', 'type' => 'page', 'title' => '豆票获取记录', 'file' => 'index.php'),
 		array('type' => 'cron', 'cron' => array('id' => 'x_tdou/cron/daily', 'order' => '72')),
 		array('type' => 'cron', 'cron' => array('id' => 'x_tdou/cron/get', 'order' => '73')),
 	);
@@ -108,17 +108,17 @@ class plugin_x_tdou extends Plugin {
 			switch($statue){
 				case '1':
 					$this->updateStat($score, $uid, $date);
-					showmessage("领取在线奖励, 获得 {$score} 个T豆");
+					showmessage("领取在线奖励, 获得 {$score} 个豆票");
 					break;
 				case '2':
 					$this->updateStat($score, $uid, $date);
-					showmessage("开彩蛋, 获得 {$score} 个T豆");
+					showmessage("开彩蛋, 获得 {$score} 个豆票");
 					break;
 				case '3':
 					showmessage("今天的在线奖励已经领完啦⊙ω⊙");
 					break;
 				case '4':
-					showmessage("暂时没有T豆可以领取⊙ω⊙");
+					showmessage("暂时没有豆票可以领取⊙ω⊙");
 					break;
 				default:
 					showmessage("未知错误⊙ω⊙");
