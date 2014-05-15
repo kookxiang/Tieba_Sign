@@ -149,6 +149,7 @@ function load_setting(){
 		$('#register_limit').attr('checked', result.register_limit == 1);
 		$('#autoupdate').attr('checked', result.autoupdate == 1);
 		$('#block_register').attr('checked', result.block_register == 1);
+		$('#random_sign').attr('checked', result.random_sign == 1);
 		$('#invite_code').attr('value', result.invite_code ? result.invite_code : '');
 		$('#beian_no').attr('value', result.beian_no ? result.beian_no : '');
 		$('#stat_code').html(result.stat_code ? result.stat_code : '');
