@@ -237,7 +237,7 @@ function jquery_path(){
 			return 'system/js/jquery.min.js';
 	}
 }
-function kk_fetch_url($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $ip = '', $timeout = 15, $block = TRUE, $encodetype  = 'URLENCODE', $allowcurl = TRUE, $position = 0) {
+function kk_fetch_url($url, $limit = 0, $post = '', $cookie = '', $ignore = FALSE, $ip = '', $timeout = 15, $block = TRUE, $encodetype  = 'URLENCODE', $allowcurl = TRUE, $position = 0) {
 	$return = '';
 	$matches = parse_url($url);
 	$scheme = $matches['scheme'];
@@ -316,6 +316,10 @@ function kk_fetch_url($url, $limit = 0, $post = '', $cookie = '', $bysocket = FA
 		stream_set_blocking($fp, $block);
 		stream_set_timeout($fp, $timeout);
 		@fwrite($fp, $out);
+		if($ignore){
+			@fclose($fp);
+			return;
+		}
 		$status = stream_get_meta_data($fp);
 		if(!$status['timed_out']) {
 			while (!feof($fp) && !$fpflag) {

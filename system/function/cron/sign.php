@@ -3,7 +3,8 @@ if(!defined('IN_KKFRAME')) exit();
 $date = date('Ymd', TIMESTAMP);
 $count = DB::result_first("SELECT COUNT(*) FROM `sign_log` WHERE status IN (0, 1) AND date='{$date}'");
 @set_time_limit(60);
-$endtime = TIMESTAMP + 45;
+$multi_thread = getSetting('channel') == 'dev' && getSetting('multi_thread');
+$endtime = $multi_thread ? TIMESTAMP + 10 : TIMESTAMP + 45;
 if($nowtime - $today < 1800){
 	cron_set_nextrun($today + 1800);
 }elseif($count){
@@ -50,6 +51,12 @@ if($nowtime - $today < 1800){
 			sleep($time);
 			$count--;
 		}
+	}
+	if($multi_thread){
+		global $siteurl;
+		@sleep(1);
+		kk_fetch_url($siteurl.'cron.php', 1, '', '', true, '127.0.0.1', 1, TRUE, 'URLENCODE', false);		// start a new thread
+		exit();
 	}
 }else{
 	cron_set_nextrun($nowtime + 1800);
