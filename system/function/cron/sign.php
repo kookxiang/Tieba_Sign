@@ -55,7 +55,7 @@ if($nowtime - $today < 1800){
 	if($multi_thread){
 		global $siteurl, $real_siteurl;
 		@sleep(1);
-		kk_fetch_url(($real_siteurl ? $real_siteurl : $siteurl).'cron.php', 1, '', '', true, '', 1, TRUE, 'URLENCODE', false);		// start a new thread
+		kk_fetch_url(($real_siteurl ? $real_siteurl : $siteurl).'cron.php', 1, '', '', FALSE, '', 1, TRUE, 'URLENCODE', false);		// start a new thread
 		exit();
 	}
 }else{
