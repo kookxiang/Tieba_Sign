@@ -12,4 +12,6 @@ $_config = array(
 	),
 );
 
+$real_siteurl = 'http://'.$_SERVER['HTTP_APPNAME'].'.sinaapp.com/';
+
 ?>
