@@ -44,7 +44,7 @@ function get_random_content(){
 最好的年龄是，那一天，你终于知道并且坚信自己有多好，不是虚张，不是夸浮，不是众人捧，是内心明明澈澈知道：是的，我就是这么好。
 妈妈说只要我乖乖认错，就会再拉住我的手；你说不是有的时候认错，就能够让我们再次牵手。亲人总会原谅，因为你是他们的孩子；爱人总难原谅，因为我们都是孩子。
 分手之后，不用觉得那些曾经的恩爱是耳光，不用觉得那些说过的誓言多苍白，也不用去喊什么低调的幸福才能长久，至少在当时当地，它们都是出自真心。这所有的东西，都值得珍藏，你的青春没有白费。
-刚好处在这个尴尬的年龄，开始关心爸妈，却不愿说出口；想多陪陪爸妈，却更贪恋坐在电脑前；知道爸妈想和自己说话，却不知道他们的话题要怎么接；看得到爸妈在变老，却仍不耐烦他们的过时。心里时时刻刻在愧疚，却依然带给他们落寞。 
+刚好处在这个尴尬的年龄，开始关心爸妈，却不愿说出口；想多陪陪爸妈，却更贪恋坐在电脑前；知道爸妈想和自己说话，却不知道他们的话题要怎么接；看得到爸妈在变老，却仍不耐烦他们的过时。心里时时刻刻在愧疚，却依然带给他们落寞。
 她没有见过阴云，她的眼睛是晴空的颜色。她永远看着我，永远，看着，绝不会忽然掉过头去。
 不论是自转还是公转，涨潮还是退潮；不论是暖流改变气温带来鱼群，或者海水淹没岛屿失去踪迹；不论是我的世界车水马龙繁华盛世，还是它们都瞬间消失化为须臾；我都会坚定地走向你，不迷惑，不慌张，不犹豫。
 谁都以为自己会是例外——在后悔之外。谁都以为拥有的感情也是例外——在变淡之外。谁都以为恋爱的对象刚巧也是例外——在改变之外。然而最终发现——除了变化，无一例外。
@@ -112,7 +112,7 @@ function get_random_tid($tieba){
 	curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 	$contents = curl_exec ( $ch );
 	curl_close ( $ch );
-	preg_match_all('/<li class="j_thread_list clearfix" data-field=\'{(?<json>.*?)}\'/', $contents, $jsontids);
+	preg_match_all('/<li class="j_thread_list[A-z0-9 -_]+" data-field=\'{(?<json>.*?)}\'/', $contents, $jsontids);
 	foreach ($jsontids['json'] as $jsontid){
 		$jsontid=str_replace('&quot;','"', '{'.$jsontid.'}');
 		$tids[]=json_decode($jsontid)->id;
@@ -144,7 +144,7 @@ function client_rppost($uid, $tieba, $content) {
 			'net_type' => 3,
 			'tbs' => get_tbs ( $tieba ['uid'] ),
 			'tid' => $tieba ['tid'],
-			'title' => "" 
+			'title' => ""
 	);
 	$adddata = '';
 	foreach ( $formdata as $k => $v )
@@ -153,7 +153,7 @@ function client_rppost($uid, $tieba, $content) {
 	$formdata ['sign'] = $sign;
 	$ch = curl_init ( 'http://c.tieba.baidu.com/c/c/post/add' );
 	curl_setopt ( $ch, CURLOPT_HTTPHEADER, array (
-			'Content-Type: application/x-www-form-urlencoded' 
+			'Content-Type: application/x-www-form-urlencoded'
 	) );
 	curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true );
 	curl_setopt ( $ch, CURLOPT_COOKIE, $cookie );
