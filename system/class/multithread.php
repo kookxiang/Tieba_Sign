@@ -27,6 +27,7 @@ class MultiThread {
 		if(!$fp) return false;
 		stream_set_timeout($fp, 1);
 		@fwrite($fp, $header);
+		@fgets($fp);
 		fclose($fp);
 		return true;
 	}
