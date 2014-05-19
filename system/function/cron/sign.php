@@ -8,7 +8,7 @@ $endtime = $multi_thread ? TIMESTAMP + 10 : TIMESTAMP + 45;
 if($nowtime - $today < 1800){
 	cron_set_nextrun($today + 1800);
 }elseif($count){
-	cron_set_nextrun(TIMESTAMP - 1);
+	if(getSetting('next_cron') < TIMESTAMP - 3600) cron_set_nextrun(TIMESTAMP - 1);
 	while($endtime > time()){
 		if($count < 0) break;
 		if(getSetting('channel') == 'dev' && getSetting('random_sign')){
