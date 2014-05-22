@@ -63,8 +63,8 @@ if(!getSetting('use_sae_api')){
 <form method="post" action="admin.php?action=save_setting" id="setting_form" onsubmit="return post_win(this.action, this.id)">
 <p>功能增强:</p>
 <input type="hidden" name="formhash" value="<?php echo $formhash; ?>">
-<p><label><input type="checkbox" id="random_sign" name="random_sign" /> 使用随机签到模式 (Alpha, Nightly version only)</label></p>
-<p><label><input type="checkbox" id="multi_thread" name="multi_thread" /> 多线程签到 (Alpha, Unstable)</label></p>
+<p><label><input type="checkbox" id="random_sign" name="random_sign" /> 使用随机签到模式</label></p>
+<p><label><input type="checkbox" id="multi_thread" name="multi_thread" /> 多线程签到 (Alpha, Nightly version only)</label></p>
 <p><label><input type="checkbox" id="account_switch" name="account_switch" /> 允许多用户切换</label></p>
 <p><label><input type="checkbox" id="autoupdate" name="autoupdate" /> 每天自动更新用户喜欢的贴吧 (稍占服务器资源)</label></p>
 <p>功能限制:</p>

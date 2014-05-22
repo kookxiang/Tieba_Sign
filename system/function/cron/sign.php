@@ -14,12 +14,8 @@ if($nowtime - $today < 1800){
 	}
 	if(getSetting('next_cron') < TIMESTAMP - 3600) cron_set_nextrun(TIMESTAMP - 1);
 	while($endtime > time()){
-		if($count < 0) break;
-		if(getSetting('channel') == 'dev' && getSetting('random_sign')){
-			$offset = rand(1, $count) - 1;
-		}else{
-			$offset = 0;
-		}
+		if($count <= 0) break;
+		$offset = getSetting('random_sign') ? rand(1, $count) - 1 : 0;
 		$res = DB::fetch_first("SELECT tid, status FROM `sign_log` WHERE status IN (0, 1) AND date='{$date}' ORDER BY uid LIMIT {$offset},1");
 		$tid = $res['tid'];
 		if(!$tid) break;
