@@ -3,6 +3,9 @@ if(!defined('IN_KKFRAME')) exit();
 function is_admin($uid){
 	return in_array($uid, explode(',', getSetting('admin_uid')));
 }
+function is_email($string){
+	return preg_match('/^[A-z0-9._-]+@[A-z0-9._-]+\.[A-z0-9._-]+$/', $string);
+}
 function dsetcookie($name, $value = '', $exp = 2592000){
 	$exp = $value ? TIMESTAMP + $exp : '1';
 	setcookie($name, $value, $exp, '/');

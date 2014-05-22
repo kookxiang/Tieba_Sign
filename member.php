@@ -25,6 +25,7 @@ if($_GET['action'] == 'logout' && $_GET['hash']==$formhash){
 	$email = daddslashes($_POST['email']);
 	$password = md5(ENCRYPT_KEY.md5($_POST['password']).ENCRYPT_KEY);
 	if(strlen($_username) > 24) showmessage('用户名过长，请修改', dreferer(), 5);
+	if(!is_email($email)) showmessage('邮箱格式不正确，请修改', dreferer(), 5);
 	$user = DB::fetch_first("SELECT * FROM member WHERE username='{$_username}' AND password='{$password}'");
 	$userid = $user['uid'];
 	if($user){

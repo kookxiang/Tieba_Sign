@@ -49,6 +49,7 @@ switch($_GET['action']){
 		$data = array();
 		$query = DB::query('SELECT uid, username, email FROM member ORDER BY uid');
 		while($result = DB::fetch($query)){
+			$result['email'] = htmlspecialchars($result['email']);
 			$data[] = $result;
 		}
 		exit(json_encode($data));
