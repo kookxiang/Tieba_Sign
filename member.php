@@ -22,10 +22,8 @@ if($_GET['action'] == 'logout' && $_GET['hash']==$formhash){
 	}
 	$_username = daddslashes($_POST['username']);
 	if($_username == $username) showmessage('请输入其他账户的信息', './#');
-	$email = daddslashes($_POST['email']);
 	$password = md5(ENCRYPT_KEY.md5($_POST['password']).ENCRYPT_KEY);
 	if(strlen($_username) > 24) showmessage('用户名过长，请修改', dreferer(), 5);
-	if(!is_email($email)) showmessage('邮箱格式不正确，请修改', dreferer(), 5);
 	$user = DB::fetch_first("SELECT * FROM member WHERE username='{$_username}' AND password='{$password}'");
 	$userid = $user['uid'];
 	if($user){
@@ -130,6 +128,7 @@ EOF;
 			if($invite_code && $_POST['invite_code'] != $invite_code) showmessage('邀请码有误', 'member.php');
 			$username = daddslashes($_POST['username']);
 			$email = daddslashes($_POST['email']);
+			if(!is_email($email)) showmessage('邮箱格式不正确，请修改', dreferer(), 5);
 			if(!$username || !$_POST['password'] || !$email) showmessage('您输入的信息不完整', 'member.php');
 			if(preg_match('/[<>\'\\"]/i', $username)) showmessage('用户名中有被禁止使用的关键字', 'member.php');
 			if(strlen($username) < 6) showmessage('用户名至少要6个字符(即2个中文 或 6个英文)，请修改', dreferer(), 5);
