@@ -26,7 +26,14 @@ if(!defined('IN_ADMINCP')) exit();
 </ul>
 </div>
 <div class="main-content">
-<div id="content-user">
+<div id="content-loader">
+<h2>正在加载 jQuery 组件...</h2>
+<p>首次加载需要较长时间，请您耐心等待.</p>
+<p>jQuery 加载完成前，您暂时无法操作本页面.</p>
+<br />
+<p>如果您长时间停留在此页面，请手动刷新网页.</p>
+</div>
+<div id="content-user" class="hidden">
 <h2>用户管理</h2>
 <table>
 <thead><tr><td style="width: 40px">UID</td><td>用户名</td><td class="mobile_hidden">邮箱</td><td>操作</td></tr></thead>
