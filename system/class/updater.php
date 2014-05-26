@@ -25,7 +25,8 @@ class Updater{
 	}
 	public static function check(){
 		$d = getSetting('channel') == 'dev' ? 'tieba_sign' : 'tieba_sign_stable';
-		$data = kk_fetch_url(self::UPDATE_SERVER.'filelist.php?d='.$d);
+		$p = implode(',', self::_getPluginList());
+		$data = kk_fetch_url(self::UPDATE_SERVER."filelist.php?d={$d}&plugins={$p}");
 		saveSetting('new_version', 0);
 		if (!$data) return -1;
 		$content = pack('H*', $data);
@@ -131,6 +132,15 @@ class Updater{
 			DB::insert('download', array('path' => "{$_part}|".$path, 'content' => bin2hex($_countent)));
 		}
 		return 0;
+	}
+	private static function _getPluginList(){
+		$pluginList = array();
+		$list_dir = dir(ROOT.'./plugins/');
+		while($dirName = $list_dir->read()){
+			if($dirName == '.' || $dirName == '..' || !is_dir(ROOT."./plugins/{$dirName}")) continue;
+			$pluginList[] = $dirName;
+		}
+		return $pluginList;
 	}
 }
 ?>
