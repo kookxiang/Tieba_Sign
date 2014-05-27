@@ -19,30 +19,30 @@ switch($_GET['action']){
 			$data[$_uid]['retry'] = 0;
 			$data[$_uid]['unsupport'] = 0;
 		}
-		$query = DB::query("SELECT uid, COUNT(*) FROM `sign_log` WHERE date='{$date}' AND status='2' GROUP BY uid");
+		$query = DB::query("SELECT uid, COUNT(`status`=2) AS num FROM `sign_log` WHERE date='{$date}' GROUP BY uid");
 		while($result = DB::fetch($query)){
 			$_uid = $result['uid'];
-			$data[$_uid]['succeed'] = $result['COUNT(*)'];
+			$data[$_uid]['succeed'] = $result['num'];
 		}
-		$query = DB::query("SELECT uid, COUNT(*) FROM `sign_log` WHERE date='{$date}' AND status='0' GROUP BY uid");
+		$query = DB::query("SELECT uid, COUNT(`status`=0) AS num FROM `sign_log` WHERE date='{$date}' GROUP BY uid");
 		while($result = DB::fetch($query)){
 			$_uid = $result['uid'];
-			$data[$_uid]['waiting'] = $result['COUNT(*)'];
+			$data[$_uid]['waiting'] = $result['num'];
 		}
-		$query = DB::query("SELECT uid, COUNT(*) FROM `sign_log` WHERE date='{$date}' AND status='1' GROUP BY uid");
+		$query = DB::query("SELECT uid, COUNT(`status`=2) AS num FROM `sign_log` WHERE date='{$date}' GROUP BY uid");
 		while($result = DB::fetch($query)){
 			$_uid = $result['uid'];
-			$data[$_uid]['retry'] = $result['COUNT(*)'];
+			$data[$_uid]['retry'] = $result['num'];
 		}
-		$query = DB::query("SELECT uid, COUNT(*) FROM `sign_log` WHERE date='{$date}' AND status='-1' GROUP BY uid");
+		$query = DB::query("SELECT uid, COUNT(`status`=-1) AS num FROM `sign_log` WHERE date='{$date}' GROUP BY uid");
 		while($result = DB::fetch($query)){
 			$_uid = $result['uid'];
-			$data[$_uid]['unsupport'] = $result['COUNT(*)'];
+			$data[$_uid]['unsupport'] = $result['num'];
 		}
-		$query = DB::query("SELECT uid, COUNT(*) FROM `sign_log` WHERE date='{$date}' AND status='-2' GROUP BY uid");
+		$query = DB::query("SELECT uid, COUNT(`status`=-2) AS num FROM `sign_log` WHERE date='{$date}' GROUP BY uid");
 		while($result = DB::fetch($query)){
 			$_uid = $result['uid'];
-			$data[$_uid]['skiped'] = $result['COUNT(*)'];
+			$data[$_uid]['skiped'] = $result['num'];
 		}
 		exit(json_encode($data));
 	case 'load_user':
