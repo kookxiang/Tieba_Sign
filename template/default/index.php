@@ -30,7 +30,7 @@ $title = $extra_title ? "贴吧签到助手 - {$extra_title}" : '贴吧签到助
 <div id="content-liked_tieba" class="hidden">
 <?php include template('widget/liked_tieba'); ?>
 </div>
-<div id="content-sign_log">
+<div id="content-sign_log" class="hidden">
 <?php include template('widget/sign_log'); ?>
 </div>
 <div id="content-setting" class="hidden">
