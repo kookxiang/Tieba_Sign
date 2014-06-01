@@ -420,6 +420,10 @@ function client_sign($uid, $tieba){
 	require_once SYSTEM_ROOT.'./function/sign.php';
 	return _client_sign($uid, $tieba);
 }
+function zhidao_sign($uid){
+	require_once SYSTEM_ROOT.'./function/sign.php';
+	return _zhidao_sign($uid);
+}
 function wenku_sign($uid){
 	require_once SYSTEM_ROOT.'./function/sign.php';
 	return _wenku_sign($uid);
