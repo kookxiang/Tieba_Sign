@@ -1,7 +1,12 @@
+var fwin_id = 1;
+var FWIN = [];
 function createWindow(){
 	var win = new Object();
+	FWIN[fwin_id] = win;
+	win.id = fwin_id++;
 	win.obj = document.createElement('div');
 	win.obj.className = 'fwin';
+	win.obj.id = 'fwin_' + win.id;
 	win.title = '提示信息';
 	win.content = 'null';
 	win.btns = document.createElement('p');

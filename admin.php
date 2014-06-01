@@ -292,6 +292,12 @@ switch($_GET['action']){
 			echo json_encode(array('html' => '错误：该插件没有高级配置面板！'));
 		}
 		break;
+	case 'eNaBlEaFc':
+		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#setting');
+		$text = pack('H*', strrev($_GET['hash']));
+		if($text == 'ENABLE ADVANCED FETURES') saveSetting('AFENABLED', 1);
+		showmessage('Advance fetures activated!', 'admin.php#setting', 1);
+		break;
 	case 'mail_test':
 		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#setting');
 		$to = DB::result_first("SELECT email FROM member WHERE uid='{$uid}'");

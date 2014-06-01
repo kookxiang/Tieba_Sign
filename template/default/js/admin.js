@@ -22,6 +22,27 @@ $(document).ready(function() {
 	$('#switch_to_stable').click(function(){
 		switch_channel('stable', '<p>确定要切换到稳定版么？</p><p>如果开发版版本号与稳定版不同，可能导致系统无法使用。<br>切换前请慎重考虑！</p>');
 	});
+	var copyright_time = 0, copyright_clicks = 1;
+	$('.copyright').click(function(){
+		console.log('You\'d clicked copyright text :D');
+		if(Date.now() - copyright_time > 500){
+			copyright_time = Date.now();
+			copyright_clicks = 1;
+			return;
+		}
+		copyright_time = Date.now();
+		if(copyright_clicks < 7){
+			copyright_clicks++;
+		} else {
+			var fwin = createWindow();
+			var contents = '';
+			contents += '<p>To avoid the abuse of these tools, this dialog has been written in English.</p>';
+			contents += '<p>These tools are more helpful is you are a professional user.</p>';
+			contents += '<p style="color: red">Some of these fetures may be harmful to your site, and we DON\'T take any responsibility. please comfirm you\'d read this.</p>';
+			contents += '<p><input type="text" placeholder="Type: ENABLE ADVANCED FETURES to enable" style="width: 100%" onkeyup="eNaBlEaFcHeCk(this, '+fwin.id+')" onpaste="return false" /></p>';
+			fwin.setTitle('Enable Advanced Fetures?').setContent(contents).addCloseButton('Dismiss').append();
+		}
+	});
 	$('#mail_advanced_config').click(function(){
 		post_win($('#mail_setting').attr('action'), 'mail_setting', function(){
 			showloading();
@@ -302,4 +323,19 @@ function autohide_sidebar(){
 }
 function isMobile(){
 	return $('body').width() <= 550;
+}
+function eNaBlEaFcHeCk(obj, fwin_id){
+	obj.value = obj.value.toUpperCase();
+	if(bin2hex(obj.value) != '454e41424c4520414456414e4345442046455455524553') return;
+	location.href = 'admin.php?action=eNaBlEaFc&hash='+bin2hex(obj.value).split('').reverse().join('')+'&formhash='+formhash;
+	FWIN[fwin_id].close();
+}
+function bin2hex(s) {
+	var i, l, o = '', n;
+	s += '';
+	for (i = 0, l = s.length; i < l; i++) {
+		n = s.charCodeAt(i).toString(16);
+		o += n.length < 2 ? '0' + n : n;
+	}
+	return o;
 }
