@@ -293,6 +293,7 @@ switch($_GET['action']){
 		}
 		break;
 	case 'mail_test':
+		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#setting');
 		$to = DB::result_first("SELECT email FROM member WHERE uid='{$uid}'");
 		$subject = '[贴吧签到助手] 邮件单发测试';
 		$content = "<p>此封邮件仅用于检测邮件系统是否正常工作。</p><p>此封邮件是由邮件系统直接发送的</p>";
@@ -313,7 +314,7 @@ switch($_GET['action']){
 		showmessage('2 封邮件已经发送，请查收', 'admin.php#setting', 2);
 		break;
 	case 'send_mail':
-		if($formhash != $_POST['formhash']) showmessage('来源不可信，请重试', 'admin.php#mail');
+		if($formhash != $_POST['formhash']) showmessage('来源不可信，请重试', 'admin.php#setting');
 		$title = daddslashes($_POST['title']);
 		$content = daddslashes($_POST['content']);
 		$content = nl2br(htmlspecialchars($content));
