@@ -14,7 +14,6 @@ $_config = array(
 		'pconnect' => false,
 	),
 );
-require_once '../system/class/debug.php';
 require_once '../system/class/error.php';
 set_exception_handler(array('error', 'exception_error'));
 require_once '../system/class/db.php';

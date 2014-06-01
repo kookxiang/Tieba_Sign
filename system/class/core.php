@@ -4,7 +4,6 @@ class core {
 	function init() {
 		global $_config;
 		if(!$_config) require_once SYSTEM_ROOT.'./config.inc.php';
-		DEBUG::INIT();
 		$this->init_header();
 		$this->init_useragent();
 		CACHE::pre_fetch('setting', 'plugin', 'plugins');
