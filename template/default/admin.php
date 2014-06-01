@@ -191,6 +191,7 @@ if(getSetting('channel') == 'dev'){
 <p><button class="btn red">开始更新</button></p>
 </div>
 </div>
+<p class="copyright"><span class="mobile_hidden">贴吧签到助手 - Designed</span> by <a href="http://www.ikk.me" target="_blank">kookxiang</a>. 2014 &copy; <a href="http://www.kookxiang.com" target="_blank">KK's Laboratory</a> - <a href="http://go.ikk.me/donate" target="_blank">赞助开发</a></p>
 </div>
 </div>
 <?php include template('widget/footer'); ?>
