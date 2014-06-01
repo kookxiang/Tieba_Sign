@@ -25,6 +25,7 @@ $(document).ready(function() {
 	var copyright_time = 0, copyright_clicks = 1;
 	$('.copyright').click(function(){
 		console.log('You\'d clicked copyright text :D');
+		if(AF == 1) return;
 		if(Date.now() - copyright_time > 500){
 			copyright_time = Date.now();
 			copyright_clicks = 1;
@@ -177,6 +178,7 @@ function load_setting(){
 		$('#stat_code').html(result.stat_code ? result.stat_code : '');
 		$('#max_tieba').val(result.max_tieba);
 		$('#extra_title').val(result.extra_title);
+		if(AF == 1) $('#admin_uid').val(result.admin_uid);
 		$('input[name=jquery_mode]').attr('checked', false);
 		switch(result.jquery_mode){
 			case '1': case '2': case '3': case '4': $('#jquery_'+result.jquery_mode).prop('checked', true); break;

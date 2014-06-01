@@ -68,8 +68,12 @@ if(!getSetting('use_sae_api')){
 <?php } ?>
 <br>
 <form method="post" action="admin.php?action=save_setting" id="setting_form" onsubmit="return post_win(this.action, this.id)">
-<p>功能增强:</p>
 <input type="hidden" name="formhash" value="<?php echo $formhash; ?>">
+<?php if(defined('AFENABLED')) { ?>
+<p>管理员 UID: （使用英文逗号分隔）</p>
+<p><input type="text" id="admin_uid" name="admin_uid" value="<?php echo getSetting('admin_uid'); ?>" /></p>
+<?php } ?>
+<p>功能增强:</p>
 <p><label><input type="checkbox" id="random_sign" name="random_sign" /> 使用随机签到模式</label></p>
 <p><label><input type="checkbox" id="multi_thread" name="multi_thread" /> 多线程签到 (Alpha, Nightly version only)</label></p>
 <p><label><input type="checkbox" id="account_switch" name="account_switch" /> 允许多用户切换</label></p>

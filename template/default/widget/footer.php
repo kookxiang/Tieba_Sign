@@ -2,7 +2,11 @@
 if(!defined('IN_KKFRAME')) exit();
 ?>
 <script src="<?php echo jquery_path(); ?>"></script>
-<script type="text/javascript">var formhash = '<?php echo $formhash; ?>';var version = '<?php echo VERSION; ?>';</script>
+<script type="text/javascript">
+var formhash = '<?php echo $formhash; ?>';
+var version = '<?php echo VERSION; ?>';
+<?php echo 'var AF = '.(defined('AFENABLED') ? 1 : 0); ?>
+</script>
 <script src="./template/default/js/kk_dropdown.js?version=<?php echo VERSION; ?>"></script>
 <?php
 if(defined('IN_ADMINCP')){
