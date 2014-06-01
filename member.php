@@ -22,11 +22,11 @@ if($_GET['action'] == 'logout' && $_GET['hash']==$formhash){
 	}
 	$_username = daddslashes($_POST['username']);
 	if($_username == $username) showmessage('请输入其他账户的信息', './#');
-	$password = md5(ENCRYPT_KEY.md5($_POST['password']).ENCRYPT_KEY);
 	if(strlen($_username) > 24) showmessage('用户名过长，请修改', dreferer(), 5);
-	$user = DB::fetch_first("SELECT * FROM member WHERE username='{$_username}' AND password='{$password}'");
+	$user = DB::fetch_first("SELECT * FROM member WHERE username='{$_username}'");
 	$userid = $user['uid'];
-	if($user){
+	$verified = Widget_Password::verify($user, $_POST['password']);
+	if($verified){
 		$exists = DB::result_first("SELECT _uid FROM member_bind WHERE uid='{$uid}' AND _uid='{$userid}'");
 		if($exists) showmessage('您此前已经绑定过此帐号', './#');
 		DB::insert('member_bind', array(
@@ -66,7 +66,7 @@ if($_GET['action'] == 'logout' && $_GET['hash']==$formhash){
 		$user = DB::fetch_first("SELECT * FROM member WHERE uid='{$uid}' AND password='{$password}'");
 		if(!$user) showmessage('链接已经失效，请重新获取', './');
 		$new_password = random(10);
-		$newpassword = md5(ENCRYPT_KEY.md5($new_password).ENCRYPT_KEY);
+		$newpassword = Widget_Password::encrypt($user, $new_password);
 		DB::update('member', array('password' => $newpassword), "uid='{$uid}'");
 		showmessage("您的密码已经重置为：<br>{$new_password}<br><br>请使用新密码登录并修改密码。");
 	}elseif($_POST['username'] && $_POST['email']){
@@ -138,7 +138,7 @@ EOF;
 			$user = DB::fetch_first("SELECT * FROM member WHERE username='{$username}'");
 			if($user) showmessage('用户名已经存在', 'member.php');
 			HOOK::run('before_register');
-			$uid = do_register($username,$_POST['password'],$email);
+			$uid = do_register($username, $_POST['password'], $email);
 			do_login($uid);
 			HOOK::run('register_finish', $uid);
 			showmessage("注册成功，您的用户名是 <b>{$username}</b> 记住了哦~！", dreferer(), 3);
@@ -149,14 +149,14 @@ EOF;
 }elseif($_POST){
 	if($_POST['username'] && $_POST['password']){
 		$username = daddslashes($_POST['username']);
-		$password = md5(ENCRYPT_KEY.md5($_POST['password']).ENCRYPT_KEY);
 		$un = strtolower($username);
 		if(strlen($username) > 24) showmessage('用户名过长，请修改', dreferer(), 5);
-		$user = DB::fetch_first("SELECT * FROM member WHERE username='{$username}' AND password='{$password}'");
-		$username = $user['username'];
-		if($user) {
+		$user = DB::fetch_first("SELECT * FROM member WHERE username='{$username}'");
+		$verified = Widget_Password::verify($user, $_POST['password']);
+		if($verified) {
 			$login_exp = TIMESTAMP + 3600;
 			do_login($user['uid']);
+			$username = $user['username'];
 			showmessage("欢迎回来，{$username}！", dreferer(), 1);
 		}else{
 			showmessage('对不起，您的用户名或密码错误，无法登录.', 'member.php', 3);

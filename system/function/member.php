@@ -20,12 +20,16 @@ function _do_login($uid){
 	dsetcookie('token', authcode("{$cookiever}\t{$uid}\t{$user[username]}\t{$login_exp}\t{$password_hash}", 'ENCODE'));
 }
 
-function _do_register($username,$password,$email){
-	$uid = DB::insert('member', array(
-				'username' => $username,
-				'password' => md5(ENCRYPT_KEY.md5($password).ENCRYPT_KEY),
-				'email' => $email,
-			));
+function _do_register($username, $password, $email){
+	$user = array(
+		'username' => $username,
+		'password' => 'FAKE_PASSWORD',
+		'email' => $email,
+	);
+	$uid = DB::insert('member', $user);
+	$user['uid'] == $uid;
+	$password = Widget_Password::encrypt($user, $password);
+	DB::query("UPDATE member SET password='{$password}' WHERE uid='{$uid}'");
 	DB::insert('member_setting', array('uid' => $uid, 'cookie' => ''));
 	CACHE::update('username');
 	CACHE::save('user_setting_'.$uid, '');

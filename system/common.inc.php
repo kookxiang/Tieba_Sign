@@ -15,8 +15,8 @@ require_once SYSTEM_ROOT.'./class/error.php';
 set_exception_handler(array('error', 'exception_error'));
 
 function class_loader($class_name){
-	list($type, $plugin_id) = explode('_', $class_name, 2);
-	if ($type == 'plugin') {
+	list($type, $plugin_id) = explode('_', strtolower($class_name), 2);
+	if ($type == 'plugin' && $plugin_id) {
 		$file_path = "plugins/{$plugin_id}/plugin.class.php";
 	} elseif ($type == 'widget') {
 		$file_path = "system/class/widget/{$class_name}.php";

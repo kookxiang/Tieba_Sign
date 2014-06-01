@@ -58,13 +58,12 @@ if(!$uid){
 			break;
 		case 'change_password':
 			if($_POST['formhash'] != $formhash) break;
+			$user = DB::fetch_first("SELECT * FROM member WHERE uid='{$uid}'");
 			if(!$_POST['old_password']) showmessage('请输入旧密码', './#setting', 1);
 			if(!$_POST['new_password']) showmessage('请输入新密码', './#setting', 1);
 			if($_POST['new_password'] != $_POST['new_password2']) showmessage('两次输入的新密码不一样，请检查', './#setting', 1);
-			$oldpassword = md5(ENCRYPT_KEY.md5($_POST['old_password']).ENCRYPT_KEY);
-			$check = DB::result_first("SELECT uid FROM member WHERE uid='{$uid}' AND password='{$oldpassword}'");
-			if(!$check) showmessage('旧密码错误！请检查输入', './#setting', 1);
-			$newpassword = md5(ENCRYPT_KEY.md5($_POST['new_password']).ENCRYPT_KEY);
+			if(!Widget_Password::verify($user, $_POST['old_password'])) showmessage('旧密码错误！请检查输入', './#setting', 1);
+			$newpassword = Widget_Password::encrypt($user, $_POST['new_password']);
 			DB::update('member', array('password' => $newpassword), "uid='{$uid}'");
 			showmessage('您的密码已经更新', './#setting', 1);
 			break;
