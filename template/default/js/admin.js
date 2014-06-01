@@ -202,7 +202,7 @@ function load_cron(){
 				content += '<td>执行完毕</td>';
 			}else{
 				content += '<td>'+format_time(-field.nextrun)+'前</td>';
-				content += '<td>队列中</td>';
+				content += AF == 1 ? '<td>队列中 (<a href="admin.php?action=skip_cron&formhash='+formhash+'&cid='+field._id+'" onclick="return msg_callback_action(this.href, load_cron)">跳过</a>)</td>' : '<td>队列中</td>';
 			}
 			content += '</tr>';
 			$('#content-cron table tbody').append(content);

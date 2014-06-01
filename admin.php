@@ -352,6 +352,28 @@ switch($_GET['action']){
 	case 'load_cron':
 		exit(json_encode(getCron()));
 		break;
+	case 'skip_cron':
+		if(!defined('AFENABLED')) exit();
+		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#cron');
+		$cron_id = daddslashes($_GET['cid']);
+		DB::query("UPDATE cron SET nextrun=nextrun+86400 WHERE id='{$cron_id}'");
+		$time = TIMESTAMP;
+		DB::query("UPDATE cron SET nextrun='{$time}'+3600 WHERE id='{$cron_id}' AND nextrun < '{$time}'");
+		showmessage('计划任务修改成功', 'admin.php#cron');
+		break;
+	case 'clear_cron_cache':
+		if(!defined('AFENABLED')) exit();
+		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#cron');
+		$nextrun = DB::fetch_first("SELECT nextrun FROM cron ORDER BY nextrun ASC LIMIT 0,1");
+		saveSetting('next_cron', $nextrun ? $nextrun['nextrun'] : TIMESTAMP + 1200);
+		showmessage('缓存已清除', 'admin.php#cron');
+		break;
+	case 'clear_cache':
+		if(!defined('AFENABLED')) exit();
+		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#cron');
+		CACHE::clear();
+		showmessage('缓存已清除', 'admin.php#cron');
+		break;
 	case 'clear_cron':
 		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#cron');
 		$query = DB::query("SELECT * FROM cron ORDER BY `order`");
@@ -457,6 +479,7 @@ function getCron(){
 	$system_cron = $plugin_cron = array();
 	while($cron = DB::fetch($query)){
 		unset($cron['enabled']);
+		$cron['_id'] = $cron['id'];
 		$cron['nextrun'] = $cron['nextrun'] - TIMESTAMP;
 		list($pluginid, $cronscript) = explode('/', $cron['id'], 2);
 		if($pluginid && $cronscript){

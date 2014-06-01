@@ -70,6 +70,7 @@ if(!getSetting('use_sae_api')){
 <form method="post" action="admin.php?action=save_setting" id="setting_form" onsubmit="return post_win(this.action, this.id)">
 <input type="hidden" name="formhash" value="<?php echo $formhash; ?>">
 <?php if(defined('AFENABLED')) { ?>
+<p><a href="admin.php?action=clear_cache&formhash=<?php echo $formhash; ?>" class="btn red" onclick="return msg_win_action(this.href)">清除系统缓存</a></p>
 <p>管理员 UID: （使用英文逗号分隔）</p>
 <p><input type="text" id="admin_uid" name="admin_uid" value="<?php echo getSetting('admin_uid'); ?>" /></p>
 <?php } ?>
@@ -166,7 +167,12 @@ foreach($classes as $id=>$obj){
 <thead><tr><td style="width: 40px">#</td><td>类型</td><td>计划任务脚本名</td><td>下次执行</td><td>当前状态</td></tr></thead>
 <tbody></tbody>
 </table>
-<p><a href="admin.php?action=clear_cron&formhash=<?php echo $formhash; ?>" class="btn red" onclick="return msg_callback_action(this.href, load_cron)">清理无效任务</a></p>
+<p>
+<a href="admin.php?action=clear_cron&formhash=<?php echo $formhash; ?>" class="btn red" onclick="return msg_callback_action(this.href, load_cron)">清理无效任务</a>
+<?php
+if(defined('AFENABLED')) echo '<a href="admin.php?action=clear_cron_cache&formhash='.$formhash.'" class="btn red" onclick="return msg_callback_action(this.href, load_cron)">清理执行时间缓存</a>';
+?>
+</p>
 </div>
 <div id="content-updater" class="hidden">
 <style type="text/css">
