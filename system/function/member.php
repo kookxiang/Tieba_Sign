@@ -27,7 +27,7 @@ function _do_register($username, $password, $email){
 		'email' => $email,
 	);
 	$uid = DB::insert('member', $user);
-	$user['uid'] == $uid;
+	$user['uid'] = $uid;
 	$password = Widget_Password::encrypt($user, $password);
 	DB::query("UPDATE member SET password='{$password}' WHERE uid='{$uid}'");
 	DB::insert('member_setting', array('uid' => $uid, 'cookie' => ''));
