@@ -98,9 +98,9 @@ function updater_get_file(){
 			switch(result.status){
 				case -1:	$('#content-updater .result').append('下载文件 '+result.file+' 失败');	break;
 				case -2:	$('#content-updater .result').append('校验文件 '+result.file+' 出错');	break;
-				case -3:	$('#content-updater .result').append('当前环境不支持自动更新，请手动更新');	break;
+				case -3:	$('#content-updater .result').append('当前环境不支持自动更新，请<a href="http://www.kookxiang.com/svn_updater.php" target="_blank">使用论坛提供的 SVN 更新工具进行更新</a>');	break;
 			}
-			setTimeout(function(){ location.reload(); }, 5000);
+			setTimeout(function(){ location.reload(); }, 10000);
 			return;
 		}
 		$('#content-updater .result').html('正在下载 '+result.file+'，请耐心等待... ('+result.precent+'%)');
