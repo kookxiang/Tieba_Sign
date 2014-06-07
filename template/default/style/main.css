@@ -93,7 +93,7 @@ a.btn { height: 28px; }
 #member-menu a { color: #dedede; }
 #member-menu li:hover { background: #2c3335; }
 #member-menu li:hover a { color: #fff; }
-.sidebar { width: 230px; position: absolute; top: 50px; bottom: 0; left: 0; }
+.sidebar { width: 230px; position: absolute; top: 50px; bottom: 0; left: 0; overflow: auto; }
 .sidebar p { text-align: center; margin-bottom: 0; padding-bottom: .75em; }
 .main-content { position: absolute; top: 50px; bottom: 0; left: 230px; right: 0; box-shadow: -5px 0 65px #181818; font-size: 11px; text-align: right; padding: 10px; overflow: auto; background: #fff; }
 .main-content>div { min-height: 500px; margin-bottom: 1em; font-size: 13px; text-align: left; }
