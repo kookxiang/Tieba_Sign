@@ -83,7 +83,7 @@ if(!getSetting('use_sae_api')){
 <?php
 if(defined('AFENABLED')) {
 ?>
-<p><label>每个用户最多喜欢 <input type="text" id="max_tieba" name="max_tieba" /> 个贴吧</label></p>
+<p><label>每个用户最多喜欢 <input type="text" id="max_tieba" name="max_tieba" style="width: 50px" /> 个贴吧</label></p>
 <?php
 }else{
 ?>
