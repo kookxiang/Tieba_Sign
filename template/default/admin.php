@@ -80,6 +80,13 @@ if(!getSetting('use_sae_api')){
 <p><label><input type="checkbox" id="account_switch" name="account_switch" /> 允许多用户切换</label></p>
 <p><label><input type="checkbox" id="autoupdate" name="autoupdate" /> 每天自动更新用户喜欢的贴吧 (稍占服务器资源)</label></p>
 <p>功能限制:</p>
+<?php
+if(defined('AFENABLED')) {
+?>
+<p><label>每个用户最多喜欢 <input type="text" id="max_tieba" name="max_tieba" /> 个贴吧</label></p>
+<?php
+}else{
+?>
 <p>
 <select name="max_tieba" id="max_tieba">
 <option value="0" selected>不限制单用户的最大喜欢贴吧数量</option>
@@ -89,8 +96,13 @@ if(!getSetting('use_sae_api')){
 <option value="120">每个用户最多喜欢 120 个贴吧</option>
 <option value="180">每个用户最多喜欢 180 个贴吧</option>
 <option value="250">每个用户最多喜欢 250 个贴吧</option>
+<option value="350">每个用户最多喜欢 350 个贴吧</option>
+<option value="500">每个用户最多喜欢 500 个贴吧</option>
+<option value="750">每个用户最多喜欢 750 个贴吧</option>
+<option value="1000">每个用户最多喜欢 1000 个贴吧</option>
 </select>
 </p>
+<?php } ?>
 <p>防恶意注册:</p>
 <p><label><input type="checkbox" id="block_register" name="block_register" /> 彻底关闭新用户注册功能</label></p>
 <p><label><input type="checkbox" id="register_check" name="register_check" /> 启用内置的简单防恶意注册系统 (可能会导致无法注册)</label></p>
