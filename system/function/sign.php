@@ -55,7 +55,7 @@ function _get_liked_tieba($cookie){
 		foreach ($matches[1] as $key => $value) {
 			$uname = urlencode($value);
 			$_uname = preg_quote($value);
-			preg_match('/ForumManager\.undo_like\(\'([0-9]+)\',\''.preg_quote($uname).'\'/i', $result, $fid);
+			preg_match('/balvid="([0-9]+)"/i', $result, $fid);
 			$kw_name[] = array(
 				'name' => mb_convert_encoding($value, 'utf-8', 'gbk'),
 				'uname' => $uname,
