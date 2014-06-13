@@ -311,16 +311,17 @@ switch($_GET['action']){
 		$mail->subject = $subject;
 		$mail->message = $content;
 		$sender = new mail_sender();
-		$sender->sendMail($mail);
-		$subject = '[贴吧签到助手] 邮件群发测试';
-		$content = "<p>此封邮件仅用于检测邮件队列是否正常工作。</p><p>此封邮件是从系统邮件队列中读取并发送的</p>";
-		DB::insert('mail_queue', array(
-			'to' => $to,
-			'subject' => $subject,
-			'content' => $content,
-			));
-		saveSetting('mail_queue', 1);
-		showmessage('2 封邮件已经发送，请查收', 'admin.php#setting', 2);
+    	if($sender->sendMail($mail)){
+            $subject = '[贴吧签到助手] 邮件群发测试';
+            $content = "<p>此封邮件仅用于检测邮件队列是否正常工作。</p><p>此封邮件是从系统邮件队列中读取并发送的</p>";
+            DB::insert('mail_queue', array(
+                'to' => $to,
+                'subject' => $subject,
+                'content' => $content,
+                ));
+            saveSetting('mail_queue', 1);
+            showmessage('2 封邮件已经发送，请查收', 'admin.php#setting', 2);
+        }else showmessage('邮件发送失败，请检查设置后重试', 'admin.php#setting', 2);
 		break;
 	case 'send_mail':
 		if($formhash != $_POST['formhash']) showmessage('来源不可信，请重试', 'admin.php#setting');
