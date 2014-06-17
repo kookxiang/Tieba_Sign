@@ -6,11 +6,11 @@ $plugin_id = htmlspecialchars($_GET['id']);
 $plugins = CACHE::get('plugins');
 foreach($plugins as $plugin){
 	if($plugin['id'] == $plugin_id) {
-		$found = true;
+		$exists = true;
 		break;
 	}
 }
-if(!isset($found)) throw new Exception("Unknown plugin '{$plugin_id}'");
+if(!isset($exists)) throw new Exception("Unknown plugin '{$plugin_id}'");
 $obj = HOOK::getPlugin($plugin_id);
 if($obj instanceof Plugin){
 	$obj->handleAction();
