@@ -99,6 +99,13 @@ switch($_GET['action']){
 		DB::query("UPDATE sign_log SET status='0', retry='0' WHERE uid='{$_uid}' AND date='{$date}' AND status<0");
 		showmessage('已经重置，稍后系统将自动重试', 'admin.php#stat', 1);
 		break;
+	case 'reset_failure_all':
+		if(!defined('AFENABLED')) exit();
+		if($formhash != $_GET['formhash']) showmessage('来源不可信，请重试', 'admin.php#stat');
+		$date = date('Ymd');
+		DB::query("UPDATE sign_log SET status='0', retry='0' WHERE AND date='{$date}' AND status<0");
+		showmessage('已经重置，稍后系统将自动重试', 'admin.php#stat', 1);
+		break;
 	case 'mail_setting':
 		if($formhash != $_POST['formhash']) showmessage('来源不可信，请重试', 'admin.php#setting');
 		$classes = getClasses();

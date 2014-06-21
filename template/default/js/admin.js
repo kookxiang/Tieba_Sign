@@ -44,6 +44,9 @@ $(document).ready(function() {
 			fwin.setTitle('Enable Advanced Fetures?').setContent(contents).addCloseButton('Dismiss').append();
 		}
 	});
+	$('#reset_failure_all').click(function(){
+		createWindow().setTitle("全部重置").setContent('你确定要重置所有用户无法签到的贴吧吗？这将消耗大量服务器资源').addButton("确定", function(){msg_callback_action('admin.php?action=reset_failure&formhash='+formhash,load_stat);}).addCloseButton("取消").append();
+	});
 	$('#mail_advanced_config').click(function(){
 		post_win($('#mail_setting').attr('action'), 'mail_setting', function(){
 			showloading();

@@ -46,6 +46,9 @@ if(!defined('IN_ADMINCP')) exit();
 <thead><tr><td style="width: 40px">UID</td><td>用户名</td><td>已成功</td><td>已跳过</td><td>待签到</td><td>待重试</td><td>不支持</td></tr></thead>
 <tbody></tbody>
 </table>
+<?php
+if(defined('AFENABLED')) echo '<a id="reset_failure_all" href="javascript:;" class="btn red">一键重置无法签到的贴吧</a>';
+?>
 </div>
 <div id="content-setting" class="hidden">
 <h2>系统设置</h2>
