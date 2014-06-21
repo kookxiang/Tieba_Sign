@@ -65,6 +65,7 @@ if(!$uid){
 			if(!Widget_Password::verify($user, $_POST['old_password'])) showmessage('旧密码错误！请检查输入', './#setting', 1);
 			$newpassword = Widget_Password::encrypt($user, $_POST['new_password']);
 			DB::update('member', array('password' => $newpassword), "uid='{$uid}'");
+			HOOK::run('change_password', true, $uid);
 			showmessage('您的密码已经更新', './#setting', 1);
 			break;
 		case 'reset_failure':

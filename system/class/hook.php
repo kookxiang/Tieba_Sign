@@ -4,7 +4,6 @@ class HOOK{
 	function INIT(){
 		global $_PLUGIN;
 		$_PLUGIN = array();
-		if(defined('DISABLE_PLUGIN')) return;
 		$_PLUGIN['list'] = CACHE::get('plugins');
 		$_PLUGIN['obj'] = array();
 		$_PLUGIN['hook'] = array();
@@ -102,12 +101,13 @@ class HOOK{
 			}
 		}
 	}
-	function run($hookname){
+	function run($hookname, $ignore_unabled = false){
 		global $_PLUGIN;
-		if(defined('DISABLE_PLUGIN')) return;
+		if(defined('DISABLE_PLUGIN') && !$ignore_unabled) return;
 		$hooks = $_PLUGIN['hook'][$hookname];
 		if(!$hooks) return;
 		$args = func_get_args();
+		unset($args[0], $args[1]);
 		foreach($hooks as $pluginid){
 			try{
 				echo $_PLUGIN['obj'][$pluginid]->$hookname($args);
