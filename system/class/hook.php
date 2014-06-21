@@ -110,7 +110,7 @@ class HOOK{
 		unset($args[0], $args[1]);
 		foreach($hooks as $pluginid){
 			try{
-				echo $_PLUGIN['obj'][$pluginid]->$hookname($args);
+				echo call_user_func_array(array(&$_PLUGIN['obj'][$pluginid], $hookname), $args);
 			}catch(Exception $e){
 				error::exception_error($e);
 			}
