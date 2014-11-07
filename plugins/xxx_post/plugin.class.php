@@ -224,7 +224,7 @@ EOF;
 				}
 				preg_match ( '/fname="(.+?)"/', $contents, $fnames );
 				$unicode_name = urlencode($fnames [1]);
-				$fname = iconv("gbk", "utf-8", $fnames [1]);
+				$fname = $fnames [1];
 				DB::insert ( 'xxx_post_posts', array (
 					'uid' => $uid,
 					'fid' => $fid,
@@ -253,9 +253,9 @@ EOF;
 				}
 				preg_match ( '/fname="(.+?)"/', $contents, $fnames );
 				$unicode_name = urlencode($fnames [1]);
-				$fname = iconv("gbk", "utf-8", $fnames [1]);
+				$fname = $fnames [1];
 				preg_match ( '/title:"(.*?)"/', $contents, $post_names );
-				$post_name = iconv("gbk", "utf-8", $post_names [1]);
+				$post_name = $post_names [1];
 				DB::insert ( 'xxx_post_posts', array (
 						'uid' => $uid,
 						'fid' => $fid,
