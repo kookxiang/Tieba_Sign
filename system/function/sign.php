@@ -37,6 +37,7 @@ function _get_baidu_userinfo($uid){
 	curl_setopt($ch, CURLOPT_COOKIE, $cookie);
 	$tbs_json = curl_exec($ch);
 	curl_close($ch);
+	$tbs_json = mb_convert_encoding($tbs_json, "utf8", "gbk");
 	return json_decode($tbs_json, true);
 }
 
