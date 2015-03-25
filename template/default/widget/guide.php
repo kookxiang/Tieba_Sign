@@ -21,6 +21,15 @@ if(!defined('IN_KKFRAME')) exit();
 <p>通行证密码：<input type="password" name="password" placeholder="百度通行证密码" required value="" /></p>
 <p><input type="submit" value="绑定百度账号" /> <a href="<?php echo cloud::get_api_path(); ?>manual_bind.php?sid=<?php echo cloud::id(); ?>&formhash=<?php echo $formhash; ?>" class="btn" target="_blank">手动绑定</a></p>
 </form>
+    <br>
+
+    <form method="post" action="api.php?action=receive_cookie&local=1&formhash=<?php echo $formhash; ?>">
+        <p>Cookie：
+            <input id="cookie" name="cookie" type="text"/>
+        </p>
+
+        <p><input type="submit" value="本地绑定" onclick="return $('#cookie').val() != ''"/></p>
+    </form>
 </div>
 <div id="guide_page_manual" class="hidden"></div>
 <div id="guide_page_3" class="hidden">
