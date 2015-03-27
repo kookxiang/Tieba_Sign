@@ -117,7 +117,7 @@ function get_random_tid($tieba){
 		$jsontid=str_replace('&quot;','"', '{'.$jsontid.'}');
 		$tids[]=json_decode($jsontid)->id;
 	}
-	$tid=$tids[rand(0,count($tids)-1)];
+	$tid=$tids[rand(3,count($tids)-1)];
 	return $tid;
 }
 
