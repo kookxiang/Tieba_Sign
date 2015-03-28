@@ -116,10 +116,10 @@ function get_random_tid($tieba){
 	foreach ($jsontids['json'] as $jsontid){
 		$jsontid=str_replace('&quot;','"', '{'.$jsontid.'}');
 		if($tids[]=json_decode($jsontid)->is_top == 0)
-			$tids[]=json_decode($jsontid)->id;
+		   $tids[]=json_decode($jsontid)->id;
 	}
 	$tid=$tids[rand(0,count($tids)-1)];
-	echo $tid;
+	return $tid;
 }
 
 function client_rppost($uid, $tieba, $content) {
