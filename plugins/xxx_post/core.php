@@ -112,14 +112,16 @@ function get_random_tid($tieba){
 	curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 	$contents = curl_exec ( $ch );
 	curl_close ( $ch );
-	preg_match_all('/<li class="j_thread_list[A-z0-9 -_]+" data-field=\'{(?<json>.*?)}\'/', $contents, $jsontids);
+	preg_match_all('/<li class="j_thread_list[A-z0-9 -_]+" +data-field=\'{(?<json>[A-z0-9 -_]+?)}\'/', $contents, $jsontids);
 	foreach ($jsontids['json'] as $jsontid){
 		$jsontid=str_replace('&quot;','"', '{'.$jsontid.'}');
-		$tids[]=json_decode($jsontid)->id;
+		if($tids[]=json_decode($jsontid)->is_top == 0)
+		   $tids[]=json_decode($jsontid)->id;
 	}
-	$tid=$tids[rand(3,count($tids)-1)];
+	$tid=$tids[rand(0,count($tids)-1)];
 	return $tid;
 }
+
 
 function client_rppost($uid, $tieba, $content) {
 	$cookie = get_cookie ( $uid );
