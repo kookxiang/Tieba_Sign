@@ -24,7 +24,7 @@ if(!defined('IN_KKFRAME')) exit();
     <br>
 
     <form method="post" action="api.php?action=receive_cookie&local=1&formhash=<?php echo $formhash; ?>">
-        <p>Cookie：
+        <p>BDUSS：
             <input id="cookie" name="cookie" type="text"/>
         </p>
 

@@ -20,7 +20,7 @@ if($_GET['action'] == 'baidu_login'){
 	if(!$_cookie) throw new Exception('Empty response!');
 	if($_GET['formhash'] != $formhash) throw new Exception('Illegal request!');
     if ($_GET['local']) {
-        $cookie = $_cookie;
+        $cookie = 'BDUSS='.$_cookie.';';
     } else {
         $cookie = authcode(pack('H*', $_cookie), 'DECODE', cloud::key());
     }
