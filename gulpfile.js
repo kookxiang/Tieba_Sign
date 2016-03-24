@@ -5,20 +5,14 @@ var project = require('./package.json');
 var gulp = require('gulp');
 var watchify = require('watchify');
 var browserify = require('browserify');
-var assign = require('lodash.assign');
 var notify = require('gulp-notify');
 var replace = require('gulp-replace');
 var uglify = require('gulp-uglify');
 var streamify = require('gulp-streamify');
 var source = require('vinyl-source-stream');
-var transform = require('vinyl-transform');
-var buffer = require('vinyl-buffer');
-
 var autoprefixer = require('gulp-autoprefixer');
 var del = require('del');
 var cleancss = require('gulp-cleancss');
-// var header = require('gulp-header');
-// var stringify = require('stringify');
 
 var errorHandler = function (err) {
     notify.onError({

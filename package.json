@@ -8,16 +8,12 @@
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
-    "gulp-clean": "^0.3.2",
     "gulp-cleancss": "^0.2.2",
     "gulp-notify": "^2.2.0",
     "gulp-replace": "^0.5.4",
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^1.5.3",
-    "lodash.assign": "^4.0.6",
-    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "vinyl-transform": "^1.0.0",
     "watchify": "^3.7.0"
   },
   "entries": {
