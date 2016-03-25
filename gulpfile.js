@@ -23,27 +23,10 @@ var errorHandler = function (err) {
     this.emit('end');
 };
 
-var TokenList = [],
-    whitelist = require('./Resource/Helper/ManglePropWhitelist');
+var TokenList = [];
 function handleJavaScriptBundle(bundle, filePath) {
     return bundle.on('error', errorHandler)
         .pipe(source(filePath))
-        .pipe(replace(/throw \w+code="MODULE_NOT_FOUND",/gi, 'throw '))
-        .pipe(replace(/new Error\(.*?\)/gi, 'new Error()'))
-        .pipe(replace(/require\('(.+)'\)/g, function (match, path) {
-            var index = TokenList.length;
-            TokenList.push(path);
-            return "require(" + index + ")";
-        }))
-        .pipe(replace(/"(.+?)":([\d])/g, function (match, path, id) {
-            if (TokenList.indexOf(path) < 0) {
-                return match;
-            }
-            return TokenList.indexOf(path) + ": " + id;
-        }))
-        .pipe(replace(/require/g, '_x'))
-        .pipe(replace(/module/g, '_X'))
-        .pipe(replace(/exports/g, 'X'))
         .pipe(streamify(uglify({
             mangle: {
                 toplevel: true,
@@ -52,8 +35,7 @@ function handleJavaScriptBundle(bundle, filePath) {
                 sort: true
             },
             mangleProperties: {
-                regex: /^[^A-Z]/,
-                reserved: whitelist
+                regex: /^_/
             },
             compress: {
                 drop_debugger: false,
