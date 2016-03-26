@@ -42,9 +42,9 @@ final class Filter
             $filter->afterRoute($className, $method);
         }
     }
-    public static function preRender(&$context){
+    public static function preRender(){
         foreach (self::$registeredFilter as $filter) {
-            $filter->preRender($context);
+            $filter->preRender();
         }
     }
     public static function afterRender(){

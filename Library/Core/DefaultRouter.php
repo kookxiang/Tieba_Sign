@@ -44,7 +44,10 @@ class DefaultRouter
             if (method_exists($controller, $method)) {
                 Filter::afterRoute($className, $method);
                 $context = $controller->$method();
-                Filter::preRender($context);
+                if ($context) {
+                    Template::setContext($context);
+                }
+                Filter::preRender();
                 Template::render();
                 Filter::afterRender();
                 $this->foundController = true;

@@ -67,7 +67,9 @@ class Error extends \Exception
         }
         Template::setView('Misc/Error');
         Template::putContext('instance', $instance);
+        Filter::preRender();
         Template::render();
+        Filter::afterRender();
         exit();
     }
 

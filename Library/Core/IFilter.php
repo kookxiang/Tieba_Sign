@@ -10,7 +10,7 @@ interface IFilter
 {
     public function preRoute(&$path);
     public function afterRoute(&$className, &$method);
-    public function preRender(&$context);
+    public function preRender();
     public function afterRender();
     public function redirect(&$targetUrl);
 }

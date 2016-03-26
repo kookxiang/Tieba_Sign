@@ -8,6 +8,7 @@ namespace Helper;
 
 use Core\Error;
 use Core\IFilter;
+use Core\Template;
 use ReflectionMethod;
 
 class JSON implements IFilter
@@ -20,16 +21,19 @@ class JSON implements IFilter
         self::$statusCode = $statusCode;
     }
 
-    public function preRender(&$context)
+    public function preRender()
     {
         if ($this->handle) {
             header('Content-type: application/json');
-            if ($context instanceof Error) {
+            $context = Template::getContext();
+            if (Template::getView() == 'Misc/Error') {
+                /** @var Error $error */
+                $error = $context['instance'];
                 echo json_encode(array(
-                    'code' => $context->getCode() ?: 500,
+                    'code' => $error->getCode() ? $error->getCode() : 500,
                     'data' => null,
                     'hasError' => true,
-                    'message' => $context->getMessage(),
+                    'message' => $error->getMessage(),
                 ));
             } else {
                 echo json_encode(array(
