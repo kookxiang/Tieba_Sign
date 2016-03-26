@@ -58,7 +58,7 @@ class Error extends \Exception
     public static function handleUncaughtException($instance)
     {
         @ob_end_clean();
-        if (Database::getInstance()->inTransaction()) {
+        if (Database::getInstance() && Database::getInstance()->inTransaction()) {
             Database::getInstance()->rollBack();
         }
         if (!($instance instanceof Error)) {
