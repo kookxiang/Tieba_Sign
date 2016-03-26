@@ -25,7 +25,9 @@ class Response
      */
     public static function redirect($target)
     {
-        header('Location: ' . self::generateURL($target));
+        $target = self::generateURL($target);
+        Filter::redirect($target);
+        header('Location: ' . $target);
         exit();
     }
 

@@ -10,14 +10,21 @@ use Helper\PHPLock;
 
 class Template
 {
+    private static $viewName;
+    private static $context = array();
+
     /**
      * Load a template from data folder, compile it if it is outdated or not exists
-     * @param $templateName
+     * @param string $templateName
+     * @param array $context
      * @return string
      * @throws Error
      */
-    public static function load($templateName)
+    public static function load($templateName, $context = array())
     {
+        if ($context) {
+            self::setContext($context);
+        }
         $templateFileOrigin = self::getPath($templateName);
         $templateFile = DATA_PATH . "Template/{$templateName}.php";
         if (!file_exists($templateFile) && !file_exists($templateFileOrigin)) {
@@ -43,6 +50,43 @@ class Template
         } else {
             return "";
         }
+    }
+
+    public static function render()
+    {
+        if (self::$viewName) {
+            extract(self::$context);
+            /** @noinspection PhpIncludeInspection */
+            include self::load(self::$viewName);
+        }
+    }
+
+    public static function setView($viewName)
+    {
+        self::$viewName = $viewName;
+    }
+
+    public static function getView()
+    {
+        return self::$viewName;
+    }
+
+    public static function setContext($context = array())
+    {
+        self::$context = $context;
+    }
+
+    public static function putContext($name, $value)
+    {
+        if (!is_array(self::$context)) {
+            self::$context = array();
+        }
+        self::$context[$name] = $value;
+    }
+
+    public static function getContext()
+    {
+        return self::$context;
     }
 
     private static function compile($templateName)

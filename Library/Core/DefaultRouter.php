@@ -6,6 +6,8 @@
 
 namespace Core;
 
+use Helper\JSON;
+
 class DefaultRouter
 {
     protected $foundController = false;
@@ -17,6 +19,7 @@ class DefaultRouter
         if (!$requestPath) {
             $requestPath = 'Index';
         }
+        Filter::preRoute($requestPath);
         $this->findController($requestPath);
         if (!$this->foundController) {
             throw new Error('The request URL is not exists', 404);
@@ -41,10 +44,13 @@ class DefaultRouter
             $className = str_replace('/', '\\', "Controller/{$subDir}{$controller}");
             $controller = new $className();
             if (method_exists($controller, $method)) {
-                $controller->$method();
+                Filter::afterRoute($className, $method);
+                $context = $controller->$method();
+                Filter::preRender($context);
+                Template::render();
+                Filter::afterRender();
                 $this->foundController = true;
             }
         }
     }
-
 }

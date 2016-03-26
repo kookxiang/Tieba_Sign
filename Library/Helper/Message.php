@@ -19,8 +19,10 @@ class Message
      */
     public static function show($text, $link = null, $timeout = 3)
     {
-        $link = Response::generateURL($link);
-        include Template::load('Misc/Redirect');
+        Template::setView('Misc/Redirect');
+        Template::putContext('text', $text);
+        Template::putContext('timeout', $timeout);
+        Template::putContext('link', Response::generateURL($link));
         exit();
     }
 }

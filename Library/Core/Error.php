@@ -17,7 +17,7 @@ class Error extends \Exception
      * @param \Throwable $previous Previous exception
      * @param array $trace Backtrace information
      */
-    public function __construct($message = '', $code = 0, $previous = null, $trace = array())
+    public function __construct($message = 'Internal Server Error', $code = 0, $previous = null, $trace = array())
     {
         parent::__construct($message, $code, $previous);
         $this->trace = $trace;
@@ -65,7 +65,9 @@ class Error extends \Exception
             $instance = new self($instance->getMessage(), intval($instance->getCode()), $instance,
                 $instance->getTrace());
         }
-        include Template::load('Misc/Error');
+        Template::setView('Misc/Error');
+        Template::putContext('instance', $instance);
+        Template::render();
         exit();
     }
 
