@@ -16,6 +16,11 @@
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
   },
+  "scripts": {
+    "watch": "gulp watch",
+    "clean": "gulp clean",
+    "build": "gulp build"
+  },
   "entries": {
     "js": [
       "Resource/Demo/test.js"
