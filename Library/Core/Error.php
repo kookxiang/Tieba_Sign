@@ -17,7 +17,7 @@ class Error extends \Exception
      * @param \Throwable $previous Previous exception
      * @param array $trace Backtrace information
      */
-    public function __construct($message = '', $code = 0, \Throwable $previous = null, $trace = array())
+    public function __construct($message = '', $code = 0, $previous = null, $trace = array())
     {
         parent::__construct($message, $code, $previous);
         $this->trace = $trace;
@@ -50,7 +50,12 @@ class Error extends \Exception
         self::handleUncaughtException($exception);
     }
 
-    public static function handleUncaughtException(\Throwable $instance)
+
+    /**
+     * @param \Throwable $instance Exception or Error instance
+     * @throws Error
+     */
+    public static function handleUncaughtException($instance)
     {
         @ob_end_clean();
         if (Database::getInstance()->inTransaction()) {
