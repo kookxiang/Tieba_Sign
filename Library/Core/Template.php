@@ -19,6 +19,7 @@ class Template
      * @param array $context
      * @return string
      * @throws Error
+     * @deprecated Please use setView(), putContext(), render()
      */
     public static function load($templateName, $context = array())
     {
@@ -56,7 +57,7 @@ class Template
     {
         if (self::$viewName) {
             extract(self::$context);
-            /** @noinspection PhpIncludeInspection */
+            /** @noinspection PhpIncludeInspection, PhpDeprecationInspection */
             include self::load(self::$viewName);
         }
     }
