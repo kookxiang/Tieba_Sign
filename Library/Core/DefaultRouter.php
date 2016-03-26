@@ -6,8 +6,6 @@
 
 namespace Core;
 
-use Helper\JSON;
-
 class DefaultRouter
 {
     protected $foundController = false;
