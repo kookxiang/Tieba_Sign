@@ -15,6 +15,7 @@ class JSON implements IFilter
 {
     protected static $statusCode = 200;
     protected $handle = false;
+    protected $allowCallback = false;
 
     public static function setStatusCode($statusCode)
     {
@@ -24,25 +25,42 @@ class JSON implements IFilter
     public function preRender()
     {
         if ($this->handle) {
-            header('Content-type: application/json');
             $context = Template::getContext();
             if (Template::getView() == 'Misc/Error') {
                 /** @var Error $error */
                 $error = $context['instance'];
-                echo json_encode(array(
+                $this->outputJson(array(
                     'code' => $error->getCode() ? $error->getCode() : 500,
                     'data' => null,
                     'hasError' => true,
                     'message' => $error->getMessage(),
                 ));
             } else {
-                echo json_encode(array(
+                $this->outputJson(array(
                     'code' => self::$statusCode,
                     'data' => $context,
                 ));
             }
-            exit();
         }
+    }
+
+    private function outputJson($jsonData)
+    {
+        header('Content-type: application/json');
+        if ($this->allowCallback) {
+            $callback = $_POST['callback'] ? $_POST['callback'] : $_GET['callback'];
+            if (preg_match('/[A-Za-z_0-9]+/', $callback)) {
+                echo "{$callback}(";
+                header('Content-type: application/javascript');
+            } else {
+                $this->allowCallback = false;
+            }
+        }
+        echo json_encode($jsonData);
+        if ($this->allowCallback) {
+            echo ');';
+        }
+        exit();
     }
 
     public function preRoute(&$path)
@@ -59,6 +77,9 @@ class JSON implements IFilter
             // Check if method allow json output
             $reflection = new ReflectionMethod($className, $method);
             $docComment = $reflection->getDocComment();
+            if (strpos($docComment, '@JSONP') !== false) {
+                $this->allowCallback = true;
+            }
             if (strpos($docComment, '@JSON') === false) {
                 throw new Error('The request URL is not available', 403);
             }
@@ -72,13 +93,12 @@ class JSON implements IFilter
 
     public function redirect(&$targetUrl)
     {
-        echo json_encode(array(
+        $this->outputJson(array(
             'code' => 302,
             'data' => null,
             'hasError' => true,
             'message' => 'JSON request has been redirected',
             'target' => $targetUrl
         ));
-        exit();
     }
 }
