@@ -16,5 +16,8 @@
     "psr-4": {
       "": "Library/"
     }
+  },
+  "require": {
+    "robmorgan/phinx": "^0.5.3"
   }
 }
