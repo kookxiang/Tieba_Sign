@@ -6,6 +6,7 @@
 
 namespace Core;
 
+use Helper\Escape;
 use Helper\PHPLock;
 
 class Template
@@ -77,12 +78,12 @@ class Template
         self::$context = $context;
     }
 
-    public static function putContext($name, $value)
+    public static function putContext($name, $value, $escapeType = Escape::TEXT_RECURSIVE)
     {
         if (!is_array(self::$context)) {
             self::$context = array();
         }
-        self::$context[$name] = $value;
+        self::$context[$name] = Escape::perform($value, $escapeType);
     }
 
     public static function getContext()
