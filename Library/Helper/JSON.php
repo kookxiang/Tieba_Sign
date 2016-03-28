@@ -93,12 +93,14 @@ class JSON implements IFilter
 
     public function redirect(&$targetUrl)
     {
-        $this->outputJson(array(
-            'code' => 302,
-            'data' => null,
-            'hasError' => true,
-            'message' => 'JSON request has been redirected',
-            'target' => $targetUrl
-        ));
+        if ($this->handle) {
+            $this->outputJson(array(
+                'code' => 302,
+                'data' => null,
+                'hasError' => true,
+                'message' => 'JSON request has been redirected',
+                'target' => $targetUrl
+            ));
+        }
     }
 }
