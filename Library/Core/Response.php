@@ -42,12 +42,12 @@ class Response
             return $target;
         }
         if (file_exists(ROOT_PATH . $target)) {
-            return $target;
+            return BASE_URL . $target;
         }
         if (defined('USE_REWRITE') && USE_REWRITE) {
-            return $target;
+            return BASE_URL . $target;
         }
-        return 'index.php/' . $target;
+        return BASE_URL . 'index.php/' . $target;
     }
 
     /**
