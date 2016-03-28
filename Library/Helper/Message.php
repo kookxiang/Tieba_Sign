@@ -23,7 +23,7 @@ class Message
         Template::setView('Misc/Redirect');
         Template::putContext('text', $text);
         Template::putContext('timeout', $timeout);
-        Template::putContext('link', Response::generateURL($link));
+        Template::putContext('link', $link === null ? null : Response::generateURL($link));
         Filter::preRender();
         Template::render();
         Filter::afterRender();
