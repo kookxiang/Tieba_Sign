@@ -6,6 +6,7 @@
 
 namespace Helper;
 
+use Core\Filter;
 use Core\Response;
 use Core\Template;
 
@@ -23,6 +24,9 @@ class Message
         Template::putContext('text', $text);
         Template::putContext('timeout', $timeout);
         Template::putContext('link', Response::generateURL($link));
+        Filter::preRender();
+        Template::render();
+        Filter::afterRender();
         exit();
     }
 }
