@@ -25,6 +25,7 @@ class Database extends \PDO
             throw new Error('');
         }
         self::$instance = new Database($dsn, $username, $password, $options);
+        self::$instance->setAttribute(self::ATTR_ERRMODE, self::ERRMODE_EXCEPTION);
     }
 
 
