@@ -30,7 +30,7 @@ abstract class Model
             $propertyValue = $property->getValue($this);
             $map[$propertyName] = $propertyValue;
         }
-        $primaryKey = $reflection->hasProperty('primaryKey') ? $reflection->getProperty('primaryKey')->getValue($this) : 'id';
+        $primaryKey = $this->getPrimaryKeyName($reflection);
         $identifier = $map[$primaryKey];
         unset($map[$primaryKey]);
         $tableName = $this->getTableName($reflection);
@@ -66,7 +66,20 @@ abstract class Model
         }
     }
 
-    private static function getTableName(ReflectionObject $reflection)
+    private function getPrimaryKeyName(ReflectionObject $reflection)
+    {
+        if (!$reflection->hasProperty('primaryKey')) {
+            return 'id';
+        }else {
+            $property = $reflection->getProperty('primaryKey');
+            if ($property->isPrivate() || $property->isProtected()){
+                $property->setAccessible(true);
+            }
+            return $property->getValue($this);
+        }
+    }
+
+    private function getTableName(ReflectionObject $reflection)
     {
         $docComment = $reflection->getDocComment();
         if (!preg_match('/@table ?([A-Za-z\-_0-9]+)/i', $docComment, $matches) || !$matches[1]) {
