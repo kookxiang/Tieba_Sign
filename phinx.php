@@ -1,6 +1,6 @@
 <?php
 /**
- * Project Titor
+ * KK-Framework
  * Author: kookxiang <r18@ikk.me>
  */
 
@@ -18,6 +18,9 @@ Core\Error::registerHandler();
 
 @include DATA_PATH . 'Config.php';
 
+$statement = \Core\Database::getInstance()->query('select database()');
+$statement->execute();
+
 return array(
     'paths' => array(
         'migrations' => ROOT_PATH . 'Migrations',
@@ -25,7 +28,7 @@ return array(
     'environments' => array(
         'default_database' => 'current',
         'current' => array(
-            'name' => 'current',
+            'name' => $statement->fetchColumn(),
             'connection' => \Core\Database::getInstance(),
         ),
     ),
