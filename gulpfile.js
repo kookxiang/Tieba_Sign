@@ -13,6 +13,8 @@ var source = require('vinyl-source-stream');
 var autoprefixer = require('gulp-autoprefixer');
 var del = require('del');
 var cleancss = require('gulp-cleancss');
+var eventStream = require('event-stream');
+var gutil = require('gulp-util');
 
 var errorHandler = function (err) {
     notify.onError({
@@ -46,15 +48,19 @@ function handleJavaScriptBundle(bundle, filePath) {
 }
 
 gulp.task('browserify', function () {
+    var works = [];
     project.entries.js.forEach(function (filePath) {
-        handleJavaScriptBundle(browserify(filePath).bundle(), filePath);
+        var task = browserify(filePath);
+        task.transform('jstify');
+        works.push(handleJavaScriptBundle(task.bundle(), filePath));
     });
+    return eventStream.merge(works);
 });
 
 gulp.task('styles', function () {
     return gulp.src(project.entries.css, {base: './'})
         .on('error', errorHandler)
-        .pipe(autoprefixer('ie >= 9, > 3%, last 2 version'))
+        .pipe(autoprefixer('ie >= 9, > 2%, last 2 version'))
         .pipe(cleancss({
             advanced: true,
             keepBreaks: false,
@@ -78,12 +84,22 @@ gulp.task('build', ['clean'], function () {
 });
 
 gulp.task('watch', ['styles'], function () {
+    var works = [];
     gulp.watch('./Resource/**/*.css', ['styles']);
     project.entries.js.forEach(function (filePath) {
-        var task = watchify(browserify(filePath));
+        var task = watchify(browserify({
+            entries: [filePath],
+            cache: {},
+            packageCache: {}
+        }));
+        task.transform('jstify');
         task.on('update', function () {
-            gulp.start('browserify');
+            handleJavaScriptBundle(task.bundle(), filePath);
         });
-        handleJavaScriptBundle(task.bundle(), filePath);
+        task.on('update', function (ids) {
+            gutil.log('Updated: ' + ids);
+        });
+        works.push(handleJavaScriptBundle(task.bundle(), filePath));
     });
+    return eventStream.merge(works);
 });
