@@ -1,6 +1,6 @@
 <?php
 /**
- * KK-Framework
+ * Project Titor
  * Author: kookxiang <r18@ikk.me>
  */
 
@@ -104,21 +104,28 @@ class Template
         }
         $lock = new PHPLock($sourceCode);
         $lock->acquire();
+
         // variable with braces:
-        $sourceCode = preg_replace('/\{\$([A-Za-z0-9_\[\]\->]+)\}/', '<?php echo \$\\1; ?>', $sourceCode);
+        $sourceCode = preg_replace('/\{\$([A-Za-z0-9_\[\]\'"]+)(->|::)(\$?[A-Za-z0-9_\-]+)(\(.*\))?}/',
+            '<?php echo \$\\1\\2\\3\\4; ?>', $sourceCode);
+        $sourceCode = preg_replace('/\{\$([A-Za-z0-9_\[\]\'"]+)}/', '<?php echo \$\\1; ?>', $sourceCode);
         $sourceCode = preg_replace('/\{([A-Z][A-Z0-9_\[\]]*)\}/', '<?php echo \\1; ?>', $sourceCode);
         $lock->acquire();
+
         // PHP code:
         $sourceCode = preg_replace('/<php>(.+?)<\/php>/is', '<?php \\1; ?>', $sourceCode);
         $lock->acquire();
+
         // import:
-        $sourceCode = preg_replace('/\<import template="([A-z0-9_\-\/]+)"[\/ ]*\>/i',
+        $sourceCode = preg_replace('/\<import template="([A-z0-9_\-\/]+)"[\/ ]*\>(<\/import>)?/i',
             '<?php include \\Core\\Template::load(\'\\1\'); ?>', $sourceCode);
         $lock->acquire();
+
         // loop:
         $sourceCode = preg_replace_callback('/\<loop(.*?)\>/is', array('\\Core\\Template', 'parseLoop'), $sourceCode);
         $sourceCode = preg_replace('/\<\/loop\>/i', '<?php } ?>', $sourceCode);
         $lock->acquire();
+
         // if:
         $sourceCode = preg_replace('/\<if (?:condition=)?"(.+?)"[\/ ]*\>/i', '<?php if(\\1) { ?>', $sourceCode);
         $sourceCode = preg_replace('/\<elseif (?:condition=)?"(.+?)"[\/ ]*\>/i', '<?php } elseif(\\1) { ?>',
@@ -126,6 +133,7 @@ class Template
         $sourceCode = preg_replace('/\<else[\/ ]*\>/i', '<?php } else { ?>', $sourceCode);
         $sourceCode = preg_replace('/\<\/if\>/i', '<?php } ?>', $sourceCode);
         $lock->acquire();
+
         // header:
         preg_match_all('/\<meta header="(.+?)" content="(.+?)"[ \/]*\>/i', $sourceCode, $matches);
         foreach ($matches[0] as $offset => $string) {
@@ -133,17 +141,23 @@ class Template
             $sourceCode = str_replace($string, '', $sourceCode);
         }
         $lock->acquire();
+
         // variable without braces
         $sourceCode = preg_replace('/\$([a-z][A-Za-z0-9_]+)/', '<?php echo \$\\1; ?>', $sourceCode);
+
         // unlock PHP code
         $lock->release();
+
         // rewrite link
         if (!defined('USE_REWRITE') || !USE_REWRITE) {
             $sourceCode = preg_replace_callback('/(href|action)="([A-Z0-9_\\.\\-\\/%\\?=&]*?)"/is',
                 array('\\Core\\Template', 'parseUrlRewrite'), $sourceCode);
         }
+
         // clear space and tab
         $sourceCode = preg_replace('/^[ \t]*(.+)[ \t]*$/m', '\\1', $sourceCode);
+        $sourceCode = preg_replace('/[\r\n]/', '', $sourceCode);
+
         $output = '<?php' . PHP_EOL;
         $output .= 'if(!defined(\'ROOT_PATH\'))';
         $output .= ' exit(\'This file could not be access directly.\');' . PHP_EOL;
