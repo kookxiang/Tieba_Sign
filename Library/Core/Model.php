@@ -70,9 +70,9 @@ abstract class Model
     {
         if (!$reflection->hasProperty('primaryKey')) {
             return 'id';
-        }else {
+        } else {
             $property = $reflection->getProperty('primaryKey');
-            if ($property->isPrivate() || $property->isProtected()){
+            if ($property->isPrivate() || $property->isProtected()) {
                 $property->setAccessible(true);
             }
             return $property->getValue($this);
@@ -83,8 +83,9 @@ abstract class Model
     {
         $docComment = $reflection->getDocComment();
         if (!preg_match('/@table ?([A-Za-z\-_0-9]+)/i', $docComment, $matches) || !$matches[1]) {
-            throw new Error('Cannot find table name in doc comment');
+            return strtolower($reflection->getShortName());
+        } else {
+            return $matches[1];
         }
-        return $matches[1];
     }
 }
