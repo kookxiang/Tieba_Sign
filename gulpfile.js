@@ -15,6 +15,9 @@ var del = require('del');
 var cleancss = require('gulp-cleancss');
 var eventStream = require('event-stream');
 var gutil = require('gulp-util');
+var gulpIf = require('gulp-if');
+
+var needMangle = true;
 
 var errorHandler = function (err) {
     notify.onError({
@@ -25,11 +28,10 @@ var errorHandler = function (err) {
     this.emit('end');
 };
 
-var TokenList = [];
 function handleJavaScriptBundle(bundle, filePath) {
     return bundle.on('error', errorHandler)
         .pipe(source(filePath))
-        .pipe(streamify(uglify({
+        .pipe(gulpIf(needMangle, streamify(uglify({
             mangle: {
                 toplevel: true,
                 eval: true,
@@ -40,14 +42,15 @@ function handleJavaScriptBundle(bundle, filePath) {
                 regex: /^_/
             },
             compress: {
-                drop_debugger: false,
-                drop_console: false
+                drop_debugger: !needMangle,
+                drop_console: !needMangle
             }
-        })))
+        }))))
         .pipe(gulp.dest('./Public/'));
 }
 
 gulp.task('browserify', function () {
+    needMangle = true;
     var works = [];
     project.entries.js.forEach(function (filePath) {
         var task = browserify(filePath);
@@ -84,6 +87,7 @@ gulp.task('build', ['clean'], function () {
 });
 
 gulp.task('watch', ['styles'], function () {
+    needMangle = false;
     var works = [];
     gulp.watch('./Resource/**/*.css', ['styles']);
     project.entries.js.forEach(function (filePath) {
