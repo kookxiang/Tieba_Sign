@@ -11,6 +11,24 @@ use ReflectionProperty;
 
 abstract class Model
 {
+    public function delete()
+    {
+        $reflection = new ReflectionObject($this);
+        $primaryKey = $this->getPrimaryKeyName($reflection);
+        $property = $reflection->getProperty($primaryKey);
+        if ($property->isProtected() || $property->isPrivate()) {
+            $property->setAccessible(true);
+        }
+        $primaryValue = $property->getValue($this);
+        if (!$primaryValue) {
+            throw new Error('Cannot delete object without id');
+        }
+        $tableName = $this->getTableName($reflection);
+        $statement = Database::getInstance()->prepare("DELETE FROM `{$tableName}` WHERE `{$primaryKey}`=:value");
+        $statement->bindValue(':value', $primaryValue);
+        $statement->execute();
+    }
+
     public function save()
     {
         $map = array();
