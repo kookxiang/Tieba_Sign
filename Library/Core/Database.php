@@ -32,7 +32,7 @@ class Database extends \PDO
             $currentSqlMode = explode(',', $currentSqlMode);
             $strictTransTable = array_search('STRICT_TRANS_TABLES', $currentSqlMode);
             unset($currentSqlMode[$strictTransTable]);
-            $statement = self::$instance->prepare('SET sql_mode = ?');
+            $statement = self::$instance->prepare('SET SESSION sql_mode = ?');
             $statement->bindValue('1', implode(',', $currentSqlMode));
             $statement->execute();
         }
