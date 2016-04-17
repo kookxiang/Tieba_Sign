@@ -20,6 +20,12 @@ Core\Error::registerHandler();
 // Initialize config
 @include DATA_PATH . 'Config.php';
 
+if (ini_get('opcache.enable')) {
+    if (!ini_get('opcache.save_comments') || !ini_get('opcache.load_comments')) {
+        throw new \Core\Error('ZendOpcache is configured not saving PHP DocComments which is required.');
+    }
+}
+
 // Handler for json request
 Core\Filter::register(new Helper\JSON());
 
