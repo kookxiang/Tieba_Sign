@@ -22,7 +22,7 @@ class Database extends \PDO
     public static function initialize($dsn, $username = null, $password = null, $options = array())
     {
         if (self::$instance) {
-            throw new Error('');
+            throw new Error('Cannot re-initialize database');
         }
         self::$instance = new Database($dsn, $username, $password, $options);
         self::$instance->setAttribute(self::ATTR_ERRMODE, self::ERRMODE_EXCEPTION);
