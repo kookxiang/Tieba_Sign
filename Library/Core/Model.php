@@ -59,7 +59,7 @@ abstract class Model
         if ($mode == self::SAVE_UPDATE || ($identifier && $mode != self::SAVE_INSERT)) {
             $sql = "UPDATE `{$tableName}` SET ";
             foreach ($map as $key => $value) {
-                $sql .= "{$key} = :{$key},";
+                $sql .= "`{$key}` = :{$key},";
             }
             $sql = rtrim($sql, ',');
             $sql .= " WHERE {$primaryKey} = :id";
