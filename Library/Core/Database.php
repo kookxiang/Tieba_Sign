@@ -26,6 +26,16 @@ class Database extends \PDO
         }
         self::$instance = new Database($dsn, $username, $password, $options);
         self::$instance->setAttribute(self::ATTR_ERRMODE, self::ERRMODE_EXCEPTION);
+
+        $currentSqlMode = Database::getInstance()->query('SELECT @@GLOBAL.SQL_MODE')->fetchColumn();
+        if (strpos($currentSqlMode, 'STRICT_TRANS_TABLES')) {
+            $currentSqlMode = explode(',', $currentSqlMode);
+            $strictTransTable = array_search('STRICT_TRANS_TABLES', $currentSqlMode);
+            unset($currentSqlMode[$strictTransTable]);
+            $statement = self::$instance->prepare('SET sql_mode = ?');
+            $statement->bindValue('1', implode(',', $currentSqlMode));
+            $statement->execute();
+        }
     }
 
     /**
@@ -35,7 +45,8 @@ class Database extends \PDO
      * @param array $driver_options [optional]
      * @return \PDOStatement
      */
-    public static function sql($statement, array $driver_options = array()){
+    public static function sql($statement, array $driver_options = array())
+    {
         return self::getInstance()->prepare($statement, $driver_options);
     }
 
