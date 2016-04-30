@@ -24,7 +24,7 @@ class PageData
      */
     public function __construct($tableName, $extras = '', $column = array('*'))
     {
-        $columns = implode(',', $column);
+        $columns = '`' . implode('`, `', $column) . '`';
         $this->countQuery = Database::getInstance()->prepare("SELECT COUNT(*) FROM `{$tableName}` {$extras}");
         $this->query = Database::getInstance()->prepare("SELECT {$columns} FROM `{$tableName}` {$extras} LIMIT :pageDataStart,:pageDataRPP");
 
