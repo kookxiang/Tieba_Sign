@@ -26,6 +26,9 @@ if (ini_get('opcache.enable')) {
     }
 }
 
+// Initialize i18n engine
+Core\I18N::init();
+
 // Handler for json request
 Core\Filter::register(new Helper\JSON());
 

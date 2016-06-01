@@ -47,6 +47,12 @@ define('DEBUG_ENABLE', true);
 Core\Request::autoDetectBaseURL();
 
 /**
+ * Set i18n translation file
+ * If you don't need this, simply comment out the following line
+ */
+Core\I18N::setTranslationFile(LIBRARY_PATH . 'Language/en-US.yml');
+
+/**
  * Database Connection:
  */
 Core\Database::initialize('mysql:dbname=test;host=localhost;charset=UTF8', 'root', '');

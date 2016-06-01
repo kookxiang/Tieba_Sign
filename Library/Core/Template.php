@@ -105,6 +105,11 @@ class Template
         $lock = new PHPLock($sourceCode);
         $lock->acquire();
 
+        // i18n replace
+        $sourceCode = preg_replace_callback('/<(i18n|lang)(.*?)>(.*?)<\/\1>/', array(__CLASS__, 'parseI18nTags'), $sourceCode);
+        $sourceCode = preg_replace_callback('/<(i18n|lang)(.*?) ?\/?>/', array(__CLASS__, 'parseI18nTags'), $sourceCode);
+        $lock->acquire();
+
         // variable with braces:
         $sourceCode = preg_replace('/\{\$([A-Za-z0-9_\\\[\]\'"]+)(->|::)(\$?[A-Za-z0-9_\-]+)(\(.*\))?}/',
             '<?php echo \$\\1\\2\\3\\4; ?>', $sourceCode);
@@ -122,7 +127,7 @@ class Template
         $lock->acquire();
 
         // loop:
-        $sourceCode = preg_replace_callback('/\<loop(.*?)\>/is', array('\\Core\\Template', 'parseLoop'), $sourceCode);
+        $sourceCode = preg_replace_callback('/\<loop(.*?)\>/is', array(__CLASS__, 'parseLoop'), $sourceCode);
         $sourceCode = preg_replace('/\<\/loop\>/i', '<?php } ?>', $sourceCode);
         $lock->acquire();
 
@@ -151,7 +156,7 @@ class Template
         // rewrite link
         if (!defined('USE_REWRITE') || !USE_REWRITE) {
             $sourceCode = preg_replace_callback('/(href|action)="([A-Z0-9_\\.\\-\\/%\\?=&]*?)"/is',
-                array('\\Core\\Template', 'parseUrlRewrite'), $sourceCode);
+                array(__CLASS__, 'parseUrlRewrite'), $sourceCode);
         }
 
         // clear space and tab
@@ -223,5 +228,27 @@ class Template
         }
         self::createDir(dirname($dir), $permission);
         @mkdir($dir, $permission);
+    }
+
+    private static function parseI18nParams($matchString)
+    {
+        $params = array();
+        preg_match_all('/(\w+)="?([A-Za-z\-_.]+)"?/', $matchString, $matches);
+        foreach ($matches[0] as $key => $value) {
+            $params[ $matches[1][$key] ] = $matches[2][$key];
+        }
+        return $params;
+    }
+
+    private static function parseI18nTags(array $match)
+    {
+        $params = self::parseI18nParams($match[2]);
+        $translation = I18N::parse($params['key'], $match[3]);
+        if (count($params) > 1) {
+            foreach ($params as $key => $value) {
+                $translation = str_replace("{$key}", $value, $translation);
+            }
+        }
+        return $translation;
     }
 }
