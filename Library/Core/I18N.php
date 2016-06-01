@@ -31,6 +31,7 @@ class I18N
             'Storage' => array()
         );
         if (file_exists(self::CACHE_FILE)) {
+            /** @noinspection PhpIncludeInspection */
             $datas = include self::CACHE_FILE;
         }
         if ($datas['FilePath'] == self::$translationFile) {
