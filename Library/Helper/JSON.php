@@ -9,6 +9,7 @@ namespace Helper;
 use Core\Error;
 use Core\IFilter;
 use Core\Template;
+use Helper\Reflection as ReflectionHelper;
 use ReflectionMethod;
 
 class JSON implements IFilter
@@ -84,11 +85,11 @@ class JSON implements IFilter
         if ($this->handle) {
             // Check if method allow json output
             $reflection = new ReflectionMethod($className, $method);
-            $docComment = $reflection->getDocComment();
-            if (strpos($docComment, '@JSONP') !== false) {
+            $markers = ReflectionHelper::parseDocComment($reflection);
+            if ($markers['JSONP']) {
                 $this->allowCallback = true;
             }
-            if (strpos($docComment, '@JSON') === false) {
+            if (!$markers['JSON'] && !$markers['JSONP']) {
                 throw new Error('The request URL is not available', 403);
             }
         }

@@ -32,5 +32,6 @@ Core\I18N::init();
 // Handler for json request
 Core\Filter::register(new Helper\JSON());
 
-$defaultRouter = new Core\DefaultRouter();
-$defaultRouter->handleRequest();
+//$Router = new Core\DefaultRouter();
+$Router = new Core\ReflectionRouter();
+$Router->handleRequest();

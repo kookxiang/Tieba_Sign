@@ -10,6 +10,19 @@ use Core\Template;
 
 class Index
 {
+    /**
+     * @DynamicRoute /User/{string}
+     * @param $username
+     */
+    function dynamicRouteTest($username)
+    {
+        echo $username;
+    }
+
+    /**
+     * @Home
+     * @Route /Index
+     */
     function index()
     {
         include Template::load('Demo');
@@ -17,6 +30,7 @@ class Index
 
     /**
      * This method can be call by /index/test.json
+     * @Route /Test
      * @JSON
      */
     function test()
