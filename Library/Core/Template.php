@@ -172,7 +172,7 @@ class Template
             $output .= $headers;
         }
         $output .= '?>' . PHP_EOL;
-        $output .= $sourceCode;
+        $output .= trim($sourceCode);
         $output = preg_replace('/\s*\?\>\s*\<\?php\s*/is', PHP_EOL, $output);
         self::createDir(dirname(DATA_PATH . "Template/{$templateName}.php"));
         if (!file_exists(DATA_PATH . "Template/{$templateName}.php")) {
