@@ -108,6 +108,9 @@ class Template
         // i18n replace
         $sourceCode = preg_replace_callback('/<(i18n|lang)(.*?)>(.*?)<\/\1>/', array(__CLASS__, 'parseI18nTags'), $sourceCode);
         $sourceCode = preg_replace_callback('/<(i18n|lang)(.*?) ?\/?>/', array(__CLASS__, 'parseI18nTags'), $sourceCode);
+        $sourceCode = preg_replace_callback('/#i18n\((.+?)\)/', function ($match) {
+            return I18N::parse($match[1]);
+        }, $sourceCode);
         $lock->acquire();
 
         // variable with braces:
@@ -234,7 +237,7 @@ class Template
         $params = array();
         preg_match_all('/(\w+)="?([A-Za-z\-_.]+)"?/', $matchString, $matches);
         foreach ($matches[0] as $key => $value) {
-            $params[ $matches[1][$key] ] = $matches[2][$key];
+            $params[$matches[1][$key]] = $matches[2][$key];
         }
         return $params;
     }
