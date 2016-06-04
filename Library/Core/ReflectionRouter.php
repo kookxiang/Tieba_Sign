@@ -132,8 +132,16 @@ class ReflectionRouter
                         $path = strtolower(trim($markers['Route'], ' /'));
                         $this->StaticRoute[$path] = $callback;
                     }
-                    if ($markers['DynamicRouter']) {
-                        // TODO: Convert wildcard to regular expression and save to $this->DynamicRoute
+                    if ($markers['DynamicRoute']) {
+                        // Convert wildcard to regular expression
+                        $regexp = '/^' . preg_quote(trim($markers['DynamicRoute'], ' /'), '/') . '$/i';
+                        $regexp = str_replace('\\{any\\}', '(.+)', $regexp);
+                        $regexp = str_replace('\\{string\\}', '(\w+)', $regexp);
+                        $regexp = str_replace('\\{int\\}', '(\d+)', $regexp);
+                        $this->DynamicRoute[] = array(
+                            'callback' => $callback,
+                            'regexp' => $regexp
+                        );
                     }
                     if ($markers['FallbackRoute'] || $markers['FallBackRoute']) {
                         if ($this->FallbackRouter) {
