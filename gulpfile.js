@@ -5,14 +5,13 @@ var project = require('./package.json');
 var gulp = require('gulp');
 var watchify = require('watchify');
 var browserify = require('browserify');
+var postcss = require('gulp-postcss');
 var notify = require('gulp-notify');
 var replace = require('gulp-replace');
 var uglify = require('gulp-uglify');
 var streamify = require('gulp-streamify');
 var source = require('vinyl-source-stream');
-var autoprefixer = require('gulp-autoprefixer');
 var del = require('del');
-var cleancss = require('gulp-cleancss');
 var eventStream = require('event-stream');
 var gutil = require('gulp-util');
 var gulpIf = require('gulp-if');
@@ -63,14 +62,12 @@ gulp.task('browserify', function () {
 gulp.task('styles', function () {
     return gulp.src(project.entries.css, {base: './'})
         .on('error', errorHandler)
-        .pipe(autoprefixer('ie >= 9, > 2%, last 2 version'))
-        .pipe(cleancss({
-            advanced: true,
-            keepBreaks: false,
-            processImport: true,
-            processImportFrom: ['local'],
-            restructuring: true
-        }))
+        .pipe(postcss([
+            require('postcss-import'),
+            require('autoprefixer')({browsers: ['ie >= 9', '> 2%', 'last 2 version']}),
+            require('postcss-image-inliner')({maxFileSize: 8192}),
+            require('cssnano')({discardComments: {removeAll: true}})
+        ]))
         .pipe(gulp.dest('./Public/'));
 });
 
