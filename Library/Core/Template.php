@@ -245,7 +245,7 @@ class Template
         $translation = I18N::parse($params['key'], $match[3]);
         if (count($params) > 1) {
             foreach ($params as $key => $value) {
-                $translation = str_replace("{$key}", $value, $translation);
+                $translation = str_replace("{{$key}}", $value, $translation);
             }
         }
         return $translation;
