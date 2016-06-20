@@ -23,7 +23,9 @@ class Escape
             case self::TEXT:
                 return is_string($variable) ? htmlspecialchars($variable) : $variable;
             case self::TEXT_RECURSIVE:
-                if (is_array($variable)) {
+                if (is_string($variable)) {
+                    return self::perform($variable, self::TEXT);
+                } elseif (is_array($variable)) {
                     foreach ($variable as $key => $value) {
                         $variable[$key] = self::perform($value);
                     }
