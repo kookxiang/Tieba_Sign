@@ -235,7 +235,7 @@ class Template
     private static function parseI18nParams($matchString)
     {
         $params = array();
-        preg_match_all('/(\w+)="?([A-Za-z\-_.]+)"?/', $matchString, $matches);
+        preg_match_all('/(\w+)="(.+?)"/', $matchString, $matches);
         foreach ($matches[0] as $key => $value) {
             $params[$matches[1][$key]] = $matches[2][$key];
         }
