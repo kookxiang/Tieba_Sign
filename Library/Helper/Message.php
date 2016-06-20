@@ -26,7 +26,7 @@ class Message
             array_unshift($text, $text[0]);     // Set fallback string
             Template::putContext('text', call_user_func_array(array('I18N', 'parse'), $text));
         } else {
-            Template::putContext('text', I18N::parse($text));
+            Template::putContext('text', I18N::parse($text, $text));
         }
         Template::putContext('timeout', $timeout);
         Template::putContext('link', $link === null ? null : Response::generateURL($link));
