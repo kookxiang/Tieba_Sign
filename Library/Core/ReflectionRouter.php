@@ -73,7 +73,7 @@ class ReflectionRouter
             if ($this->FallbackRouter) {
                 $route = $this->FallbackRouter;
             } else {
-                throw new Error('The request URL is not exists', 404);
+                throw new Error(I18N::parse('Error.Messages.PageNotExists', 'The request URL is not exists'), 404);
             }
         }
         list($className, $method) = $route;
