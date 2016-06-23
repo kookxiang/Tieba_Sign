@@ -6,7 +6,6 @@ class core {
 		if(!$_config) require_once SYSTEM_ROOT.'./config.inc.php';
 		$this->init_header();
 		$this->init_useragent();
-		CACHE::pre_fetch('setting', 'plugin', 'plugins');
 		Updater::init();
 		$this->init_syskey();
 		$this->init_cookie();
