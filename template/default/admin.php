@@ -112,10 +112,12 @@ if(defined('AFENABLED')) {
 <p><label><input type="checkbox" id="register_limit" name="register_limit" /> 限制并发注册 (开启后可限制注册机注册频率)</label></p>
 <p><input type="text" name="invite_code" id="invite_code" placeholder="邀请码 (留空为不需要)" /></p>
 <p>jQuery 加载方式:</p>
-<p><label><input type="radio" id="jquery_1" name="jquery_mode" value="1" /> 从 Google API 提供的 CDN 加载 (默认, 推荐)</label></p>
-<p><label><input type="radio" id="jquery_2" name="jquery_mode" value="2" /> 从 Sina App Engine 提供的 CDN 加载</label></p>
-<p><label><input type="radio" id="jquery_3" name="jquery_mode" value="3" /> 从 Baidu App Engine 提供的 CDN 加载 (不支持 SSL)</label></p>
-<p><label><input type="radio" id="jquery_4" name="jquery_mode" value="4" /> 使用程序自带的 jQuery 类库 (推荐)</label></p>
+<p><label><input type="radio" name="jquery_mode" value="builtin" /> 使用程序自带的 jQuery 类库 (默认, 推荐)</label></p>
+<p><label><input type="radio" name="jquery_mode" value="google" /> 从 Google API 提供的 CDN 加载</label></p>
+<p><label><input type="radio" name="jquery_mode" value="mircosoft" /> 从 Microsoft CDN 加载 (推荐)</label></p>
+<p><label><input type="radio" name="jquery_mode" value="cloudflare" /> 从 CloudFlare 提供的 CDN 加载</label></p>
+<p><label><input type="radio" name="jquery_mode" value="jsdelivr" /> 从 jsDelivr 提供的 CDN 加载</label></p>
+<p><label><input type="radio" name="jquery_mode" value="lug-ustc" /> 从 中科大 Linux 用户协会 提供的 CDN 加载</label></p>
 <p>网站备案编号:</p>
 <p><input type="text" id="beian_no" name="beian_no" placeholder="未备案的不需要填写" /></p>
 <p>网站副标题: (将显示在标题中)</p>

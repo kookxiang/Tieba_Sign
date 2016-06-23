@@ -183,10 +183,9 @@ function load_setting(){
 		$('#extra_title').val(result.extra_title);
 		if(AF == 1) $('#admin_uid').val(result.admin_uid);
 		$('input[name=jquery_mode]').attr('checked', false);
-		switch(result.jquery_mode){
-			case '1': case '2': case '3': case '4': $('#jquery_'+result.jquery_mode).prop('checked', true); break;
-			default: $('#jquery_1').prop('checked', true);
-		}
+		var target = $('input[name="jquery_mode"][value="' + result.jquery_mode + '"]');
+		if (target.length == 0) target = $('input[name="jquery_mode"]').eq(0);
+		target.prop('checked', true);
 	}).fail(function() { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法获取当前系统设置').addCloseButton('确定').append(); }).always(function(){ hideloading(); });
 }
 function load_cron(){

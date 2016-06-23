@@ -229,14 +229,18 @@ function runquery($sql){
 function jquery_path(){
 	$path = defined('IN_ADMINCP') ? 0 : getSetting('jquery_mode');
 	switch($path){
-		case 1:
-			return '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js';
-		case 2:
-			return '//lib.sinaapp.com/js/jquery/1.10.2/jquery-1.10.2.min.js';
-		case 3:
-			return 'http://libs.baidu.com/jquery/1.10.2/jquery.js';
+		case 'google':
+			return '//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js';
+		case 'microsoft':
+			return '//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js';
+		case 'cloudflare':
+			return '//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js';
+		case 'jsdelivr':
+			return '//cdn.jsdelivr.net/jquery/1.12.4/jquery.min.js';
+		case 'lug-ustc':
+			return '//ajax.lug.ustc.edu.cn/ajax/libs/jquery/1.12.4/jquery.min.js';
 		default:
-		case 4:
+		case 'builtin':
 			return 'system/js/jquery.min.js';
 	}
 }
