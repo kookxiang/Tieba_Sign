@@ -140,7 +140,7 @@ EOF;
 			HOOK::run('before_register');
 			$uid = do_register($username, $_POST['password'], $email);
 			do_login($uid);
-			HOOK::run('register_finish', $uid);
+			HOOK::run('register_finish', false, $uid);
 			showmessage("注册成功，您的用户名是 <b>{$username}</b> 记住了哦~！", dreferer(), 3);
 		}
 	}

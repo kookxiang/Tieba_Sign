@@ -1,7 +1,7 @@
 <?php
 if(!defined('IN_KKFRAME')) exit();
 class HOOK{
-	function INIT(){
+	public static function INIT(){
 		global $_PLUGIN;
 		$_PLUGIN = array();
 		$_PLUGIN['list'] = CACHE::get('plugins');
@@ -52,7 +52,7 @@ class HOOK{
 			}
 		}
 	}
-	function parse_module($module, $pluginid){
+	public static function parse_module($module, $pluginid){
 		global $_PLUGIN;
 		switch ($module['type']){
 			case 'page':
@@ -75,7 +75,7 @@ class HOOK{
 			default: throw new Exception('Unknown module type: '.$module['type']);
 		}
 	}
-	function page_menu(){
+	public static function page_menu(){
 		global $_PLUGIN, $uid;
 		if($_PLUGIN['page']){
 			foreach ($_PLUGIN['page'] as $page){
@@ -90,7 +90,7 @@ class HOOK{
 			}
 		}
 	}
-	function page_contents(){
+	public static function page_contents(){
 		global $_PLUGIN, $uid;
 		if($_PLUGIN['page']){
 			foreach($_PLUGIN['page'] as $page){
@@ -101,7 +101,7 @@ class HOOK{
 			}
 		}
 	}
-	function run($hookname, $ignore_unabled = false){
+	public static function run($hookname, $ignore_unabled = false){
 		global $_PLUGIN;
 		if(defined('DISABLE_PLUGIN') && !$ignore_unabled) return;
 		$hooks = $_PLUGIN['hook'][$hookname];
@@ -112,11 +112,11 @@ class HOOK{
 			try{
 				echo call_user_func_array(array(&$_PLUGIN['obj'][$pluginid], $hookname), $args);
 			}catch(Exception $e){
-				error::exception_error($e);
+				kerror::exception_error($e);
 			}
 		}
 	}
-	function getPlugin($plugin_id){
+	public static function getPlugin($plugin_id){
 		global $_PLUGIN;
 		if($_PLUGIN['obj'][$plugin_id]){
 			return $_PLUGIN['obj'][$plugin_id];
