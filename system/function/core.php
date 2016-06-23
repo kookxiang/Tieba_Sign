@@ -186,7 +186,7 @@ function get_cookie($uid){
 }
 function save_cookie($uid, $cookie){
 	//$cookie = bin2hex(str_rot13(strrev(addslashes($cookie))));
-	DB::result_first("UPDATE member_setting SET cookie='{$cookie}' WHERE uid='{$uid}'");
+	DB::query("UPDATE member_setting SET cookie='{$cookie}' WHERE uid='{$uid}'");
 }
 function get_username($uid){
 	static $username = array();
