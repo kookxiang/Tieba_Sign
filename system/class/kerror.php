@@ -1,10 +1,10 @@
 <?php
 if (!defined('IN_KKFRAME')) exit();
-class error {
+class kerror {
 	public static function system_error($message, $show = true, $halt = true) {
-		list($showtrace, $logtrace) = error::debug_backtrace();
+		list($showtrace, $logtrace) = kerror::debug_backtrace();
 		if ($show) {
-			error::show_error('system', "<li>$message</li>", $showtrace, 0);
+			kerror::show_error('system', "<li>$message</li>", $showtrace, 0);
 		}
 		if ($halt) {
 			exit();
@@ -13,10 +13,10 @@ class error {
 		}
 	}
 	public static function debug_backtrace() {
-		$skipfunc[] = 'error->debug_backtrace';
-		$skipfunc[] = 'error->db_error';
-		$skipfunc[] = 'error->template_error';
-		$skipfunc[] = 'error->system_error';
+		$skipfunc[] = 'kerror->debug_backtrace';
+		$skipfunc[] = 'kerror->db_error';
+		$skipfunc[] = 'kerror->template_error';
+		$skipfunc[] = 'kerror->system_error';
 		$skipfunc[] = 'db_mysql->halt';
 		$skipfunc[] = 'db_mysql->query';
 		$skipfunc[] = 'DB::_execute';
@@ -41,7 +41,7 @@ class error {
 	}
 	public static function db_error($message, $sql) {
 		global $_G;
-		list($showtrace, $logtrace) = error::debug_backtrace();
+		list($showtrace, $logtrace) = kerror::debug_backtrace();
 		$db = &DB::object();
 		$dberrno = $db->errno();
 		$dberror = str_replace($db->tablepre, '', $db->error());
@@ -49,7 +49,7 @@ class error {
 		$msg = '<li>'.$message.'</li>';
 		$msg .= $dberrno ? '<li>['.$dberrno.'] '.$dberror.'</li>' : '';
 		$msg .= $sql ? '<li>[Query] '.$sql.'</li>' : '';
-		error::show_error('db', $msg, $showtrace, false);
+		kerror::show_error('db', $msg, $showtrace, false);
 		exit();
 	}
 	public static function exception_error($exception) {

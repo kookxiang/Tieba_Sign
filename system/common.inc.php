@@ -11,8 +11,8 @@ define('DEBUG_ENABLED', isset($_GET['debug']));
 error_reporting(DEBUG_ENABLED ? E_ALL & !E_NOTICE & !E_STRICT : E_ERROR | E_PARSE);
 @ini_set('display_errors', DEBUG_ENABLED);
 
-require_once SYSTEM_ROOT.'./class/error.php';
-set_exception_handler(array('error', 'exception_error'));
+require_once SYSTEM_ROOT.'./class/kerror.php';
+set_exception_handler(array('kerror', 'exception_error'));
 
 function class_loader($class_name){
 	list($type, $plugin_id) = explode('_', strtolower($class_name), 2);
