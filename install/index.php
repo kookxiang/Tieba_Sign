@@ -9,6 +9,28 @@ if($_config){
 
 @touch($config_file);
 
+// MySQLi Support
+if (!function_exists('mysql_connect') && function_exists('mysqli_connect')) {
+    function mysql_connect($server = 'localhost', $username = 'root', $password = '', $new_link = false, $client_flags = 0) {
+        return mysqli_connect($server, $username, $password, '');
+    }
+    function mysql_insert_id($link = null) {
+        return mysqli_insert_id($link);
+    }
+    function mysql_select_db($db_name, $link = null) {
+        return mysqli_select_db($link, $db_name);
+    }
+    function mysql_query($db_name, $link = null) {
+        return mysqli_query($link, $db_name);
+    }
+    function mysql_error($link = null) {
+        return mysqli_error($link);
+    }
+    function mysql_errno($link = null) {
+        return mysqli_errno($link);
+    }
+}
+
 switch($_GET['step']){
 	default:
 		if(defined('SAE_ACCESSKEY')){
