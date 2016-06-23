@@ -20,15 +20,6 @@ if(!$uid){
 			DB::query("UPDATE my_tieba SET skiped='{$skiped}' WHERE uid='{$uid}' AND tid='{$tid}'");
 			if(!DB::affected_rows()) showmessage('发生未知错误: 无法修改贴吧设置');
 			showmessage('修改签到设置成功！');
-		case 'test_sign':
-			if($_GET['formhash'] != $formhash) break;
-			$tieba = DB::fetch_first("SELECT * FROM my_tieba WHERE uid='{$uid}' ORDER BY RAND() LIMIT 0,1");
-			if(!$tieba) showmessage('没有喜欢的贴吧，请先刷新喜欢的贴吧列表', './#liked_tieba');
-			$setting = get_setting($uid);
-			list($status, $result, $exp) = client_sign($uid, $tieba);
-			$status = $status==2 ? '签到成功' : '签到失败';
-			showmessage("<p>测试贴吧：{$tieba[name]}</p><p>测试结果：{$status}</p><p>详细信息：{$result}</p>", './#setting', 1);
-			break;
 		case 'clear_cookie':
 			if($_GET['formhash'] != $formhash) break;
 			DB::query("UPDATE member_setting SET cookie='' WHERE uid='{$uid}'");

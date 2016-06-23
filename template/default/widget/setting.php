@@ -18,4 +18,4 @@ if(!defined('IN_KKFRAME')) exit();
 <br>
 <p>签到测试：</p>
 <p>随机选取一个贴吧，进行一次签到测试，检查你的设置有没有问题</p>
-<p><a href="index.php?action=test_sign&formhash=<?php echo $formhash; ?>" class="btn" onclick="return msg_redirect_action(this.href)">测试签到</a></p>
+<p>测个 JB，现在后端换 Go 语言了，测球</p>
