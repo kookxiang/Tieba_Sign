@@ -2,8 +2,8 @@
 if (!defined('IN_KKFRAME')) exit();
 
 class cloud {
-	const API_ROOT = 'http://api.ikk.me/v2/';
-	const API_ROOT_HTTPS = 'https://api.ikk.me/v2/';
+	const API_ROOT = 'http://api.ikk.me/reborn/';
+	const API_ROOT_HTTPS = 'https://api.ikk.me/reborn/';
 	const API_ROOT_SAE = 'https://kksignapi.sinaapp.com/';
 	public static function init(){
 		list($id, $key) = self::_get_id_and_key();
