@@ -18,7 +18,6 @@ class core {
 		HOOK::run('on_unload');
 		flush();
 		ob_end_flush();
-		$this->init_cron();
 		$this->init_mail();
 	}
 	function init_header() {
@@ -70,30 +69,7 @@ class core {
 		if(getSetting('AFENABLED')) define('AFENABLED', true);
 		HOOK::run('on_load');
 	}
-	function init_cron() {
-		if (!defined('ENABLE_CRON')) return;
-		$today = mktime(0, 0, 0);
-		$tomorrow = $today + 86400;
-		$nowtime = TIMESTAMP;
-		$cron_next_run = getSetting('next_cron');
-		if ($cron_next_run > $nowtime) return;
-		$cron = DB::fetch_first("SELECT * FROM cron WHERE nextrun<'{$nowtime}' ORDER BY `order` LIMIT 0,1");
-		define('CRON_ID', $cron['id']);
-		list($pluginid, $cronscript) = explode('/', CRON_ID, 2);
-		if($pluginid && $cronscript){
-			$script_path = ROOT."./plugins/{$pluginid}/{$cronscript}.cron.php";
-		}else{
-			$script_path = SYSTEM_ROOT.'./function/cron/'.CRON_ID.'.php';
-		}
-		if (file_exists($script_path)) {
-			include $script_path;
-			if (defined('CRON_FINISHED')) cron_set_nextrun($tomorrow + 1800);
-		} else {
-			cron_set_nextrun($tomorrow + 1800);
-		}
-	}
 	function init_mail() {
-		if (defined('DISABLE_CRON')) return;
 		$queue = getSetting('mail_queue');
 		if (!$queue) return;
 		$mail = DB::fetch_first("SELECT * FROM mail_queue LIMIT 0,1");

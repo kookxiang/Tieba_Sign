@@ -167,21 +167,6 @@ foreach($classes as $id=>$obj){
 <ul class="template-list">
 </ul>
 </div>
-<div id="content-cron" class="hidden">
-<h2>计划任务</h2>
-<p>你可以通过这个表格检查系统任务的运行状态。</p>
-<p>如果所有任务均处于队列中状态，证明您很可能没有添加计划任务。</p>
-<table>
-<thead><tr><td style="width: 40px">#</td><td>类型</td><td>计划任务脚本名</td><td>下次执行</td><td>当前状态</td></tr></thead>
-<tbody></tbody>
-</table>
-<p>
-<a href="admin.php?action=clear_cron&formhash=<?php echo $formhash; ?>" class="btn red" onclick="return msg_callback_action(this.href, load_cron)">清理无效任务</a>
-<?php
-if(defined('AFENABLED')) echo '<a href="admin.php?action=clear_cron_cache&formhash='.$formhash.'" class="btn red" onclick="return msg_callback_action(this.href, load_cron)">清理执行时间缓存</a>';
-?>
-</p>
-</div>
 <div id="content-updater" class="hidden">
 <style type="text/css">
 #content-updater .result { padding: 10px 15px; margin-bottom: 0; background: #efefef; }

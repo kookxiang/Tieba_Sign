@@ -81,7 +81,6 @@ if($_GET['ignore_update']){
 }elseif(is_admin($uid) && !$_COOKIE['ignore_update']){
 	if(getSetting('new_version')) define('NEW_VERSION', true);
 }
-if(is_admin($uid) && getSetting('next_cron') < TIMESTAMP - 7200) define('CRON_ERROR', true);
 
 if(getSetting('account_switch')){
 	// Multi User Support
