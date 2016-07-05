@@ -39,8 +39,6 @@ if(!$uid){
 		case 'update_setting':
 			if($_POST['formhash'] != $formhash) break;
 			DB::update('member_setting', array(
-				'error_mail' => $_POST['error_mail'] ? 1 : 0,
-				'send_mail' => $_POST['send_mail'] ? 1 : 0,
 				'zhidao_sign' => $_POST['zhidao_sign'] ? 1 : 0,
 				'wenku_sign' => $_POST['wenku_sign'] ? 1 : 0,
 				), "uid='{$uid}'");
