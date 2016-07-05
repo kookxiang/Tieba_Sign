@@ -20,7 +20,6 @@ if(!defined('IN_ADMINCP')) exit();
 <li id="menu_template"><a href="#template">模板管理</a></li>
 <li id="menu_setting"><a href="#setting">系统设置</a></li>
 <li id="menu_mail"><a href="#mail">邮件群发</a></li>
-<li id="menu_cron"><a href="#cron">计划任务</a></li>
 <li id="menu_updater"><a href="#updater">检查更新</a></li>
 <li><a href="./">返回前台</a></li>
 </ul>
