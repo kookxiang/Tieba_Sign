@@ -155,8 +155,13 @@ function load_setting() {
     showloading();
     $.getJSON("ajax.php?v=get-setting", function (result) {
         if (!result) return;
+        $('#error_mail').attr('checked', result.error_mail == "1");
+        $('#send_mail').attr('checked', result.send_mail == "1");
         $('#zhidao_sign').attr('checked', result.zhidao_sign == "1");
         $('#wenku_sign').attr('checked', result.wenku_sign == "1");
+        $('#bdbowser').removeAttr('disabled');
+        $('#error_mail').removeAttr('disabled');
+        $('#send_mail').removeAttr('disabled');
         $('#zhidao_sign').removeAttr('disabled');
         $('#wenku_sign').removeAttr('disabled');
     }).fail(function () { createWindow().setTitle('系统错误').setContent('发生未知错误: 无法获取系统设置').addButton('确定', function () { location.reload(); }).append(); }).always(function () { hideloading(); });
