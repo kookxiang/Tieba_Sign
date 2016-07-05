@@ -12,7 +12,6 @@ if(!defined('IN_KKFRAME')) exit();
 <p>报告设置：</p>
 <p><label><input type="radio" checked readonly /> 发送简要报告</label></p>
 <p>Golang 后端暂时不支持修改邮件接收设置，如需退订请联系管理员。</p>
-<p><input type="submit" value="保存设置" /></p>
 </form>
 <?php HOOK::run('user_setting'); ?>
 <br>
