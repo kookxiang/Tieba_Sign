@@ -74,15 +74,13 @@ class JSON implements IFilter
 
     public function preRoute(&$path)
     {
-        if (substr($path, -5) == '.json') {
-            $path = substr($path, 0, -5);
-            $this->handle = true;
-        }
+        // Do nothing.
     }
 
     public function afterRoute(&$className, &$method)
     {
-        if ($this->handle) {
+        if ($_SERVER['HTTP_X_REQUESTED_WITH']) {
+            $this->handle = true;
             // Check if method allow json output
             $reflection = new ReflectionMethod($className, $method);
             $markers = ReflectionHelper::parseDocComment($reflection);
