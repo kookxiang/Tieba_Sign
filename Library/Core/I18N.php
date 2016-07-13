@@ -30,7 +30,7 @@ class I18N
             'FileName' => 'None',
             'Storage' => array()
         );
-        if (file_exists(self::CACHE_FILE)) {
+        if (file_exists(self::CACHE_FILE) && !REAL_TIME_MODE) {
             /** @noinspection PhpIncludeInspection */
             $datas = include self::CACHE_FILE;
         }

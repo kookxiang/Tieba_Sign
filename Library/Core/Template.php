@@ -36,6 +36,8 @@ class Template
             self::compile($templateName);
         } elseif (filemtime($templateFile) <= filemtime($templateFileOrigin)) {
             self::compile($templateName);
+        } elseif (REAL_TIME_MODE) {
+            self::compile($templateName);
         }
         return $templateFile;
     }
@@ -106,8 +108,10 @@ class Template
         $lock->acquire();
 
         // i18n replace
-        $sourceCode = preg_replace_callback('/<(i18n|lang)(.*?)>(.*?)<\/\1>/', array(__CLASS__, 'parseI18nTags'), $sourceCode);
-        $sourceCode = preg_replace_callback('/<(i18n|lang)(.*?) ?\/?>/', array(__CLASS__, 'parseI18nTags'), $sourceCode);
+        $sourceCode = preg_replace_callback('/<(i18n|lang)(.*?)>(.*?)<\/\1>/', array(__CLASS__, 'parseI18nTags'),
+            $sourceCode);
+        $sourceCode = preg_replace_callback('/<(i18n|lang)(.*?) ?\/?>/', array(__CLASS__, 'parseI18nTags'),
+            $sourceCode);
         $sourceCode = preg_replace_callback('/#i18n\((.+?)\)/', function ($match) {
             return I18N::parse($match[1]);
         }, $sourceCode);

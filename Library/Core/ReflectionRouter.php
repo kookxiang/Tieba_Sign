@@ -22,7 +22,7 @@ class ReflectionRouter
         if ($this->Loaded) {
             return;
         }
-        if (file_exists(self::CACHE_FILE)) {
+        if (file_exists(self::CACHE_FILE) && !REAL_TIME_MODE) {
             /** @noinspection PhpIncludeInspection */
             $router = @include self::CACHE_FILE;
             $this->StaticRoute = $router['Static'];

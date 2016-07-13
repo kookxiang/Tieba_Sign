@@ -39,6 +39,13 @@ define('HTTPS_SUPPORT', true);
 define('DEBUG_ENABLE', true);
 
 /**
+ * Real time mode:
+ * This option will disable i18n / router / template cache, development only.
+ * DO NOT TURN ON THIS OPTION IN PRODUCTION!!!
+ */
+define('REAL_TIME_MODE', false);
+
+/**
  * Base URL:
  * To manually config this, uncomment the following line and change the URL
  * To use auto detect, keep this commented
