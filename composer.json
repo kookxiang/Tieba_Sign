@@ -1,7 +1,6 @@
 {
-  "name": "kookxiang/KK-Framework",
-  "description": "A very simple && fast php framework",
-  "minimum-stability": "beta",
+  "name": "kookxiang/Tieba-Sign",
+  "description": "Front-end environment for TiebaSign-Backend services, which provides faster auto-sign experience in http://tieba.baidu.com and can handle much more user at the same time.",
   "license": "Apache",
   "authors": [
     {
