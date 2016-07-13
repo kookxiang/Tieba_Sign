@@ -11,7 +11,7 @@ if (!defined('ROOT_PATH')) {
 /**
  * Site Name
  */
-define('SITE_NAME', 'KK Framework Demo Site');
+define('SITE_NAME', 'Tieba Sign Reborn');
 
 /**
  * Rewrite setting:
@@ -43,7 +43,7 @@ define('DEBUG_ENABLE', true);
  * This option will disable i18n / router / template cache, development only.
  * DO NOT TURN ON THIS OPTION IN PRODUCTION!!!
  */
-define('REAL_TIME_MODE', false);
+define('REAL_TIME_MODE', true);
 
 /**
  * Base URL:
@@ -57,7 +57,7 @@ Core\Request::autoDetectBaseURL();
  * Set i18n translation file
  * If you don't need this, simply comment out the following line
  */
-Core\I18N::setTranslationFile(LIBRARY_PATH . 'Language/en-US.yml');
+Core\I18N::setTranslationFile(LIBRARY_PATH . 'Language/zh-CN.yml');
 
 /**
  * Database Connection:
