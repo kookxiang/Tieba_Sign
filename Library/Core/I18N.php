@@ -47,7 +47,7 @@ class I18N
     {
         self::$loaded = true;
         $translationFile = file_get_contents($file);
-        $storage = Yaml::parse($translationFile, true);
+        $storage = Yaml::parse($translationFile, Yaml::PARSE_OBJECT);
         $storage = self::flattenArray($storage);
         ksort($storage);
         self::$storage = $storage;
