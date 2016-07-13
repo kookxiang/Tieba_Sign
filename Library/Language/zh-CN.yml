@@ -1,0 +1,34 @@
+Custom:
+  SiteName: 贴吧签到助手 Reborn
+
+Dialog:
+  DefaultTitle: 系统消息
+  Buttons:
+    OK: 确认
+    Confirm: 确认
+    Cancel: 取消
+
+Member:
+  Login: 登录
+  LoginFailed: 登录失败
+  Register: 注册
+  Username: USERNAME
+  Password: PASSWORD
+  Email: E-MAIL
+  Messages:
+    UserNotExists: 用户不存在, 请检查您的拼写
+    PasswordError: 您输入的密码不正确, 请检查
+    NoInvitation: 你需要一个来自朋友的邀请链接才能在本站注册
+    NoUsername: 请输入用户名
+    NoPassword: 请输入密码
+    Welcome: 欢迎回来!
+
+Error:
+  Title: 系统错误 - <b>{code}</b>
+  Tips: 此问题已经记录, 请您稍后再试. 给您带来的不便我们感到十分抱歉.
+  Messages:
+    PageNotExists: 您所请求的页面不存在
+
+Redirect:
+  Title: 系统消息
+  CountDown: 如果 {timeout} 秒后您的浏览器没有自动跳转, 请点击这里.
