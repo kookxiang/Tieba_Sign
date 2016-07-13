@@ -1,0 +1,15 @@
+<div class="dialog">
+    <div class="dialog-header">
+        <h3><%= Config.Title %></h3>
+    </div>
+    <div class="dialog-content">
+        <%= Config.Content %>
+    </div>
+    <% if (Config.Actions.length > 0) { %>
+    <div class="dialog-actions">
+        <% Config.Actions.forEach(function(action){ %>
+        <button <% if (action.Action) { %> data-action="<%= action.Action %>" <% } %><% if (action.Default) { %> class="default"<% } %>><%= action.Label %></button>
+        <% }); %>
+    </div>
+    <% } %>
+</div>

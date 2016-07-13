@@ -1,7 +1,4 @@
-/*
- * KK-Framework
- * Author: kookxiang <r18@ikk.me>
- */
+@import "../Common.css";
 
 ::selection {
     background: rgba(78, 176, 248, 0.3);

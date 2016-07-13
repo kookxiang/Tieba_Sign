@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title><i18n key="Member.Register"></i18n> - <i18n key="Custom.SiteName">{SITE_NAME}</i18n></title>
+    <base href="{BASE_URL}"/>
+    <meta name="Robots" content="NOINDEX, NOFOLLOW, NOARCHIVE"/>
+    <meta name="ViewPort" content="initial-scale=1, minimum-scale=1, width=device-width"/>
+    <link rel="stylesheet" href="Resource/Login.css">
+</head>
+<body>
+    <div class="centre-box">
+        <div class="avatar">
+            <img src="Resource/Images/Avatar.png"/>
+            <h2><i18n key="Member.Register">Register</i18n></h2>
+        </div>
+        <div class="login-form">
+            <p>
+                <input type="text" name="username" placeholder="#i18n(Member.Username)"/>
+            </p>
+            <p>
+                <input type="password" name="password" placeholder="#i18n(Member.Password)"/>
+            </p>
+            <p>
+                <input type="email" name="email" placeholder="#i18n(Member.Email)"/>
+            </p>
+            <p>
+                <button type="submit" class="submit">
+                    <i18n key="Member.Register">Register</i18n>
+                </button>
+            </p>
+            <input type="hidden" name="invite" value="{$invite}" />
+        </div>
+    </div>
+    <script src="Resource/Member/Register.js" async defer></script>
+</body>
+</html>

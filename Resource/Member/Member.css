@@ -1,0 +1,87 @@
+@import "../Common.css";
+
+body {
+    background: #2980B9;
+}
+
+.centre-box {
+    box-sizing: border-box;
+    position: relative;
+    width: 430px;
+    margin: 125px auto 50px;
+    padding: 20px 30px;
+    background: #f9f9f9;
+    box-shadow: 0 0 25px #2964B9;
+}
+
+.avatar {
+    position: relative;
+    padding-left: 80px;
+    margin-top: -10px;
+    height: 64px;
+    line-height: 64px;
+}
+
+.avatar h2 {
+    font-weight: normal;
+}
+
+.avatar img {
+    position: absolute;
+    left: 0;
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+}
+
+.login-form {
+    margin-top: 25px;
+}
+
+.login-form p {
+    margin: 20px 0 5px;
+}
+
+.login-form input {
+    box-sizing: border-box;
+    border: 0;
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 12px;
+    background: #eeeeee;
+    outline: 0;
+    border-radius: 3px;
+}
+
+.login-form input:focus {
+    border: 1px solid #999999;
+    margin: -1px;
+}
+
+/* Disable yellow background in Chrome */
+.login-form input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #eeeeee inset !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.login-form .submit {
+    border: 0;
+    width: 100%;
+    padding: 15px;
+    color: #fff;
+    background: #3498DB;
+    text-transform: uppercase;
+    font-size: 14px;
+    outline: 0;
+    cursor: pointer;
+}
+
+.login-form .submit:hover {
+    background: #2980b9;
+}
+
+@media (max-width: 767px) {
+    .centre-box {
+        width: 90%;
+    }
+}

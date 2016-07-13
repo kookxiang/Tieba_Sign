@@ -1,0 +1,5 @@
+@import "~normalize.css";
+
+html {
+    font: 12px "Helvetica Neue", Helvetica, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+}
