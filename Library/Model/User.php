@@ -18,7 +18,6 @@ class User extends Model
     public $username;
     public $email;
     public $role = self::ROLE_STANDARD;
-    public $nickname = '';
     public $registerTime = TIMESTAMP;
     public $lastActive = TIMESTAMP;
     private $password;
