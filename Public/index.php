@@ -27,6 +27,8 @@ if (ini_get('opcache.enable')) {
     }
 }
 
+@session_start();
+
 // Initialize i18n engine
 Core\I18N::init();
 
