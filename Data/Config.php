@@ -62,4 +62,4 @@ Core\I18N::setTranslationFile(LIBRARY_PATH . 'Language/zh-CN.yml');
 /**
  * Database Connection:
  */
-Core\Database::initialize('mysql:dbname=test;host=localhost;charset=UTF8', 'root', '');
+Core\Database::initialize('mysql:dbname=TiebaSign;host=localhost;charset=UTF8', 'root', '');

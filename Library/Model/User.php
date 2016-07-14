@@ -20,7 +20,7 @@ class User extends Model
     public $role = self::ROLE_STANDARD;
     public $registerTime = TIMESTAMP;
     public $lastActive = TIMESTAMP;
-    private $password;
+    protected $password;
 
     public static function requiredLogin()
     {

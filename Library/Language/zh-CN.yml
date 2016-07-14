@@ -12,16 +12,26 @@ Member:
   Login: 登录
   LoginFailed: 登录失败
   Register: 注册
+  RegisterFailed: 注册失败
   Username: USERNAME
   Password: PASSWORD
   Email: E-MAIL
   Messages:
     UserNotExists: 用户不存在, 请检查您的拼写
+    UserAlreadyExists: 已存在同名用户，请修改或尝试登录
+    UsernameTooShort: 用户名过短，请修改
     PasswordError: 您输入的密码不正确, 请检查
     NoInvitation: 你需要一个来自朋友的邀请链接才能在本站注册
+    IllegalInvitation: 此邀请链接不正确，无法用于注册
+    InvitationUsed: 此邀请链接已被使用
+    InvitationLocked: 此邀请链接正被其他用户锁定，请稍候再试
     NoUsername: 请输入用户名
     NoPassword: 请输入密码
+    NoEmail: 请输入邮箱
+    IllegalEmail: 不是合法的邮箱地址，请检查拼写是否有误
+    NotSupportedEmail: 对不起，由于腾讯发信限制，暂时不支持腾讯的相关邮箱接受提醒，请换用 Outlook 或 Gamil 等其他邮箱.
     Welcome: 欢迎回来!
+    RegistrationComplete: 注册成功! 欢迎使用贴吧签到助手
 
 Error:
   Title: 系统错误 - <b>{code}</b>

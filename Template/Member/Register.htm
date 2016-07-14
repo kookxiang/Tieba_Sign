@@ -6,7 +6,7 @@
     <base href="{BASE_URL}"/>
     <meta name="Robots" content="NOINDEX, NOFOLLOW, NOARCHIVE"/>
     <meta name="ViewPort" content="initial-scale=1, minimum-scale=1, width=device-width"/>
-    <link rel="stylesheet" href="Resource/Login.css">
+    <link rel="stylesheet" href="Resource/Member.css">
 </head>
 <body>
     <div class="centre-box">
@@ -14,7 +14,7 @@
             <img src="Resource/Images/Avatar.png"/>
             <h2><i18n key="Member.Register">Register</i18n></h2>
         </div>
-        <div class="login-form">
+        <div class="member-form register">
             <p>
                 <input type="text" name="username" placeholder="#i18n(Member.Username)"/>
             </p>
@@ -32,6 +32,6 @@
             <input type="hidden" name="invite" value="{$invite}" />
         </div>
     </div>
-    <script src="Resource/Member/Register.js" async defer></script>
+    <script src="Resource/Member.js" async defer></script>
 </body>
 </html>

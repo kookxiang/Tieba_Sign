@@ -34,15 +34,15 @@ body {
     border-radius: 32px;
 }
 
-.login-form {
+.member-form {
     margin-top: 25px;
 }
 
-.login-form p {
+.member-form p {
     margin: 20px 0 5px;
 }
 
-.login-form input {
+.member-form input {
     box-sizing: border-box;
     border: 0;
     width: 100%;
@@ -53,18 +53,18 @@ body {
     border-radius: 3px;
 }
 
-.login-form input:focus {
+.member-form input:focus {
     border: 1px solid #999999;
     margin: -1px;
 }
 
 /* Disable yellow background in Chrome */
-.login-form input:-webkit-autofill {
+.member-form input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px #eeeeee inset !important;
     -webkit-text-fill-color: #000 !important;
 }
 
-.login-form .submit {
+.member-form .submit {
     border: 0;
     width: 100%;
     padding: 15px;
@@ -76,7 +76,7 @@ body {
     cursor: pointer;
 }
 
-.login-form .submit:hover {
+.member-form .submit:hover {
     background: #2980b9;
 }
 

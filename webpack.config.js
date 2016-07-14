@@ -9,7 +9,7 @@ i18nUpdater();
 module.exports = {
     entry: {
         Error: ['./Resource/Misc/Error.css'],
-        Login: ['./Resource/Member/Login.js']
+        Member: ['./Resource/Member/Member.js']
     },
     output: {
         path: 'Public/Resource',
