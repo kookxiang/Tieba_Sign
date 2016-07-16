@@ -4,6 +4,7 @@
   "description": "Front-end environment for TiebaSign-Backend services, which provides faster auto-sign experience in http://tieba.baidu.com and can handle much more user at the same time.",
   "dependencies": {
     "event-emitter": "^0.3.4",
+    "font-awesome": "^4.6.3",
     "jquery": "^3.1.0",
     "normalize.css": "^4.2.0"
   },

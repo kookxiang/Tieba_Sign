@@ -8,12 +8,12 @@ i18nUpdater();
 
 module.exports = {
     entry: {
+        Dashboard: ['./Resource/Dashboard.js'],
         Error: ['./Resource/Misc/Error.css'],
         Member: ['./Resource/Member/Member.js']
     },
     output: {
         path: 'Public/Resource',
-        publicPath: "Public/Resource",
         filename: '[name].js',
         sourceMapFilename: '[file].map'
     },
@@ -24,7 +24,7 @@ module.exports = {
                 loader: ExtractTextPlugin.extract('style-loader', 'css-loader?importLoaders=1!postcss-loader')
             },
             {
-                test: /\.(jpe?g|gif|png|svg|woff|ttf)$/,
+                test: /\.(jpe?g|gif|png|svg|woff\d*|ttf|eot)(\?.*|#.*)?$/,
                 loader: 'url-loader?limit=8192'
             },
             {

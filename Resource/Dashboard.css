@@ -1,0 +1,22 @@
+@import "~font-awesome/css/font-awesome.css";
+@import "./Common.css";
+@import "./Sidebar/Sidebar.css";
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    position: relative;
+    height: 100%;
+}
+
+.main-content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 280px;
+    right: 0;
+    overflow: auto;
+}

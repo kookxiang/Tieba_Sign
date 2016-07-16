@@ -15,6 +15,9 @@ class Member
      */
     public function login()
     {
+        if (User::getCurrent()) {
+            Message::show('Member.Messages.AlreadyLogin', '/Dashboard');
+        }
         Template::setView('Member/Login');
     }
 
@@ -23,6 +26,9 @@ class Member
      */
     public function register()
     {
+        if (User::getCurrent()) {
+            Message::show('Member.Messages.AlreadyLogin', '/Dashboard');
+        }
         if (!$_GET['invite']) {
             Message::show('Member.Messages.NoInvitation');
         }
