@@ -78,7 +78,7 @@ class Member
         }
         $invite = Invite::getLockedInvite();
         if (!$invite || $invite->inviteCode != $_POST['invite']) {
-//            unset($_SESSION['invite']);
+            unset($_SESSION['invite']);
             Message::show('Member.Messages.IllegalInvitation');
         }
         if (strlen($_POST['username']) < 4) {
