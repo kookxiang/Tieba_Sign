@@ -163,6 +163,10 @@
     font-size: 24px;
 }
 
+.sidebar .menu .active {
+    background: #F57C00;
+}
+
 .sidebar .menu li:hover {
     background: #FF9100;
 }
