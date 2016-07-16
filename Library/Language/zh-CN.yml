@@ -33,6 +33,7 @@ Member:
     Welcome: 欢迎回来!
     RegistrationComplete: 注册成功! 欢迎使用贴吧签到助手
     AlreadyLogin: 你已经登录了
+    LogoutSucceed: 你已经成功退出登录了
 
 Error:
   Title: 系统错误 - <b>{code}</b>

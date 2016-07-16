@@ -112,4 +112,13 @@ class Member
             'username' => $user->username
         );
     }
+
+    /**
+     * @Route /Member/Logout.action
+     */
+    public function doLogout()
+    {
+        unset($_SESSION['currentUser']);
+        Message::show('Member.Messages.LogoutSucceed', '/Member/Login');
+    }
 }
