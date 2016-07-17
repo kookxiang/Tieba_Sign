@@ -11,7 +11,7 @@ sidebar.find('.switch-account').on('click', function (event) {
     event.preventDefault();
     expanded = !expanded;
     $(this).toggleClass('expanded', expanded);
-    $(header).toggleClass('expanded', expanded);
+    $(header).toggleClass('expanded', expanded).scrollTop(0);
 });
 
 bottom.find('.sign-out').on('click', () => {
