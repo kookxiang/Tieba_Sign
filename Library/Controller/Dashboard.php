@@ -3,6 +3,8 @@
 namespace Controller;
 
 use Core\Template;
+use Model\Account;
+use Model\User;
 
 class Dashboard
 {
@@ -13,5 +15,7 @@ class Dashboard
     public function index()
     {
         Template::setView('Dashboard');
+        Template::putContext('account', User::getCurrent()->getDefaultAccount());
+        Template::putContext('accounts', Account::getAccountsByUser(User::getCurrent()));
     }
 }

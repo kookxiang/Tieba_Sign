@@ -17,10 +17,21 @@ class User extends Model
     public $id;
     public $username;
     public $email;
+    public $defaultAccount;
     public $role = self::ROLE_STANDARD;
     public $registerTime = TIMESTAMP;
     public $lastActive = TIMESTAMP;
     protected $password;
+
+    public function save($mode = self::SAVE_AUTO)
+    {
+        if ($_SESSION['currentUser'] instanceof self) {
+            if ($this->id == $_SESSION['currentUser']->id) {
+                $_SESSION['currentUser'] = $this;
+            }
+        }
+        parent::save($mode);
+    }
 
     public static function requiredLogin()
     {
@@ -46,7 +57,6 @@ class User extends Model
                 $userObj->save();
                 $user = $userObj;
             }
-            $_SESSION['currentUser'] = $user;
         }
         return $user;
     }
@@ -83,5 +93,16 @@ class User extends Model
     public function setPassword($password)
     {
         $this->password = password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    public function getDefaultAccount()
+    {
+        return Account::getAccountById($this->defaultAccount);
+    }
+
+    public function setDefaultAccount(Account $account)
+    {
+        $this->defaultAccount = $account->id;
+        $this->save();
     }
 }
