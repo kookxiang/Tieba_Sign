@@ -114,6 +114,7 @@ class Member
     }
 
     /**
+     * @JSON
      * @Route /Member/Logout.action
      */
     public function doLogout()

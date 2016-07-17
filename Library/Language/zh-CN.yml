@@ -11,6 +11,7 @@ Dialog:
 Member:
   Login: 登录
   LoginFailed: 登录失败
+  Logout: 退出
   Register: 注册
   RegisterFailed: 注册失败
   Username: USERNAME
