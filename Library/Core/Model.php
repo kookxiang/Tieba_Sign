@@ -21,7 +21,7 @@ abstract class Model
     const SAVE_INSERT = 1;
     const SAVE_UPDATE = 2;
 
-    protected function __construct()
+    public function __construct()
     {
         $this->lazyLoad();
     }
