@@ -138,6 +138,16 @@ abstract class Model
         return $map;
     }
 
+    protected function lazyLoad($propertyName, callable $callback)
+    {
+        // First, save the value
+        $value = $this->$propertyName;
+        // Create LazyLoadObject
+        $this->_lazyLoad[$propertyName] = new LazyLoadObject($value, $callback);
+        // Remove the property to active getter and setter
+        unset($this->$propertyName);
+    }
+
     public function __get($propertyName)
     {
         if (isset($this->_lazyLoad[$propertyName])) {
