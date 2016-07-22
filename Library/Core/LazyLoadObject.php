@@ -56,4 +56,9 @@ class LazyLoadObject
         $this->object = null;
         $this->hasValue = false;
     }
+
+    public function getValue()
+    {
+        return $this->value;
+    }
 }

@@ -11,12 +11,24 @@ use ReflectionProperty;
 
 abstract class Model
 {
-    /** @ignore */
+    /**
+     * @ignore
+     * @var LazyLoadObject[] $lazyLoadObj
+     */
     protected $_lazyLoad = array();
 
     const SAVE_AUTO = 0;
     const SAVE_INSERT = 1;
     const SAVE_UPDATE = 2;
+
+    protected function __construct()
+    {
+        $this->lazyLoad();
+    }
+
+    protected function lazyLoad()
+    {
+    }
 
     public function delete()
     {
@@ -130,15 +142,19 @@ abstract class Model
             if (strpos($property->getDocComment(), '@ignore')) {
                 continue;
             }
+            $propertyName = $property->getName();
+            if (isset($this->_lazyLoad[$propertyName])) {
+                $map[$propertyName] = $this->_lazyLoad[$propertyName]->getValue();
+                continue;
+            }
             $property->setAccessible(true);
             $propertyValue = $property->getValue($this);
-            $propertyName = $property->getName();
             $map[$propertyName] = $propertyValue;
         }
         return $map;
     }
 
-    protected function lazyLoad($propertyName, callable $callback)
+    protected function setLazyLoad($propertyName, callable $callback)
     {
         // First, save the value
         $value = $this->$propertyName;
@@ -163,5 +179,10 @@ abstract class Model
         } else {
             $this->$propertyName = $value;
         }
+    }
+
+    public function __wakeup()
+    {
+        $this->lazyLoad();
     }
 }
