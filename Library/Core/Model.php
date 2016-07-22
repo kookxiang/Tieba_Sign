@@ -11,6 +11,9 @@ use ReflectionProperty;
 
 abstract class Model
 {
+    /** @ignore */
+    protected $_lazyLoad = array();
+
     const SAVE_AUTO = 0;
     const SAVE_INSERT = 1;
     const SAVE_UPDATE = 2;
@@ -20,9 +23,7 @@ abstract class Model
         $reflection = new ReflectionObject($this);
         $primaryKey = $this->getPrimaryKeyName($reflection);
         $property = $reflection->getProperty($primaryKey);
-        if ($property->isProtected() || $property->isPrivate()) {
-            $property->setAccessible(true);
-        }
+        $property->setAccessible(true);
         $primaryValue = $property->getValue($this);
         if (!$primaryValue) {
             throw new Error('Cannot delete object without id');
@@ -33,72 +34,82 @@ abstract class Model
         $statement->execute();
     }
 
-    public function save($mode = self::SAVE_AUTO)
+    public function update()
     {
-        $map = array();
         $reflection = new ReflectionObject($this);
-        $reflectionProp = $reflection->getProperties(ReflectionProperty::IS_PROTECTED | ReflectionProperty::IS_PUBLIC);
-        foreach ($reflectionProp as $property) {
-            if (strpos($property->getDocComment(), '@ignore')) {
-                continue;
-            }
-            $propertyName = $property->getName();
-            if ($propertyName == 'primaryKey') {
-                continue;
-            }
-            if ($property->isProtected()) {
-                $property->setAccessible(true);
-            }
-            $propertyValue = $property->getValue($this);
-            $map[$propertyName] = $propertyValue;
-        }
+        $map = $this->getTableMap($reflection);
         $primaryKey = $this->getPrimaryKeyName($reflection);
-        $identifier = $map[$primaryKey];
-        unset($map[$primaryKey]);
         $tableName = $this->getTableName($reflection);
-        if ($mode == self::SAVE_UPDATE || ($identifier && $mode != self::SAVE_INSERT)) {
-            $sql = "UPDATE `{$tableName}` SET ";
-            foreach ($map as $key => $value) {
-                $sql .= "`{$key}` = :{$key},";
-            }
-            $sql = rtrim($sql, ',');
-            $sql .= " WHERE {$primaryKey} = :id";
-            $statement = Database::getInstance()->prepare($sql);
-            $statement->bindValue(':id', $identifier);
-            foreach ($map as $key => $value) {
-                $statement->bindValue(":{$key}", $value);
-            }
-        } else {
-            $sql = "INSERT INTO `{$tableName}` SET ";
-            foreach ($map as $key => $value) {
-                $sql .= "`{$key}` = :{$key},";
-            }
-            $sql = rtrim($sql, ',');
-            $statement = Database::getInstance()->prepare($sql);
-            foreach ($map as $key => $value) {
-                $statement->bindValue(":{$key}", $value);
-            }
+        if (empty($map[$primaryKey])) {
+            throw new Error('Cannot update a record without id');
+        }
+        $sql = "UPDATE `{$tableName}` SET ";
+        foreach ($map as $key => $value) {
+            $sql .= "`{$key}` = :{$key},";
+        }
+        $sql = rtrim($sql, ',');
+        $sql .= " WHERE {$primaryKey} = :id";
+        $statement = Database::getInstance()->prepare($sql);
+        $statement->bindValue(':id', $map[$primaryKey]);
+        foreach ($map as $key => $value) {
+            $statement->bindValue(":{$key}", $value);
         }
         $statement->execute();
-        if (!$identifier) {
-            $insertId = Database::getInstance()->lastInsertId();
-            if ($insertId) {
-                $reflection->getProperty($primaryKey)->setValue($this, $insertId);
+    }
+
+    public function insert()
+    {
+        $reflection = new ReflectionObject($this);
+        $map = $this->getTableMap($reflection);
+        $primaryKey = $this->getPrimaryKeyName($reflection);
+        $tableName = $this->getTableName($reflection);
+
+        $sql = "INSERT INTO `{$tableName}` SET ";
+        foreach ($map as $key => $value) {
+            $sql .= "`{$key}` = :{$key},";
+        }
+        $sql = rtrim($sql, ',');
+        $statement = Database::getInstance()->prepare($sql);
+        foreach ($map as $key => $value) {
+            $statement->bindValue(":{$key}", $value);
+        }
+        $statement->execute();
+        $insertId = Database::getInstance()->lastInsertId();
+        if ($insertId) {
+            $reflection->getProperty($primaryKey)->setValue($this, $insertId);
+        }
+    }
+
+    public function save($mode = self::SAVE_AUTO)
+    {
+        if ($mode == self::SAVE_UPDATE) {
+            $this->update();
+        } elseif ($mode == self::SAVE_INSERT) {
+            $this->insert();
+        } else {
+            $reflection = new ReflectionObject($this);
+            $primaryKeyName = $this->getPrimaryKeyName($reflection);
+            $primaryKey = $reflection->getProperty($primaryKeyName);
+            $primaryKey->setAccessible(true);
+            $identifier = $primaryKey->getValue($this);
+            if ($identifier) {
+                $this->update();
+            } else {
+                $this->insert();
             }
         }
     }
 
     private function getPrimaryKeyName(ReflectionObject $reflection)
     {
-        if (!$reflection->hasProperty('primaryKey')) {
-            return 'id';
-        } else {
-            $property = $reflection->getProperty('primaryKey');
-            if ($property->isPrivate() || $property->isProtected()) {
-                $property->setAccessible(true);
+        $primaryKeyName = 'id';
+        $reflectionProp = $reflection->getProperties(ReflectionProperty::IS_PROTECTED | ReflectionProperty::IS_PUBLIC);
+        foreach ($reflectionProp as $property) {
+            if (stripos($property->getDocComment(), '@PrimaryKey')) {
+                $primaryKeyName = $property->getName();
             }
-            return $property->getValue($this);
         }
+        return $primaryKeyName;
     }
 
     private function getTableName(ReflectionObject $reflection)
@@ -108,6 +119,39 @@ abstract class Model
             return strtolower($reflection->getShortName());
         } else {
             return $matches[1];
+        }
+    }
+
+    private function getTableMap(ReflectionObject $reflection)
+    {
+        $map = array();
+        $reflectionProp = $reflection->getProperties(ReflectionProperty::IS_PRIVATE | ReflectionProperty::IS_PROTECTED | ReflectionProperty::IS_PUBLIC);
+        foreach ($reflectionProp as $property) {
+            if (strpos($property->getDocComment(), '@ignore')) {
+                continue;
+            }
+            $property->setAccessible(true);
+            $propertyValue = $property->getValue($this);
+            $propertyName = $property->getName();
+            $map[$propertyName] = $propertyValue;
+        }
+        return $map;
+    }
+
+    public function __get($propertyName)
+    {
+        if (isset($this->_lazyLoad[$propertyName])) {
+            return ($this->_lazyLoad[$propertyName])();
+        }
+        return null;
+    }
+
+    public function __set($propertyName, $value)
+    {
+        if (isset($this->_lazyLoad[$propertyName])) {
+            ($this->_lazyLoad[$propertyName])->updateValue($value);
+        } else {
+            $this->$propertyName = $value;
         }
     }
 }
