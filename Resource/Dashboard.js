@@ -1,2 +1,2 @@
-require('./Dashboard.css');
-require('./Sidebar/Sidebar');
+require("./Dashboard.css");
+require("./Sidebar/Sidebar");

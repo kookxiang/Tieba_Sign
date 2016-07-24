@@ -1,0 +1,123 @@
+.dialog {
+    position: fixed;
+    top: 100px;
+    min-width: 360px;
+    max-width: 720px;
+    padding: 20px 30px;
+    background: #f9f9f9;
+    box-shadow: 0 9px 46px 8px rgba(0, 0, 0, 0.14), 0 11px 15px -7px rgba(0, 0, 0, 0.12), 0 24px 38px 3px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    animation: ShowDialog 0.15s ease-out 1;
+
+    .dialog-header {
+        position: relative;
+
+        h3 {
+            font-size: 24px;
+            font-family: Roboto, "Segoe UI", "Helvetica Neue", Helvetica, "Microsoft YaHei", Arial, sans-serif;
+            line-height: 1.5em;
+            font-weight: normal;
+            margin: 0;
+            padding-right: 10px;
+        }
+    }
+
+    .dialog-content {
+        margin: 20px 5px 15px;
+        min-height: 36px;
+        max-width: 480px;
+        font-size: 14px;
+        line-height: 26px;
+    }
+
+    .dialog-actions {
+        text-align: right;
+        margin: 15px -10px 0;
+        user-select: none;
+        cursor: default;
+
+        button {
+            box-sizing: border-box;
+            font-size: 14px;
+            font-family: Roboto, "Segoe UI", "Helvetica Neue", Helvetica, "Microsoft YaHei", Arial, sans-serif;
+            border: 0;
+            border-radius: 2px;
+            background: transparent;
+            color: #666;
+            outline: none;
+            height: 36px;
+            text-transform: uppercase;
+            padding: 0 15px;
+            margin: 0;
+            min-width: 70px;
+            transition: background 0.3s;
+            cursor: pointer;
+
+            &:active,
+            &:hover {
+                background: rgba(158, 158, 158, .2);
+            }
+
+            &:active {
+                background: rgba(158, 158, 158, .4);
+            }
+
+            &.default {
+                color: #009688;
+            }
+        }
+    }
+
+    &.hide {
+        // For browser doesn't support css3 animation
+        opacity: 0;
+        pointer-events: none;
+        user-select: none;
+        animation: HideDialog 0.125s ease-in 1;
+    }
+}
+
+.dialog-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    opacity: 0;
+    z-index: 999;
+    transition: 0.2s opacity;
+    pointer-events: none;
+
+    &.active {
+        opacity: 0.3;
+        pointer-events: all;
+        transition: 0.7s opacity;
+    }
+}
+@keyframes ShowDialog {
+    from {
+        transform: scale(.97, .97);
+        opacity: 0;
+        box-shadow: 0 9px 46px 8px transparent, 0 11px 15px -7px transparent, 0 24px 38px 3px transparent;
+    }
+
+    to {
+        transform: scale(1, 1);
+        opacity: 1;
+        box-shadow: 0 9px 46px 8px rgba(0, 0, 0, 0.14), 0 11px 15px -7px rgba(0, 0, 0, 0.12), 0 24px 38px 3px rgba(0, 0, 0, 0.2);
+    }
+}
+@keyframes HideDialog {
+    from {
+        transform: scale(1, 1);
+        opacity: 1;
+        box-shadow: 0 9px 46px 8px rgba(0, 0, 0, 0.14), 0 11px 15px -7px rgba(0, 0, 0, 0.12), 0 24px 38px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    to {
+        transform: scale(1.02, 1.02);
+        opacity: 0;
+        box-shadow: 0 9px 46px 8px transparent, 0 11px 15px -7px transparent, 0 24px 38px 3px transparent;
+    }
+}

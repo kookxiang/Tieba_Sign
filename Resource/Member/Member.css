@@ -1,5 +1,4 @@
 @import "../Common.css";
-
 body {
     background: #2980B9;
 }
@@ -58,8 +57,8 @@ body {
     margin: -1px;
 }
 
-/* Disable yellow background in Chrome */
 .member-form input:-webkit-autofill {
+    /* Disable yellow background in Chrome */
     -webkit-box-shadow: 0 0 0 1000px #eeeeee inset !important;
     -webkit-text-fill-color: #000 !important;
 }

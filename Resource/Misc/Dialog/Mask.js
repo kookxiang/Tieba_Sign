@@ -10,18 +10,18 @@ function showMask() {
         clearTimeout(closeTimer);
         closeTimer = null;
     } else {
-        maskObj = $('<div class="dialog-mask"></div>');
+        maskObj = $("<div class=\"dialog-mask\"></div>");
         $(document.body).append(maskObj);
     }
     setTimeout(function () {
-        maskObj.addClass('active');
+        maskObj.addClass("active");
     }, 1);
 }
 
 function hideMask() {
     maskCount--;
     if (maskCount > 0) return;
-    maskObj.removeClass('active');
+    maskObj.removeClass("active");
     closeTimer = setTimeout(function () {
         maskObj.remove();
         maskObj = null;

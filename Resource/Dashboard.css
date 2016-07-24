@@ -1,7 +1,6 @@
 @import "~font-awesome/css/font-awesome.css";
 @import "./Common.css";
 @import "./Sidebar/Sidebar.scss";
-
 html {
     height: 100%;
     width: 100%;
