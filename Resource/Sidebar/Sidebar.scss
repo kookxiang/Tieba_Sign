@@ -1,0 +1,170 @@
+.sidebar {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    bottom: 0;
+    width: 280px;
+    padding-top: 150px;
+    background: #3f51b5;
+    box-shadow: 2px 0 20px rgba(96, 96, 96, .5);
+    .sidebar-header {
+        font-size: 14px;
+        position: absolute;
+        z-index: 15;
+        top: 0;
+        right: 0;
+        left: 0;
+        overflow: hidden;
+        box-sizing: border-box;
+        height: 150px;
+        padding: 60px 15px 0;
+        transition: height 0.2s cubic-bezier(.65, .05, .36, 1);
+        color: #eceff1;
+        background: #303f9f;
+        &.expanded {
+            overflow: auto;
+            height: 100%;
+        }
+    }
+    .account-info {
+        position: relative;
+        padding: 0 16px 25px 85px;
+        .avatar {
+            position: absolute;
+            left: 5px;
+            width: 64px;
+            height: 64px;
+            border-radius: 32px;
+        }
+        .name {
+            font-size: 18px;
+            line-height: 64px;
+            overflow: hidden;
+            height: 64px;
+            margin: 0;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            word-break: break-all;
+        }
+    }
+    .switch-account {
+        line-height: 32px;
+        position: absolute;
+        top: 16px;
+        right: -8px;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        transition: background 0.3s cubic-bezier(0, 0, .2, 1), transform 0.3s cubic-bezier(.65, .05, .36, 1);
+        transform: rotate(-90deg);
+        text-align: center;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0);
+        &:hover {
+            background: rgba(255, 255, 255, .2);
+        }
+        &:active {
+            background: rgba(192, 192, 192, .2);
+        }
+        &.expanded {
+            transform: rotate(0deg);
+        }
+    }
+    .account-list {
+        margin: 0 -15px;
+        padding: 0;
+        &::after {
+            display: block;
+            visibility: hidden;
+            overflow: hidden;
+            height: 10px;
+            margin: 0;
+            content: '.';
+        }
+        li {
+            line-height: 20px;
+            position: relative;
+            display: block;
+            height: 20px;
+            margin: 0;
+            padding: 15px 30px 15px 64px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.3s cubic-bezier(0, 0, .2, 1);
+            &:hover {
+                background: #3f51b5;
+            }
+            &:active {
+                background: #3949ab;
+            }
+            .avatar {
+                font-size: 18px;
+                line-height: 32px;
+                position: absolute;
+                top: 9px;
+                left: 20px;
+                width: 32px;
+                height: 32px;
+                text-align: center;
+                border-radius: 16px;
+            }
+        }
+    }
+    .sidebar-menu {
+        position: absolute;
+        top: 150px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        overflow: auto;
+        flex-direction: column;
+    }
+    .menu {
+        margin: 0;
+        padding: 10px 0 0;
+        list-style: none;
+        flex: 1;
+        li {
+            font-size: 14px;
+            line-height: 24px;
+            position: relative;
+            height: 24px;
+            padding: 16px 40px 16px 80px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+            color: #eceff1;
+            .fa {
+                font-size: 24px;
+                position: absolute;
+                top: 15px;
+                left: 40px;
+            }
+            .active {
+                background: #f57c00;
+            }
+            &:hover {
+                background: #ff9100;
+            }
+            &:active {
+                background: #ff6d00;
+            }
+        }
+        .sign-out {
+            &:hover {
+                background: #ff1744;
+            }
+            &:active {
+                background: #d50000;
+            }
+        }
+    }
+    .sidebar-bottom {
+        margin-top: 20px;
+        background: #303f9f;
+        .menu {
+            padding: 0;
+        }
+    }
+}

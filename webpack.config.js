@@ -20,12 +20,12 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader?importLoaders=1!postcss-loader')
+                test: /\.(sa|sc|c)ss$/,
+                loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1!postcss!sass?sourceMap')
             },
             {
                 test: /\.(jpe?g|gif|png|svg|woff\d*|ttf|eot)(\?.*|#.*)?$/,
-                loader: 'url-loader?limit=8192'
+                loader: 'url?limit=8192'
             },
             {
                 test: /\.(tpl|ejs)$/,
