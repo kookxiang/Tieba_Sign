@@ -80,27 +80,27 @@ class Error extends \Exception
     public function formatBackTrace()
     {
         $backtrace = $this->trace;
-        krsort($backtrace);
+//        krsort($backtrace);
         $trace = '';
         foreach ($backtrace as $error) {
-            if ($error['function'] == 'spl_autoload_call') {
+            if (@$error['function'] == 'spl_autoload_call') {
                 continue;
             }
-            if ($error['function'] == 'getBackTrace') {
+            if (@$error['function'] == 'getBackTrace') {
                 continue;
             }
-            if ($error['function'] == 'handlePHPError') {
+            if (@$error['function'] == 'handlePHPError') {
                 continue;
             }
-            if ($error['function'] == 'handleUncaughtException') {
+            if (@$error['function'] == 'handleUncaughtException') {
                 continue;
             }
-            $error['line'] = $error['line'] ? ":{$error['line']}" : '';
+            $error['line'] = @$error['line'] ? ":{$error['line']}" : '';
             $log = '';
-            if ($error['file']) {
+            if (@$error['file']) {
                 $log = str_replace(str_replace('\\', '/', ROOT_PATH), '', $error['file']) . $error['line'];
             }
-            if ($error['class']) {
+            if (@$error['class']) {
                 $error['class'] = str_replace('\\', '/', $error['class']);
                 $log .= " ({$error['class']}{$error['type']}{$error['function']})";
             }

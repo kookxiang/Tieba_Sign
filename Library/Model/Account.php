@@ -9,11 +9,17 @@ use Core\Model;
 class Account extends Model
 {
     public $id;
+    /** @var User */
     public $owner;
     public $name;
     public $cookie;
     public $avatar;
     public $bindTime = TIMESTAMP;
+
+    protected function lazyLoad()
+    {
+        $this->setLazyLoad('owner', 'Model\\User::getUserByUserId');
+    }
 
     /**
      * @param $id

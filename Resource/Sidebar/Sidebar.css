@@ -20,23 +20,24 @@
     background: #303F9F;
     font-size: 14px;
     padding: 60px 15px 0;
-    overflow: auto;
-    transition: height .3s cubic-bezier(0.65, 0.05, 0.36, 1);
+    overflow: hidden;
+    transition: height .2s cubic-bezier(0.65, 0.05, 0.36, 1);
     z-index: 15;
 }
 
 .sidebar-header.expanded {
     height: 100%;
+    overflow: auto;
 }
 
 .sidebar .account-info {
     position: relative;
-    padding: 0 16px 25px 80px;
+    padding: 0 16px 25px 85px;
 }
 
 .sidebar .account-info .avatar {
     position: absolute;
-    left: 0;
+    left: 5px;
     height: 64px;
     width: 64px;
     border-radius: 32px;

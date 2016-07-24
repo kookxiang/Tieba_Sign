@@ -14,17 +14,20 @@
                 <if condition="$account">
                     <img src="{$account->avatar}" class="avatar"/>
                     <p class="name">{$account->name}</p>
+                    <else/>
+                    <img src="Resource/Images/Avatar_Light.png" class="avatar"/>
+                    <p class="name">请绑定百度账号</p>
                 </if>
                 <i class="fa fa-caret-down switch-account"></i>
             </div>
             <ul class="account-list">
                 <loop variable="$accounts" value="$account">
-                    <li data-id="{$account->id}">
+                    <li data-action="switch" data-id="{$account->id}">
                         <img src="{$account->avatar}" class="avatar"/>
                         {$account->name}
                     </li>
                 </loop>
-                <li>
+                <li data-action="add">
                     <i class="fa fa-plus avatar"></i>
                     关联新账号
                 </li>
@@ -39,6 +42,14 @@
                 <li>
                     <i class="fa fa-list"></i>
                     贴吧
+                </li>
+                <li>
+                    <i class="fa fa-ban"></i>
+                    封禁
+                </li>
+                <li>
+                    <i class="fa fa-reply"></i>
+                    回复
                 </li>
                 <li>
                     <i class="fa fa-calendar"></i>

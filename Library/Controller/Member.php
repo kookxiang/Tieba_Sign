@@ -2,8 +2,10 @@
 
 namespace Controller;
 
+use Core\Error;
 use Core\Template;
 use Helper\Message;
+use Model\Account;
 use Model\Invite;
 use Model\User;
 
@@ -121,5 +123,20 @@ class Member
     {
         unset($_SESSION['currentUser']);
         Message::show('Member.Messages.LogoutSucceed', '/Member/Login');
+    }
+
+    /**
+     * @JSON
+     * @DynamicRoute /Member/Account/{int}/Switch.action
+     * @param int $accountId
+     * @throws Error
+     */
+    public function doSwitchAccount($accountId = 0)
+    {
+        $account = Account::getAccountById($accountId);
+        if ($account->owner->id != User::getCurrent()->id) {
+            throw new Error('This account is not belong to you.');
+        }
+        User::getCurrent()->setDefaultAccount($account);
     }
 }
