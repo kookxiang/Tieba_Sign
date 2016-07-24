@@ -7,7 +7,7 @@
     background: #f9f9f9;
     box-shadow: 0 9px 46px 8px rgba(0, 0, 0, 0.14), 0 11px 15px -7px rgba(0, 0, 0, 0.12), 0 24px 38px 3px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    animation: ShowDialog .25s ease-out 1;
+    animation: ShowDialog .15s ease-out 1;
 }
 
 .dialog-header {
@@ -84,22 +84,23 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: #333;
+    background: #000;
     opacity: 0;
     z-index: 999;
-    transition: .6s opacity;
+    transition: .2s opacity;
     pointer-events: none;
 }
 
 .dialog-mask.active {
-    opacity: .4;
+    opacity: .3;
     pointer-events: all;
+    transition: .7s opacity;
 }
 
 /* Animation */
 @keyframes ShowDialog {
     from {
-        transform: scale(.95, .95);
+        transform: scale(.97, .97);
         opacity: 0;
     }
     to {
@@ -114,7 +115,7 @@
         opacity: 1;
     }
     to {
-        transform: scale(1.03, 1.03);
+        transform: scale(1.02, 1.02);
         opacity: 0;
     }
 }
