@@ -9,6 +9,7 @@ use Model\User;
 class Dashboard
 {
     /**
+     * @RequireLogin
      * @Route /Dashboard/
      * @DynamicRoute /Dashboard/{any}
      */

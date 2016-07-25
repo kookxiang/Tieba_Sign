@@ -19,6 +19,8 @@ Member:
   Password: PASSWORD
   Email: E-MAIL
   Messages:
+    RequireLogin: 你需要登录后才可以使用
+    RequireAdmin: 此功能仅限管理员使用
     UserNotExists: 用户不存在, 请检查您的拼写
     UserAlreadyExists: 已存在同名用户，请修改或尝试登录
     UsernameTooShort: 用户名过短，请修改

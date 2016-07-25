@@ -35,6 +35,9 @@ Core\I18N::init();
 // Handler for json request
 Core\Filter::register(new Helper\JSON());
 
+// Automatically permission check
+Core\Filter::register(new Helper\Permission());
+
 //$Router = new Core\DefaultRouter();
 $Router = new Core\ReflectionRouter();
 $Router->handleRequest();
