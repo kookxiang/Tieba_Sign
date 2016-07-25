@@ -18,7 +18,7 @@ class Module extends EventEmitter {
     hasRoute(url) {
         let canHandle = false;
         this.routeTable.forEach(obj => {
-            if (url.match(obj.regex)) {
+            if (url.match(obj.url)) {
                 canHandle = true;
             }
         });
@@ -27,7 +27,7 @@ class Module extends EventEmitter {
     goto(url) {
         let callback = null;
         this.routeTable.forEach(obj => {
-            if (url.match(obj.regex)) {
+            if (url.match(obj.url)) {
                 callback = obj.callback;
             }
         });

@@ -35,6 +35,7 @@ function switchModule(newModule, path, url, skipState) {
     if (currentModule) {
         ModuleList.filter(m => m.type == currentModule).forEach(m => m.detach());
     }
+    currentModule = newModule;
     let module = getModule(newModule);
     module.attach();
     module.goto(path);
