@@ -1,0 +1,10 @@
+<div class="notice type-<%= type %>">
+    <div class="content">
+        <%= content %>
+    </div>
+    <% for (var i in actions) { %>
+        <button data-id="<%= i %>" class="action">
+            <%= actions[i].action %>
+        </button>
+    <% } %>
+</div>
