@@ -33,6 +33,9 @@
                 "anonymous": "always",
                 "named": "never"
             }
+        ],
+        "no-unused-vars": [
+            "warn"
         ]
     }
 }

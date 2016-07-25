@@ -1,6 +1,5 @@
 @import "~font-awesome/css/font-awesome.css";
 @import "./Common.css";
-@import "./Sidebar/Sidebar.scss";
 html {
     height: 100%;
     width: 100%;
@@ -9,6 +8,11 @@ html {
 body {
     position: relative;
     height: 100%;
+    /*
+     * Set minimum width to 1200, until we have a design for mobile devices.
+     * @TODO: Remove this line after mobile style is finished.
+     */
+    min-width: 1200px;
 }
 
 .main-content {
@@ -18,4 +22,17 @@ body {
     left: 280px;
     right: 0;
     overflow: auto;
+}
+
+.main-content .header {
+    background: #eeeeee;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.20);
+    height: 24px;
+    line-height: 24px;
+    padding: 15px 30px 13px;
+    font-size: 18px;
+}
+
+.main-content .container {
+    padding: 30px 30px 25px;
 }

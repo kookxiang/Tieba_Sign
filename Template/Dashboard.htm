@@ -34,48 +34,48 @@
             </ul>
         </div>
         <div class="sidebar-menu">
-            <ul class="menu">
-                <li>
+            <div class="menu">
+                <a data-module="overview" href="/Dashboard">
                     <i class="fa fa-home"></i>
                     总览
-                </li>
-                <li>
+                </a>
+                <a data-module="tieba" href="/Dashboard/Tieba">
                     <i class="fa fa-list"></i>
                     贴吧
-                </li>
-                <li>
+                </a>
+                <a data-module="ban" href="/Dashboard/Ban">
                     <i class="fa fa-ban"></i>
                     封禁
-                </li>
-                <li>
+                </a>
+                <a data-module="reply" href="/Dashboard/Reply">
                     <i class="fa fa-reply"></i>
                     回复
-                </li>
-                <li>
+                </a>
+                <a data-module="log" href="/Dashboard/Log">
                     <i class="fa fa-calendar"></i>
                     记录
-                </li>
-                <li>
+                </a>
+                <a data-module="invite" href="/Dashboard/Invite">
                     <i class="fa fa-envelope"></i>
                     邀请
-                </li>
-                <li>
+                </a>
+                <a data-module="config" href="/Dashboard/Setting">
                     <i class="fa fa-wrench"></i>
                     设置
-                </li>
-            </ul>
+                </a>
+            </div>
             <div class="sidebar-bottom">
-                <ul class="menu">
-                    <li class="sign-out">
+                <div class="menu">
+                    <a class="sign-out">
                         <i class="fa fa-sign-out"></i>
                         <i18n key="Member.Logout">Logout</i18n>
-                    </li>
-                </ul>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
     <div class="main-content">
-        <div class="header"></div>
+        <div class="header">Loading...</div>
     </div>
     <script src="Resource/Dashboard.js"></script>
 </body>
