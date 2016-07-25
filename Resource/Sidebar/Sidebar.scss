@@ -6,7 +6,7 @@
     width: 280px;
     padding-top: 150px;
     background: #3f51b5;
-    box-shadow: 2px 0 20px rgba(96, 96, 96, .5);
+    box-shadow: -1px 0 20px 5px rgba(0, 0, 0, .5);
 
     .sidebar-header {
         font-size: 14px;
@@ -143,7 +143,9 @@
         list-style: none;
         flex: 1;
 
-        li {
+        a {
+            display: block;
+            text-decoration: none;
             font-size: 14px;
             line-height: 24px;
             position: relative;

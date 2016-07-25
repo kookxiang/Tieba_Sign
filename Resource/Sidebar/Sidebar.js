@@ -1,4 +1,5 @@
 "use strict";
+import "./Sidebar.scss";
 import $ from "jquery";
 import Dialog from "../Misc/Dialog/Dialog";
 import Mask from "../Misc/Dialog/Mask";
@@ -23,7 +24,6 @@ sidebar.find(".account-list").on("click", "li[data-action=switch]", function (ev
         url: "/Member/Account/" + accountId + "/Switch.action",
         type: "POST",
         error: function () {
-            Dialog.ShowMessage("添加功能还没写好…", "debug");
             Mask.Hide();
         }
     }).done(function (result) {
@@ -31,10 +31,9 @@ sidebar.find(".account-list").on("click", "li[data-action=switch]", function (ev
             Dialog.ShowMessage(result.message, __("Member.SwitchAccount"));
             Mask.Hide();
         } else {
-            Dialog.ShowMessage(__("Member.Messages.AccountSwitchSucceed"),
-                __("Member.SwitchAccount"), () => {
-                    location.reload();
-                });
+            Dialog.ShowMessage(__("Member.Messages.AccountSwitchSucceed"), __("Member.SwitchAccount"), () => {
+                location.reload();
+            });
         }
     });
 }).on("click", "li[data-action=add]", function (event) {
@@ -48,8 +47,11 @@ bottom.find(".sign-out").on("click", () => {
             url: "/Member/Logout.action",
             type: "POST"
         }).done(function (result) {
-            return Dialog.ShowMessage(result.message,
-                __("Member.Logout"));
+            return Dialog.ShowMessage(result.message, __("Member.Logout"));
         });
     });
 });
+
+module.exports = {
+    element: sidebar
+};
