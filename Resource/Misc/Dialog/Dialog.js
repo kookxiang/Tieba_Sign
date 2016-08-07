@@ -15,13 +15,13 @@ class Dialog extends EventEmitter {
         this.Element = null;
         this.WithMask = true;
         this.shown = false;
+        this.onDismiss = function (event) {
+            event.preventDefault();
+            this.hide();
+        };
         for (var key in config) {
             this[key] = config[key];
         }
-    }
-    onDismiss(event) {
-        event.preventDefault();
-        this.hide();
     }
     show() {
         let that = this;

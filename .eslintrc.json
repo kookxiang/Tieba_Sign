@@ -9,7 +9,10 @@
         "__": true
     },
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "rules": {
         "indent": [
@@ -34,8 +37,13 @@
                 "named": "never"
             }
         ],
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error",
         "no-unused-vars": [
             "warn"
         ]
-    }
+    },
+    "plugins": [
+        "react"
+    ]
 }

@@ -1,0 +1,37 @@
+.module-config {
+    .setting-header {
+        margin: 20px 0 15px;
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    [data-react-toolbox="radio-button"] {
+        height: 18px;
+        line-height: 20px;
+        user-select: none;
+
+        span {
+            line-height: 20px;
+        }
+    }
+
+    [data-react-toolbox="checkbox"] {
+        user-select: none;
+
+        span {
+            line-height: 22px;
+        }
+    }
+
+    [type="number"] {
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
+
+    .buttons {
+        margin-top: 30px;
+    }
+}

@@ -25,9 +25,7 @@ $(function () {
                     return Dialog.ShowMessage(result.message, __("Member.LoginFailed"));
                 }
                 // Login success
-                Dialog.ShowMessage(__("Member.Messages.Welcome") + result.data.username, __("Member.Login"), function () {
-                    location.href = "/";
-                });
+                Dialog.ShowMessage(__("Member.Messages.Welcome") + " " + result.data.username, __("Member.Login"), () => location.href = "/Dashboard");
             });
         }
     });
@@ -60,9 +58,7 @@ $(function () {
                     return Dialog.ShowMessage(result.message, __("Member.RegisterFailed"));
                 }
                 // Login success
-                Dialog.ShowMessage(__("Member.Messages.RegistrationComplete"), __("Member.Register"), function () {
-                    location.href = "/";
-                });
+                Dialog.ShowMessage(__("Member.Messages.RegistrationComplete"), __("Member.Register"), () => location.href = "/Dashboard");
             });
         }
     });

@@ -1,14 +1,13 @@
 import $ from "jquery";
-import EventEmitter from "eventemitter3";
+import React from "react";
 
-class Module extends EventEmitter {
-    constructor(id) {
-        super({});
-        this.type = id;
+class Module extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+        this.id = props.id;
         this.routeTable = [];
-        this.Element = null;
     }
-    initialize() {}
     addRoute(regex, callback) {
         this.routeTable.push({
             url: regex,
@@ -36,14 +35,12 @@ class Module extends EventEmitter {
         }
         callback(url);
     }
-    attach() {
-        this.Element.appendTo($(".main-content"));
-    }
-    detach() {
-        this.Element.detach();
-    }
-    updateState() {
-        throw new Error("Method not defined");
+    updateState(data, url) {
+        history.pushState({
+            module: this.id,
+            path: "",
+            url: url
+        }, "", url);
     }
     updateTitle(title) {
         $("body > .main-content > .header").text(title);

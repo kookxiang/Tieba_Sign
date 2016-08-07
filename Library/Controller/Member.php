@@ -126,6 +126,7 @@ class Member
     }
 
     /**
+     * @RequireLogin
      * @JSON
      * @DynamicRoute /Member/Account/{int}/Switch.action
      * @param int $accountId

@@ -1,4 +1,4 @@
-@import "~font-awesome/css/font-awesome.css";
+@import "~material-design-icons/iconfont/material-icons.css";
 @import "./Common.css";
 html {
     height: 100%;
@@ -34,5 +34,5 @@ body {
 }
 
 .main-content .container {
-    padding: 30px 30px 25px;
+    margin: 30px 30px 25px;
 }

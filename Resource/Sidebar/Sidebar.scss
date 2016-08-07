@@ -1,3 +1,5 @@
+@import "~react-toolbox/lib/colors";
+
 .sidebar {
     position: absolute;
     z-index: 10;
@@ -5,7 +7,7 @@
     bottom: 0;
     width: 280px;
     padding-top: 150px;
-    background: #3f51b5;
+    background: $palette-indigo-500;
     box-shadow: -1px 0 20px 5px rgba(0, 0, 0, .5);
 
     .sidebar-header {
@@ -20,8 +22,8 @@
         height: 150px;
         padding: 60px 15px 0;
         transition: height 0.2s cubic-bezier(.65, .05, .36, 1);
-        color: #eceff1;
-        background: #303f9f;
+        color: $palette-blue-grey-50;
+        background: $palette-indigo-700;
 
         &.expanded {
             overflow: auto;
@@ -105,11 +107,11 @@
             transition: background 0.3s cubic-bezier(0, 0, .2, 1);
 
             &:hover {
-                background: #3f51b5;
+                background: $palette-indigo-500;
             }
 
             &:active {
-                background: #3949ab;
+                background: $palette-indigo-600;
             }
 
             .avatar {
@@ -154,9 +156,9 @@
             cursor: pointer;
             user-select: none;
             transition: background 0.2s;
-            color: #eceff1;
+            color: $palette-blue-grey-50;
 
-            .fa {
+            i {
                 font-size: 24px;
                 position: absolute;
                 top: 15px;
@@ -164,32 +166,32 @@
             }
 
             .active {
-                background: #f57c00;
+                background: $palette-orange-700;
             }
 
             &:hover {
-                background: #ff9100;
+                background: $palette-orange-a400;
             }
 
             &:active {
-                background: #ff6d00;
+                background: $palette-orange-a700;
             }
         }
 
         .sign-out {
             &:hover {
-                background: #ff1744;
+                background: $palette-red-a400;
             }
 
             &:active {
-                background: #d50000;
+                background: $palette-red-a700;
             }
         }
     }
 
     .sidebar-bottom {
         margin-top: 20px;
-        background: #303f9f;
+        background: $palette-indigo-700;
 
         .menu {
             padding: 0;

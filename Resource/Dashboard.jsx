@@ -1,25 +1,22 @@
 require("./Dashboard.css");
+import React from "react";
+import ReactDom from "react-dom";
 import $ from "jquery";
 import Sidebar from "./Sidebar/Sidebar";
 let ModuleList = [];
 let currentModule = "";
+let mainContent = $("body > .main-content")[0];
 
 function getModule(id) {
-    let instance = ModuleList.find(m => m.type == id);
+    let instance = ModuleList.find(m => m.id == id);
     if (instance) {
         return instance;
     }
-    let Module = require("./Module/" + id + "/index.js");
-    instance = new Module(id);
-    instance.initialize();
-    instance.emit("init");
-    instance.updateState = function (data, url) {
-        history.pushState({
-            module: currentModule,
-            path: "",
-            url: url
-        }, "", url);
-    };
+    let Module = require("./Module/" + id + "/index.jsx");
+    let moduleElement = document.createElement("div");
+    moduleElement.classList = "container module-" + id;
+    instance = ReactDom.render(<Module id={id} />, moduleElement);
+    instance.Element = moduleElement;
     ModuleList.push(instance);
     return instance;
 }
@@ -33,11 +30,11 @@ function switchModule(newModule, path, url, skipState) {
         }, "", url);
     }
     if (currentModule) {
-        ModuleList.filter(m => m.type == currentModule).forEach(m => m.detach());
+        ModuleList.filter(m => m.id == currentModule).forEach(m => mainContent.removeChild(m.Element));
     }
     currentModule = newModule;
     let module = getModule(newModule);
-    module.attach();
+    mainContent.appendChild(module.Element);
     module.goto(path);
 }
 
@@ -68,7 +65,9 @@ $(window).on("popstate", function (event) {
             if (module.hasRoute(url)) {
                 currentModule = moduleName;
             }
-        } catch (e) {}
+        } catch (e) {
+            // Ignore error;
+        }
     });
 
     if (!currentModule) {
@@ -76,6 +75,6 @@ $(window).on("popstate", function (event) {
     }
 
     let module = getModule(currentModule);
-    module.attach();
+    mainContent.appendChild(module.Element);
     module.goto(url);
 })();

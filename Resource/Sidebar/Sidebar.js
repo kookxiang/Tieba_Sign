@@ -31,9 +31,7 @@ sidebar.find(".account-list").on("click", "li[data-action=switch]", function (ev
             Dialog.ShowMessage(result.message, __("Member.SwitchAccount"));
             Mask.Hide();
         } else {
-            Dialog.ShowMessage(__("Member.Messages.AccountSwitchSucceed"), __("Member.SwitchAccount"), () => {
-                location.reload();
-            });
+            Dialog.ShowMessage(__("Member.Messages.AccountSwitchSucceed"), __("Member.SwitchAccount"), () => location.reload());
         }
     });
 }).on("click", "li[data-action=add]", function (event) {
@@ -47,7 +45,7 @@ bottom.find(".sign-out").on("click", () => {
             url: "/Member/Logout.action",
             type: "POST"
         }).done(function (result) {
-            return Dialog.ShowMessage(result.message, __("Member.Logout"));
+            return Dialog.ShowMessage(result.message, __("Member.Logout"), () => location.href = result.target);
         });
     });
 });

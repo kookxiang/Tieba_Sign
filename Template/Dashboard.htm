@@ -18,7 +18,7 @@
                     <img src="Resource/Images/Avatar_Light.png" class="avatar"/>
                     <p class="name">请绑定百度账号</p>
                 </if>
-                <i class="fa fa-caret-down switch-account"></i>
+                <i class="material-icons switch-account">arrow_drop_down</i>
             </div>
             <ul class="account-list">
                 <loop variable="$accounts" value="$account">
@@ -28,7 +28,7 @@
                     </li>
                 </loop>
                 <li data-action="add">
-                    <i class="fa fa-plus avatar"></i>
+                    <i class="material-icons avatar">add</i>
                     关联新账号
                 </li>
             </ul>
@@ -36,38 +36,38 @@
         <div class="sidebar-menu">
             <div class="menu">
                 <a data-module="overview" href="/Dashboard">
-                    <i class="fa fa-home"></i>
+                    <i class="material-icons">home</i>
                     总览
                 </a>
                 <a data-module="tieba" href="/Dashboard/Tieba">
-                    <i class="fa fa-list"></i>
-                    贴吧
+                    <i class="material-icons">forum</i>
+                    我的贴吧
                 </a>
                 <a data-module="ban" href="/Dashboard/Ban">
-                    <i class="fa fa-ban"></i>
-                    封禁
+                    <i class="material-icons">block</i>
+                    贴吧封禁
                 </a>
                 <a data-module="reply" href="/Dashboard/Reply">
-                    <i class="fa fa-reply"></i>
-                    回复
+                    <i class="material-icons">replay</i>
+                    自动回帖
                 </a>
                 <a data-module="log" href="/Dashboard/Log">
-                    <i class="fa fa-calendar"></i>
-                    记录
+                    <i class="material-icons">event</i>
+                    签到记录
                 </a>
                 <a data-module="invite" href="/Dashboard/Invite">
-                    <i class="fa fa-envelope"></i>
-                    邀请
+                    <i class="material-icons">person_add</i>
+                    邀请好友
                 </a>
                 <a data-module="config" href="/Dashboard/Setting">
-                    <i class="fa fa-wrench"></i>
+                    <i class="material-icons">settings</i>
                     设置
                 </a>
             </div>
             <div class="sidebar-bottom">
                 <div class="menu">
                     <a class="sign-out">
-                        <i class="fa fa-sign-out"></i>
+                        <i class="material-icons">exit_to_app</i>
                         <i18n key="Member.Logout">Logout</i18n>
                     </a>
                 </div>
