@@ -81,10 +81,14 @@ class JSON implements IFilter
 
     public function afterRoute(&$className, &$method)
     {
-        if ($_SERVER['HTTP_X_REQUESTED_WITH']) {
-            // Check if method allow json output
-            $reflection = new ReflectionMethod($className, $method);
-            $markers = ReflectionHelper::parseDocComment($reflection);
+        // Check if method allow json output
+        $reflection = new ReflectionMethod($className, $method);
+        $markers = ReflectionHelper::parseDocComment($reflection);
+        if ($markers['ForceJSON']) {
+            $this->handle = true;
+            $markers['JSON'] = true;
+        }
+        if ($this->handle) {
             if ($markers['JSONP']) {
                 $this->allowCallback = true;
             }
