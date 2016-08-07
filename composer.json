@@ -17,6 +17,6 @@
     }
   },
   "require": {
-    "robmorgan/phinx": "^0.5.3"
+    "symfony/yaml": "^3.1"
   }
 }
