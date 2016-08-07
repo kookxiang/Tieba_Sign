@@ -13,8 +13,13 @@ class Account extends Model
     public $owner;
     public $name;
     public $cookie;
+    public $cookieError = false;
     public $avatar;
     public $bindTime = TIMESTAMP;
+    public $tiebaSign = true;
+    public $wenkuSign = false;
+    public $zhidaoSign = false;
+    public $mailSetting = 1;
 
     protected function lazyLoad()
     {
