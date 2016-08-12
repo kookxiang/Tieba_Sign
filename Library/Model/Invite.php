@@ -8,27 +8,21 @@ use Core\Model;
 /** @Table Invite */
 class Invite extends Model
 {
+    /** @PrimaryKey */
     public $inviteCode = '';
     public $fromUid = 0;
     public $toUid = 0;
     public $createTime = TIMESTAMP;
     public $useTime = 0;
 
-    private static $primaryKey = 'inviteCode';
-
     const LOCK_TIME = 180;
 
     public static function create()
     {
         $invite = new self();
+        $invite->inviteCode = bin2hex(random_bytes(16));
         $invite->fromUid = User::getCurrent()->id;
-        $statement = Database::sql('INSERT INTO Invite (inviteCode, fromUid, toUid, createTime, useTime) VALUES (uuid(), :fromUid, :toUid, :createTime, :useTime)');
-        $statement->bindValue(':fromUid', $invite->fromUid);
-        $statement->bindValue(':toUid', $invite->toUid);
-        $statement->bindValue(':createTime', $invite->createTime);
-        $statement->bindValue(':useTime', $invite->useTime);
-        $statement->execute();
-        $invite->inviteCode = Database::getInstance()->lastInsertId();
+        $invite->save(self::SAVE_INSERT);
         return $invite;
     }
 
@@ -38,10 +32,22 @@ class Invite extends Model
      */
     public static function getInviteByCode($code = '')
     {
-        $statement = Database::getInstance()->prepare('SELECT * FROM `Invite` WHERE inviteCode = ?');
+        $statement = Database::sql('SELECT * FROM `Invite` WHERE inviteCode = ?');
         $statement->bindValue(1, $code);
         $statement->execute();
         return $statement->fetchObject(__CLASS__);
+    }
+
+    /**
+     * @param User $user
+     * @return Invite[]
+     */
+    public static function getInvitesByUser(User $user)
+    {
+        $statement = Database::sql('SELECT * FROM `Invite` WHERE fromUid = ?');
+        $statement->bindValue(1, $user->id);
+        $statement->execute();
+        return $statement->fetchAll(Database::FETCH_CLASS, __CLASS__);
     }
 
     public function finishRegister(User $user)
