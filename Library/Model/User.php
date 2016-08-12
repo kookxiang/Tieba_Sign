@@ -11,6 +11,7 @@ class User extends Model
 {
     const ROLE_NEW = 'new';
     const ROLE_STANDARD = 'standard';
+    const ROLE_VIP = 'vip';
     const ROLE_ADMIN = 'administrator';
     const ROLE_SUSPENDED = 'suspended';
 
@@ -21,6 +22,7 @@ class User extends Model
     public $role = self::ROLE_STANDARD;
     public $registerTime = TIMESTAMP;
     public $lastActive = TIMESTAMP;
+    public $invite = 0;
     protected $password;
 
     public function save($mode = self::SAVE_AUTO)
