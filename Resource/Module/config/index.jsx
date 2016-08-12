@@ -24,7 +24,7 @@ class Config extends Module {
         };
         this.addRoute(/^Dashboard\/Setting$/i);
     }
-    componentDidMount(){
+    initialize(){
         this.loadSetting();
     }
     handleChange(field, value) {

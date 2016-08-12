@@ -45,6 +45,7 @@ class Module extends React.Component {
     updateTitle(title) {
         $("body > .main-content > .header").text(title);
     }
+    initialize() {}
 }
 
 module.exports = Module;

@@ -1,4 +1,4 @@
-require("./Dashboard.css");
+require("./Dashboard.scss");
 import React from "react";
 import ReactDom from "react-dom";
 import $ from "jquery";
@@ -16,6 +16,7 @@ function getModule(id) {
     let moduleElement = document.createElement("div");
     moduleElement.classList = "container module-" + id;
     instance = ReactDom.render(<Module id={id} />, moduleElement);
+    instance.inited = false;
     instance.Element = moduleElement;
     ModuleList.push(instance);
     return instance;
@@ -35,6 +36,10 @@ function switchModule(newModule, path, url, skipState) {
     currentModule = newModule;
     let module = getModule(newModule);
     mainContent.appendChild(module.Element);
+    if (!module.inited) {
+        module.inited = true;
+        module.initialize();
+    }
     module.goto(path);
 }
 
@@ -76,5 +81,7 @@ $(window).on("popstate", function (event) {
 
     let module = getModule(currentModule);
     mainContent.appendChild(module.Element);
+    module.inited = true;
+    module.initialize();
     module.goto(url);
 })();
