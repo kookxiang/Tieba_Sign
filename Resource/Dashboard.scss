@@ -1,0 +1,78 @@
+@import "~material-design-icons/iconfont/material-icons.css";
+@import "./Common.css";
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    position: relative;
+    height: 100%;
+    //
+    // Set minimum width to 1200, until we have a design for mobile devices.
+    // @TODO: Remove this line after mobile style is finished.
+    //
+    min-width: 1200px;
+}
+
+.main-content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 280px;
+    right: 0;
+    overflow: auto;
+
+    .header {
+        background: #eee;
+        box-shadow: 0 0 10px 2px rgba(0, 0, 0, .2);
+        height: 24px;
+        line-height: 24px;
+        padding: 15px 30px 13px;
+        font-size: 18px;
+    }
+
+    .container {
+        margin: 30px 30px 25px;
+    }
+
+    // 升级后还是迷の错位，只好 hard code 了
+
+    [data-react-toolbox="radio"] {
+        box-sizing: border-box;
+    }
+
+    [data-react-toolbox="button"] {
+        & > [data-react-toolbox="font-icon"] {
+            line-height: 1em;
+        }
+    }
+
+    [data-react-toolbox="radio-button"] {
+        height: 18px;
+        line-height: 20px;
+        user-select: none;
+
+        span {
+            line-height: 20px;
+        }
+    }
+
+    [data-react-toolbox="checkbox"] {
+        user-select: none;
+
+        span {
+            line-height: 22px;
+        }
+    }
+
+    // 为 Telegram 绑定预留的
+    // [type="number"] {
+    //     &::-webkit-inner-spin-button,
+    //     &::-webkit-outer-spin-button {
+    //         -webkit-appearance: none;
+    //         margin: 0;
+    //     }
+    // }
+}

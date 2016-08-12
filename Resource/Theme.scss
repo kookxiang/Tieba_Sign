@@ -10,5 +10,6 @@ $color-accent-contrast: $color-dark-contrast !default;
 $checkbox-size: 18px !default;
 $checkbox-text-font-size: 14px;
 
-$radio-button-size: 16px !default;
-$radio-inner-margin: 4px !default;
+$radio-button-size: 20px !default;
+// 乳头大小 5 太大 6 太小，无解
+$radio-inner-margin: 5px !default;
